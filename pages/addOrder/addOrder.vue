@@ -110,7 +110,7 @@
 	export default {
 		data() {
 			return {
-				QiNiuYunUrl: 'http://rafqqxzvc.hn-bkt.clouddn.com/',
+				QiNiuYunUrl: getApp().globalData.QiNiuYunUrl,
 				imageUrl: '',
 				address: {
 					phone: '', //手机号

@@ -108,7 +108,7 @@
 				show: false,
 				user: {},
 				wh: 0,
-				QiNiuYunUrl: 'http://rafqqxzvc.hn-bkt.clouddn.com/',
+				QiNiuYunUrl: getApp().globalData.QiNiuYunUrl,
 				imageUrl: '',
 				ruleForm: {
 					'id': '',
@@ -171,10 +171,7 @@
 						this.order[0].sumNum = number
 					}
 				} else {
-					this.$notify({
-						type: 'warning',
-						message: res.msg
-					});
+					return uni.$showMsg(res.msg)
 				}
 			},
 			getStatus(status) {

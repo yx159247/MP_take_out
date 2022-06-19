@@ -1,5 +1,5 @@
 const baseUrl = "http://localhost:8080";
-// const baseUrl = "http://192.168.199.150:8080";
+// const baseUrl = "http://192.168.126.150:8080";
 
 export const getBaseUrl = () =>{
 	return baseUrl;
