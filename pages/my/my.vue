@@ -47,7 +47,7 @@
 						
 						
 					</view>
-					<view class="divOrders" v-if="user">
+					<view class="divOrders" v-if="flag && user">
 						<view class="title">最新订单</view>
 						<view class="timeStatus">
 							<text>{{order[0].orderTime}}</text>
@@ -104,6 +104,7 @@
 		data() {
 			return {
 				content: "微信用户快速登录",
+				flag: false,
 				phoneNumber: "",
 				show: false,
 				user: {},
@@ -162,6 +163,9 @@
 				}
 				const res = await orderPagingApi(params)
 				if (res.code === 1) {
+				if(res.data.records.length != 0){
+					this.flag = true
+				}
 			 	this.order = res.data.records
 					if (this.order && this.order[0].orderDetails) {
 						let number = 0
@@ -227,7 +231,7 @@
 				if (res.code === 1) {
 					console.log(res.data.token)
 					wx.setStorageSync('token', res.data.token)
-					if (res.data.phone.length == 0) {
+					if (res.data.phone == null) {
 						this.show = true
 						uni.hideTabBar({
 							animation: true

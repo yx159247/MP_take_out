@@ -91,7 +91,7 @@
 					pageSize: 10
 				},
 				orderList: [],
-				show: false,
+				show: true,
 				orderId: ''
 
 			};
@@ -149,9 +149,9 @@
 				this.isloading = false
 				if (res.code === 1) {
 					this.orderList.push(...res.data.records)
-
+					
 					let records = res.data.records
-					if (records) {
+					if (records.length != 0) {
 						this.show = false
 					}
 					if (records && Array.isArray(records)) {
