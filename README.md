@@ -242,6 +242,6 @@ take_out
 ## 如何反馈
 
 - 有问题可以扫下面的二维码添加我的微信(添加好友时，请备注来意)，我会尽力帮您解答！
-- ![WeChat](https://user-images.githubusercontent.com/78630698/187065150-536ccff2-c5e9-4a52-abea-87deed9047a4.jpg)
+![WeChat](https://user-images.githubusercontent.com/78630698/187065150-536ccff2-c5e9-4a52-abea-87deed9047a4.jpg)
 
 
