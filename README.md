@@ -137,6 +137,9 @@ take_out
 ![image](https://user-images.githubusercontent.com/78630698/174472611-aca5b2e1-b48e-4af6-9ed6-710d46a79a0f.png)
 ![image](https://user-images.githubusercontent.com/78630698/174472624-1a0ee932-8320-4822-9d35-e047db6eddb3.png)
 ![image](https://user-images.githubusercontent.com/78630698/174472629-290d4791-683b-48c5-9a9f-4d361d843db1.png)
+![image](https://user-images.githubusercontent.com/78630698/187065050-6382f8fd-7f62-4921-8474-aa438b519e0b.png)
+![image](https://user-images.githubusercontent.com/78630698/187065081-ce95050e-39cd-4e3f-9e03-3e5fbcfa86e6.png)
+
 
 ## 快速开始
 
@@ -239,5 +242,6 @@ take_out
 ## 如何反馈
 
 - 有问题可以扫下面的二维码添加我的微信(添加好友时，请备注来意)，我会尽力帮您解答！
-- 
+- ![WeChat](https://user-images.githubusercontent.com/78630698/187065150-536ccff2-c5e9-4a52-abea-87deed9047a4.jpg)
+
 
