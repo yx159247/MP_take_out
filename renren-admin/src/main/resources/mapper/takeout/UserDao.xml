@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.common.dao.UserDao">
+
+    <resultMap type="io.renren.common.entity.UserEntity" id="userMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="gender" column="gender"/>
+        <result property="idNumber" column="id_number"/>
+        <result property="avatarUrl" column="avatar_url"/>
+        <result property="status" column="status"/>
+        <result property="openid" column="openid"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="creator" column="creator"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updater" column="updater"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <select id="getUserByUserId" resultType="io.renren.common.entity.UserEntity">
+        select * from tb_user where id = #{value}
+    </select>
+    <select id="getUserByMobile" resultType="io.renren.common.entity.UserEntity">
+        select * from tb_user where mobile = #{value}
+    </select>
+
+
+</mapper>

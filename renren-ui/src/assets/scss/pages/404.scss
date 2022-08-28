@@ -1,0 +1,48 @@
+.aui-page__not-found {
+  .aui-content {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15% 50px 50px;
+    text-align: center;
+    &__wrapper {
+      height: 100vh;
+      background-color: transparent;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+  .title {
+    margin: 0 0 15px;
+    font-size: 10em;
+    font-weight: 400;
+    color: $--color-text-regular;
+  }
+  .desc {
+    margin: 0 0 20px;
+    font-size: 26px;
+    color: $--color-text-secondary;
+    > em {
+      margin: 0 5px;
+      font-style: normal;
+      color: $--color-warning;
+    }
+  }
+  .btn-bar .el-button {
+    margin: 0 15px;
+  }
+}
+@media (max-width: 767px) {
+  .aui-page__not-found {
+    .title {
+      font-size: 8em;
+    }
+    .desc {
+      font-size: 20px;
+    }
+    .btn-bar .el-button {
+      margin: 0 7.5px;
+    }
+  }
+}

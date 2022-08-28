@@ -1,0 +1,15 @@
+.mod-home {
+  table {
+    width: 100%;
+    border: 1px solid $--border-color-lighter;
+    border-collapse: collapse;
+    th,
+    td {
+      padding: 12px 10px;
+      border: 1px solid $--border-color-lighter;
+    }
+    th {
+      width: 30%;
+    }
+  }
+}

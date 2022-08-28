@@ -1,16 +1,26 @@
-# Mac
-.DS_Store
-**/.DS_Store
+# Compiled class file
+*.class
 
-# vim/vi
-*.swp
+# Log file
+*.log
 
-# JavaScript
-node_modules/
-.node_modules/
-.eslintcache
-unpackage/dist/build/
-unpackage/dist/dev/
+# BlueJ files
+*.ctxt
 
-# python
-*.pyc
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+target
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.iml
+.idea
+node_modules
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*

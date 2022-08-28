@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="<%= BASE_URL %>favicon.ico">
+  <!-- 站点配置 -->
+  <script>
+    window.SITE_CONFIG = {};
+    window.SITE_CONFIG['version'] = 'v5.0.0';
+    window.SITE_CONFIG['nodeEnv'] = '<%= process.env.VUE_APP_NODE_ENV %>';
+    window.SITE_CONFIG['apiURL'] = '';                      // api请求地址
+    window.SITE_CONFIG['storeState'] = {};                  // vuex本地储存初始化状态（用于不刷新页面的情况下，也能重置初始化项目中所有状态）
+    window.SITE_CONFIG['contentTabDefault'] = {             // 内容标签页默认属性对象
+      'name': '',        // 名称, 由 this.$route.name 自动赋值（默认，名称 === 路由名称 === 路由路径）
+      'params': {},      // 参数, 由 this.$route.params 自动赋值
+      'query': {},       // 查询参数, 由 this.$route.query 自动赋值
+      'menuId': '',      // 菜单id（用于选中侧边栏菜单，与this.$store.state.sidebarMenuActiveName进行匹配）
+      'title': '',       // 标题
+      'isTab': true,     // 是否通过tab展示内容?
+      'iframeURL': ''    // 是否通过iframe嵌套展示内容? (以http[s]://开头, 自动匹配)
+    };
+    window.SITE_CONFIG['menuList'] = [];                     // 左侧菜单列表（后台返回，未做处理）
+    window.SITE_CONFIG['permissions'] = [];                  // 页面按钮操作权限（后台返回，未做处理）
+    window.SITE_CONFIG['dynamicRoutes'] = [];                // 动态路由列表
+    window.SITE_CONFIG['dynamicMenuRoutes'] = [];            // 动态(菜单)路由列表
+    window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] = false; // 动态(菜单)路由是否已经添加的状态标示（用于判断是否需要重新拉取数据并进行动态添加操作）
+  </script>
+
+  <!-- 开发环境 -->
+  <% if (process.env.VUE_APP_NODE_ENV === 'dev') { %>
+    <script>
+    window.SITE_CONFIG['apiURL'] = 'http://localhost:8080/api';
+    </script>
+  <% } %>
+  <!-- 集成测试环境 -->
+  <% if (process.env.VUE_APP_NODE_ENV === 'prod:sit') { %>
+    <script>
+      window.SITE_CONFIG['apiURL'] = 'http://localhost:8080/api';
+    </script>
+  <% } %>
+  <!-- 验收测试环境 -->
+  <% if (process.env.VUE_APP_NODE_ENV === 'prod:uat') { %>
+    <script>
+      window.SITE_CONFIG['apiURL'] = 'http://localhost:8080/api';
+    </script>
+  <% } %>
+  <!-- 生产环境 -->
+  <% if (process.env.VUE_APP_NODE_ENV === 'prod') { %>
+    <script>
+      window.SITE_CONFIG['apiURL'] = 'http://localhost:8080/api';
+    </script>
+  <% } %>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>

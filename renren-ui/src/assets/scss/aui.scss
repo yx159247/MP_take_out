@@ -1,0 +1,11 @@
+// 变量
+@import "~@/element-ui/theme-variables.scss";
+@import "./variables.scss";
+// 公共
+@import "./normalize.scss";
+@import "./common.scss";
+// 页面
+@import "./pages/login.scss";
+@import "./pages/404.scss";
+// 模块
+@import "./modules/home.scss";
