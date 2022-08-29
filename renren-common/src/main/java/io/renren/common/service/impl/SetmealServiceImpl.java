@@ -8,12 +8,19 @@ import io.renren.common.dto.SetmealDTO;
 
 import io.renren.common.entity.SetmealDishEntity;
 import io.renren.common.entity.SetmealEntity;
+import io.renren.common.exception.RenException;
+import io.renren.common.redis.RedisKeys;
 import io.renren.common.service.SetmealService;
+import io.renren.common.utils.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -30,10 +37,12 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
     private SetmealDao setmealDao;
     @Autowired
     private SetmealDishDao setmealDishDao;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
-    public QueryWrapper<SetmealEntity> getWrapper(Map<String, Object> params){
-        String id = (String)params.get("id");
+    public QueryWrapper<SetmealEntity> getWrapper(Map<String, Object> params) {
+        String id = (String) params.get("id");
 
         QueryWrapper<SetmealEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(StringUtils.isNotBlank(id), "id", id);
@@ -46,9 +55,9 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
     public SetmealDTO getByWithDish(Long id) {
         SetmealEntity setmealEntity = setmealDao.selectById(id);
         SetmealDTO setmealDto = new SetmealDTO();
-        BeanUtils.copyProperties(setmealEntity,setmealDto);
+        BeanUtils.copyProperties(setmealEntity, setmealDto);
         LambdaQueryWrapper<SetmealDishEntity> dishLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        dishLambdaQueryWrapper.eq(SetmealDishEntity::getSetmealId,setmealEntity.getId());
+        dishLambdaQueryWrapper.eq(SetmealDishEntity::getSetmealId, setmealEntity.getId());
         List<SetmealDishEntity> setmealDishes = setmealDishDao.selectList(dishLambdaQueryWrapper);
         setmealDto.setSetmealDishes(setmealDishes);
         //setmealMapper.selectById(id);
@@ -59,9 +68,70 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
     @Override
     public List<SetmealEntity> findSetmealByCategoryId(SetmealDTO setmealDTO) {
         LambdaQueryWrapper<SetmealEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(setmealDTO.getCategoryId() != null,SetmealEntity::getCategoryId,setmealDTO.getCategoryId());
-        queryWrapper.eq(setmealDTO.getStatus() != null,SetmealEntity::getStatus,setmealDTO.getStatus());
+        queryWrapper.eq(setmealDTO.getCategoryId() != null, SetmealEntity::getCategoryId, setmealDTO.getCategoryId());
+        queryWrapper.eq(setmealDTO.getStatus() != null, SetmealEntity::getStatus, setmealDTO.getStatus());
         queryWrapper.orderByDesc(SetmealEntity::getUpdateDate);
         return setmealDao.selectList(queryWrapper);
+    }
+
+    @Override
+    public void updateStatus(Long[] ids) {
+        setmealDao.selectBatchIds(Arrays.asList(ids)).forEach(setmealEntity -> {
+            setmealEntity.setStatus(setmealEntity.getStatus() == 1 ? 0 : 1);
+            setmealDao.updateById(setmealEntity);
+        });
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void saveWithDishes(SetmealDTO dto) {
+        SetmealEntity setmealEntity = ConvertUtils.sourceToTarget(dto, SetmealEntity.class);
+        //插入套餐实体
+        setmealDao.insert(setmealEntity);
+        //插入套餐实体中的SetmealDishes
+        dto.getSetmealDishes().forEach(setmealDishEntity -> {
+            setmealDishEntity.setSetmealId(String.valueOf(setmealEntity.getId()));
+            setmealDishDao.insert(setmealDishEntity);
+        });
+        redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(), dto.getImage());
+
+    }
+
+    @Override
+    public void updateWithDishes(SetmealDTO dto) {
+
+        SetmealEntity setmealEntity = ConvertUtils.sourceToTarget(dto, SetmealEntity.class);
+        //更新套餐实体
+        setmealDao.updateById(setmealEntity);
+        //删除套餐实体中的SetmealDishes
+        LambdaQueryWrapper<SetmealDishEntity> dishLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        dishLambdaQueryWrapper.eq(SetmealDishEntity::getSetmealId, setmealEntity.getId());
+        setmealDishDao.delete(dishLambdaQueryWrapper);
+        //插入套餐实体中的SetmealDishes
+        dto.getSetmealDishes().forEach(setmealDishEntity -> {
+            setmealDishEntity.setSetmealId(String.valueOf(setmealEntity.getId()));
+            setmealDishDao.insert(setmealDishEntity);
+        });
+        redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(), dto.getImage());
+
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+
+        setmealDao.selectBatchIds(Arrays.asList(ids)).forEach(setmealEntity -> {
+            if (setmealEntity.getStatus() == 1) {
+                throw new RenException("套餐已上架，不能删除");
+            }
+            //删除套餐实体
+            setmealDao.deleteById(setmealEntity.getId());
+
+            //删除套餐实体中的SetmealDishes
+            LambdaQueryWrapper<SetmealDishEntity> dishLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            dishLambdaQueryWrapper.eq(SetmealDishEntity::getSetmealId, setmealEntity.getId());
+            redisTemplate.opsForSet().remove(RedisKeys.getFoodPicDbResources(), setmealEntity.getImage());
+            setmealDishDao.delete(dishLambdaQueryWrapper);
+        });
+
     }
 }

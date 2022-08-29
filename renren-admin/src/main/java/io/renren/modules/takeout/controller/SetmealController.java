@@ -77,7 +77,21 @@ public class SetmealController {
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
 
-        setmealService.save(dto);
+        setmealService.saveWithDishes(dto);
+
+        return new Result();
+    }
+
+    @PutMapping("/updateStatus")
+    @ApiOperation("批量修改")
+    @LogOperation("批量修改")
+    @RequiresPermissions("takeout:setmeal:update")
+    public Result updateStatus(@RequestBody Long[] ids){
+        //效验数据
+        AssertUtils.isArrayEmpty(ids, "id");
+
+        //dishService.update(dto);
+        setmealService.updateStatus(ids);
 
         return new Result();
     }
@@ -90,7 +104,7 @@ public class SetmealController {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
 
-        setmealService.update(dto);
+        setmealService.updateWithDishes(dto);
 
         return new Result();
     }

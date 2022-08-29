@@ -18,7 +18,6 @@ import java.util.Date;
 @Data
 @TableName("dish")
 public class DishEntity extends BaseEntity {
-
     /**
      * 主键
      */

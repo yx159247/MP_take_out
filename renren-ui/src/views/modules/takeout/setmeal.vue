@@ -17,6 +17,12 @@
         <el-form-item>
           <el-button v-if="$hasPermission('takeout:setmeal:delete')" type="danger" @click="deleteHandle()">{{ $t('deleteBatch') }}</el-button>
         </el-form-item>
+        <el-form-item>
+          <el-button v-if="$hasPermission('takeout:dish:update')" type="warning" @click="updateStatusHandle(null,1)">{{ $t('updateStatusBatch') }}</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button v-if="$hasPermission('takeout:dish:update')" type="info" @click="updateStatusHandle(null,0)">{{ $t('updateStatusBatch_stop') }}</el-button>
+        </el-form-item>
       </el-form>
       <el-table v-loading="dataListLoading" :data="dataList" border @selection-change="dataListSelectionChangeHandle" style="width: 100%;">
         <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
@@ -61,6 +67,7 @@
         <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
           <template slot-scope="scope">
             <el-button v-if="$hasPermission('takeout:setmeal:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">{{ $t('update') }}</el-button>
+            <el-button v-if="$hasPermission('takeout:dish:update')" type="text" size="small" @click="updateStatusHandle(scope.row.id)">{{ scope.row.status == '0' ? '启售' : '停售' }}</el-button>
             <el-button v-if="$hasPermission('takeout:setmeal:delete')" type="text" size="small" @click="deleteHandle(scope.row.id)">{{ $t('delete') }}</el-button>
           </template>
         </el-table-column>
@@ -93,7 +100,9 @@ export default {
         getDataListIsPage: true,
         exportURL: '/takeout/setmeal/export',
         deleteURL: '/takeout/setmeal',
-        deleteIsBatch: true
+        deleteIsBatch: true,
+        updateStatusIsBatch: true,
+        updateStatusURL: '/takeout/setmeal/updateStatus'
       },
       dataForm: {
         id: ''

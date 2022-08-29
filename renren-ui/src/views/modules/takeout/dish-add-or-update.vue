@@ -143,6 +143,12 @@
       <!--      <el-form-item label="描述信息" prop="description">-->
       <!--        <el-input v-model="dataForm.description" placeholder="描述信息"></el-input>-->
       <!--      </el-form-item>-->
+      <el-form-item prop="status" :label="$t('user.status')" size="mini">
+        <el-radio-group v-model="dataForm.status">
+          <el-radio :label="1">启售</el-radio>
+          <el-radio :label="0">停售</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item
           label="菜品描述:"
           prop="region"
@@ -193,7 +199,7 @@ export default {
         code: '',
         image: '',
         description: '',
-        status: '',
+        status: 1,
         sort: '',
         creator: '',
         createDate: '',
@@ -425,7 +431,7 @@ export default {
         }
         let params = {...this.dataForm}
         // params.flavors = this.dishFlavors
-        params.status = this.dataForm ? 1 : 0
+        params.status = this.dataForm.status ? 1 : 0
         params.price *= 100
         params.categoryId = this.dataForm.categoryId
         params.flavors = this.dishFlavors.map(obj => ({...obj, value: JSON.stringify(obj.value)}))

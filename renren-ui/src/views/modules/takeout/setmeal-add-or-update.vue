@@ -69,6 +69,12 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
+        <el-form-item prop="status" :label="$t('user.status')" size="mini">
+          <el-radio-group v-model="dataForm.status">
+            <el-radio :label="1">启售</el-radio>
+            <el-radio :label="0">停售</el-radio>
+          </el-radio-group>
+        </el-form-item>
       </div>
       <el-form-item label="套餐描述">
         <el-input v-model="dataForm.description" type="textarea" :rows="3" placeholder="套餐描述，最长200字" maxlength="200"/>
@@ -191,7 +197,7 @@ export default {
         image: '',
         description: '',
         dishList: [],
-        status: true,
+        status: '1',
         idType: '',
       },
       headerObj: {

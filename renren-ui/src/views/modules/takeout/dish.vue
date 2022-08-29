@@ -17,6 +17,12 @@
         <el-form-item>
           <el-button v-if="$hasPermission('takeout:dish:delete')" type="danger" @click="deleteHandle()">{{ $t('deleteBatch') }}</el-button>
         </el-form-item>
+        <el-form-item>
+          <el-button v-if="$hasPermission('takeout:dish:update')" type="warning" @click="updateStatusHandle(null,1)">{{ $t('updateStatusBatch') }}</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button v-if="$hasPermission('takeout:dish:update')" type="info" @click="updateStatusHandle(null,0)">{{ $t('updateStatusBatch_stop') }}</el-button>
+        </el-form-item>
       </el-form>
       <el-table v-loading="dataListLoading" :data="dataList" border @selection-change="dataListSelectionChangeHandle" style="width: 100%;">
         <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
@@ -63,7 +69,9 @@
         <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
           <template slot-scope="scope">
             <el-button v-if="$hasPermission('takeout:dish:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">{{ $t('update') }}</el-button>
+            <el-button v-if="$hasPermission('takeout:dish:update')" type="text" size="small" @click="updateStatusHandle(scope.row.id)">{{ scope.row.status == '0' ? '启售' : '停售' }}</el-button>
             <el-button v-if="$hasPermission('takeout:dish:delete')" type="text" size="small" @click="deleteHandle(scope.row.id)">{{ $t('delete') }}</el-button>
+
           </template>
         </el-table-column>
       </el-table>
@@ -86,6 +94,7 @@
 import mixinViewModule from '@/mixins/view-module'
 import AddOrUpdate from './dish-add-or-update'
 import QiniuUrl from "@/utils/QiniuUrl";
+import debounce from "lodash/debounce";
 
 export default {
   mixins: [mixinViewModule],
@@ -96,7 +105,9 @@ export default {
         getDataListIsPage: true,
         exportURL: '/takeout/dish/export',
         deleteURL: '/takeout/dish',
-        deleteIsBatch: true
+        deleteIsBatch: true,
+        updateStatusIsBatch: true,
+        updateStatusURL: '/takeout/dish/updateStatus'
       },
       QiNiuYunUrl:QiniuUrl,
       dataForm: {
@@ -113,6 +124,30 @@ export default {
       console.log(this.QiNiuYunUrl+image)
       return this.QiNiuYunUrl+image
     },
+    updateStatus(row){
+      let params = {}
+      params.id = row.id
+      params.status = row.status ? '0' : '1'
+      this.dishState = params
+      this.$confirm('确认更改该菜品状态?', '提示', {
+        'confirmButtonText': '确定',
+        'cancelButtonText': '取消',
+        'type': 'warning'
+      }).then(() => {
+        // 起售停售---批量起售停售接口
+        this.$http.put('/takeout/dish/', params).then(({data: res}) => {
+          if (res.code === 0) {
+            this.$message.success('菜品状态已经更改成功！')
+            this.query()
+          } else {
+            return this.$message.error(res.msg)
+          }
+        }).catch(err => {
+          this.$message.error('请求出错了：' + err)
+        })
+      })
+    }
+
   }
 }
 </script>

@@ -2,11 +2,11 @@ package io.renren.common.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.renren.common.dao.*;
 import io.renren.common.dto.DishDTO;
+import io.renren.common.entity.SetmealDishEntity;
+import io.renren.common.exception.RenException;
 import io.renren.common.redis.RedisKeys;
-import io.renren.common.dao.CategoryDao;
-import io.renren.common.dao.DishDao;
-import io.renren.common.dao.DishFlavorDao;
 
 import io.renren.common.entity.CategoryEntity;
 import io.renren.common.entity.DishEntity;
@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,8 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
     private RedisTemplate redisTemplate;
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private SetmealDishDao setmealDishDao;
 
     @Override
     public QueryWrapper<DishEntity> getWrapper(Map<String, Object> params){
@@ -138,5 +141,37 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
 
 
         return dishDtoList;
+    }
+
+    @Override
+    public void updateStatus(Long[] ids) {
+
+        dishDao.selectBatchIds(Arrays.asList(ids)).forEach(item -> {
+            item.setStatus(item.getStatus() == 1 ? 0 : 1);
+            dishDao.updateById(item);
+        });
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(Long[] ids) {
+        dishDao.selectBatchIds(Arrays.asList(ids)).forEach(item -> {
+            if (item.getStatus() == 1){
+                throw new RenException("该菜品为售卖状态，不能删除");
+            }
+            dishFlavorDao.selectList(new LambdaQueryWrapper<DishFlavorEntity>().eq(DishFlavorEntity::getDishId,item.getId())).forEach(flavor -> {
+                dishFlavorDao.deleteById(flavor.getId());
+            });
+
+            LambdaQueryWrapper<SetmealDishEntity> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(SetmealDishEntity::getDishId,item.getId());
+            Long count  = setmealDishDao.selectCount(queryWrapper);
+            if (count > 0){
+                throw new RenException("该菜品已经被套餐使用，不能删除,请先在套餐中删除菜品!");
+            }
+            redisTemplate.opsForSet().remove(RedisKeys.getFoodPicDbResources(),item.getImage());
+            dishDao.deleteById(item.getId());
+
+        });
     }
 }

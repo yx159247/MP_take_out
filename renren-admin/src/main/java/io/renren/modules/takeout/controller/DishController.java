@@ -96,6 +96,20 @@ public class DishController {
         return new Result<String>().ok("菜品信息修改成功");
     }
 
+    @PutMapping("/updateStatus")
+    @ApiOperation("批量修改")
+    @LogOperation("批量修改")
+    @RequiresPermissions("takeout:dish:update")
+    public Result updateStatus(@RequestBody Long[] ids){
+        //效验数据
+        AssertUtils.isArrayEmpty(ids, "id");
+
+        //dishService.update(dto);
+        dishService.updateStatus(ids);
+
+        return new Result();
+    }
+
     @DeleteMapping
     @ApiOperation("删除")
     @LogOperation("删除")

@@ -13,6 +13,9 @@ export default {
         deleteURL: '',            // 删除接口，API地址
         deleteIsBatch: false,     // 删除接口，是否需要批量？
         deleteIsBatchKey: 'id',   // 删除接口，批量状态下由那个key进行标记操作？比如：pid，uid...
+        updateStatusURL: '',
+        updateStatusIsBatch: false,     // 修改状态接口，是否需要批量？
+        updateStatusIsBatchKey: 'id',   // 修改状态接口，批量状态下由那个key进行标记操作？比如：pid，uid...
         exportURL: ''             // 导出接口，API地址
       },
       // 默认属性
@@ -135,9 +138,66 @@ export default {
         this.$http.delete(
           `${this.mixinViewModuleOptions.deleteURL}${this.mixinViewModuleOptions.deleteIsBatch ? '' : '/' + id}`,
           this.mixinViewModuleOptions.deleteIsBatch ? {
-            'data': id ? [id] : this.dataListSelections.map(item => item[this.mixinViewModuleOptions.deleteIsBatchKey])
+            'data': id ? [id] : this.dataListSelections.map(item => item[this.mixinViewModuleOptions.deleteIsBatchKey]
+            )
           } : {}
         ).then(({ data: res }) => {
+          if (res.code !== 0) {
+            return this.$message.error(res.msg)
+          }
+          this.$message({
+            message: this.$t('prompt.success'),
+            type: 'success',
+            duration: 500,
+            onClose: () => {
+              this.query()
+            }
+          })
+        }).catch(() => {})
+      }).catch(() => {})
+    },
+    // 启售/停售
+    updateStatusHandle (id,status) {
+      let params = {}
+      let statusArr = {}
+      statusArr = this.dataListSelections.map(item => item.status)
+      if (this.mixinViewModuleOptions.updateStatusIsBatch && !id && this.dataListSelections.length <= 0) {
+        return this.$message({
+          message: this.$t('prompt.updateStatusBatch'),
+          type: 'warning',
+          duration: 500
+        })
+      }
+      // console.log("status",status)
+      // console.log("sarr",statusArr.filter(item => item === status))
+
+      if (status && !statusArr.map(item => item === status).includes(false)) {
+        return this.$message({
+          message: status ? "选中的项"+'['+this.$t('prompt.updateStatusBatch_startNotice')+']'+"请勿重复操作!":"选中的项"+'['+this.$t('prompt.updateStatusBatch_stopNotice')+']'+"请勿重复操作!",
+          type: 'warning',
+          duration: 1500
+        })
+      }
+      this.$confirm(this.$t('prompt.info', { 'handle': this.$t('updateStatus') }), this.$t('prompt.title'), {
+        confirmButtonText: this.$t('confirm'),
+        cancelButtonText: this.$t('cancel'),
+        type: 'warning'
+      }).then(() => {
+        console.log("row", id)
+        console.log("dataListSelections",this.dataListSelections )
+        console.log("mixinViewModuleOptions",this.mixinViewModuleOptions)
+        params= id ? [id] : this.dataListSelections.map(item => item[this.mixinViewModuleOptions.updateStatusIsBatchKey])
+        console.log("status",statusArr)
+        console.log("params",params)
+        this.$http.put(
+            `${this.mixinViewModuleOptions.updateStatusURL}${this.mixinViewModuleOptions.updateStatusIsBatch ? '' : '/' + id}`,
+            params,
+            this.mixinViewModuleOptions.updateStatusIsBatch ? {
+              // 'data': id ? [id] : this.dataListSelections.map(item => item[this.mixinViewModuleOptions.updateStatusIsBatchKey])
+              params
+            } : {}
+        ).then(({ data: res }) => {
+
           if (res.code !== 0) {
             return this.$message.error(res.msg)
           }

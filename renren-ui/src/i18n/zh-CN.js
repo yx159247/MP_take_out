@@ -9,6 +9,8 @@ t.brand.mini = '后台'
 t.add = '新增'
 t.delete = '删除'
 t.deleteBatch = '删除'
+t.updateStatusBatch = '启售'
+t.updateStatusBatch_stop = '停售'
 t.update = '修改'
 t.query = '查询'
 t.export = '导出'
@@ -21,6 +23,8 @@ t.manage = '处理'
 t.createDate = '创建时间'
 t.keyword = '关键字：'
 t.choose = '请选择'
+t.updateStatus= '启售或停售'
+
 
 t.prompt = {}
 t.prompt.title = '提示'
@@ -28,6 +32,9 @@ t.prompt.info = '确定进行[{handle}]操作?'
 t.prompt.success = '操作成功'
 t.prompt.failed = '操作失败'
 t.prompt.deleteBatch = '请选择删除项'
+t.prompt.updateStatusBatch = '请选择要启售或停售项'
+t.prompt.updateStatusBatch_startNotice = '已启售'
+t.prompt.updateStatusBatch_stopNotice = '已停售'
 
 t.validate = {}
 t.validate.required = '必填项不能为空'
