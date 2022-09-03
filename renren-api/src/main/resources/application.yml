@@ -81,8 +81,8 @@ mybatis-plus:
     boolValue: TRUE
 
 weixin:
-  getPhoneNumberUrl:
-  getAccessTokenUrl:
-  jscode2sessionUrl:
-  appid:
-  secret:
+  getPhoneNumberUrl: https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=
+  getAccessTokenUrl: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&
+  jscode2sessionUrl: https://api.weixin.qq.com/sns/jscode2session
+  appid: 你的appid
+  secret: 你的密钥
