@@ -11,6 +11,7 @@ import io.renren.common.redis.RedisKeys;
 import io.renren.common.entity.CategoryEntity;
 import io.renren.common.entity.DishEntity;
 import io.renren.common.entity.DishFlavorEntity;
+import io.renren.common.redis.RedisUtils;
 import io.renren.common.service.DishService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -43,6 +44,8 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
     private CategoryDao categoryDao;
     @Autowired
     private SetmealDishDao setmealDishDao;
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Override
     public QueryWrapper<DishEntity> getWrapper(Map<String, Object> params){
@@ -64,12 +67,14 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
         List<DishFlavorEntity> dishFlavorEntityList = dishFlavorDao.selectList(queryWrapper);
 
         DishDTO.setFlavors(dishFlavorEntityList);
+
         return DishDTO;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveWithFlavor(DishDTO dto) {
+
         DishEntity dishEntity = new DishEntity();
         BeanUtils.copyProperties(dto,dishEntity);
         dishDao.insert(dishEntity);
@@ -88,6 +93,9 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
         //dishFlavorService.saveBatch(flavors);
         String image = dto.getImage();
         redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(),image);
+        //删除缓存
+        String key = RedisKeys.getDishCacheKey()+ ":"+ "dish_" + dto.getCategoryId() + "_" + dto.getStatus();
+        redisUtils.delete(key);
     }
 
     @Override
@@ -107,12 +115,26 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
         }
         String image = dto.getImage();
         redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(),image);
+        //删除缓存
+        String key = RedisKeys.getDishCacheKey()+ ":"+ "dish_" + dto.getCategoryId() + "_" + dto.getStatus();
+        redisUtils.delete(key);
     }
 
     @Override
     public List<DishDTO> findDishByCategoryId(DishDTO dishDTO) {
 
         List<DishDTO> dishDtoList =null;
+
+        String key = RedisKeys.getDishCacheKey()+ ":"+ "dish_" + dishDTO.getCategoryId() + "_" + dishDTO.getStatus();
+        //先从缓存中取
+        dishDtoList = (List<DishDTO>) redisUtils.get(key);
+
+        //如果缓存有,直接返回数据
+        if (dishDtoList != null) {
+            return dishDtoList;
+        }
+
+
         LambdaQueryWrapper<DishEntity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(dishDTO.getCategoryId() != null,DishEntity::getCategoryId,dishDTO.getCategoryId());
         queryWrapper.orderByDesc(DishEntity::getSort).orderByDesc(DishEntity::getUpdateDate);
@@ -139,6 +161,8 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
 
         }
 
+        //存入缓存
+        redisUtils.set(key,dishDtoList,RedisUtils.HOUR_ONE_EXPIRE);
 
         return dishDtoList;
     }
@@ -149,7 +173,11 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
         dishDao.selectBatchIds(Arrays.asList(ids)).forEach(item -> {
             item.setStatus(item.getStatus() == 1 ? 0 : 1);
             dishDao.updateById(item);
+            //删除缓存
+            String key = RedisKeys.getDishCacheKey()+ ":"+ "dish_" + item.getCategoryId() + "_" + item.getStatus();
+            redisUtils.delete(key);
         });
+
     }
 
     @Override
@@ -172,6 +200,9 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
             redisTemplate.opsForSet().remove(RedisKeys.getFoodPicDbResources(),item.getImage());
             dishDao.deleteById(item.getId());
 
+            //删除缓存
+            String key = RedisKeys.getDishCacheKey()+ ":"+ "dish_" + item.getCategoryId() + "_" + item.getStatus();
+            redisUtils.delete(key);
         });
     }
 }

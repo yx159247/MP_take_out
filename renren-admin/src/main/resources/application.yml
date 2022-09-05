@@ -52,7 +52,7 @@ spring:
 # 是否开启redis缓存  true开启   false关闭
 renren:
   redis:
-    open: false
+    open: true
 
 #mybatis
 mybatis-plus:

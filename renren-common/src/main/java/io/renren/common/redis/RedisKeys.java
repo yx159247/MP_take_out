@@ -69,4 +69,10 @@ public class RedisKeys {
     public static String getFoodPicDbResources(){
         return "foodPicDbResources";
     }
+    public static String getSetmealCacheKey(){
+        return "setmealCache";
+    }
+    public static String getDishCacheKey(){
+        return "dishCache";
+    }
 }

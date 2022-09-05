@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.renren.common.dao.SetmealDao;
 import io.renren.common.dao.SetmealDishDao;
+import io.renren.common.dto.DishDTO;
 import io.renren.common.dto.SetmealDTO;
 
 import io.renren.common.entity.SetmealDishEntity;
 import io.renren.common.entity.SetmealEntity;
 import io.renren.common.exception.RenException;
 import io.renren.common.redis.RedisKeys;
+import io.renren.common.redis.RedisUtils;
 import io.renren.common.service.SetmealService;
 import io.renren.common.utils.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +42,8 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
     private SetmealDishDao setmealDishDao;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Override
     public QueryWrapper<SetmealEntity> getWrapper(Map<String, Object> params) {
@@ -67,11 +72,28 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
 
     @Override
     public List<SetmealEntity> findSetmealByCategoryId(SetmealDTO setmealDTO) {
+
+        List<SetmealEntity> setmealEntityList = null;
+
+        String key = RedisKeys.getSetmealCacheKey()+ ":"+ "setmeal_" + setmealDTO.getCategoryId() + "_" + setmealDTO.getStatus();
+        //先从缓存中取
+        setmealEntityList = (List<SetmealEntity>) redisUtils.get(key);
+
+        //如果缓存有,直接返回数据
+        if (setmealEntityList != null) {
+            return setmealEntityList;
+        }
+
         LambdaQueryWrapper<SetmealEntity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(setmealDTO.getCategoryId() != null, SetmealEntity::getCategoryId, setmealDTO.getCategoryId());
         queryWrapper.eq(setmealDTO.getStatus() != null, SetmealEntity::getStatus, setmealDTO.getStatus());
         queryWrapper.orderByDesc(SetmealEntity::getUpdateDate);
-        return setmealDao.selectList(queryWrapper);
+        setmealEntityList = setmealDao.selectList(queryWrapper);
+
+        //存入缓存
+        redisUtils.set(key, setmealEntityList,RedisUtils.HOUR_ONE_EXPIRE);
+
+        return setmealEntityList;
     }
 
     @Override
@@ -79,6 +101,10 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
         setmealDao.selectBatchIds(Arrays.asList(ids)).forEach(setmealEntity -> {
             setmealEntity.setStatus(setmealEntity.getStatus() == 1 ? 0 : 1);
             setmealDao.updateById(setmealEntity);
+
+            //删除缓存
+            String key = RedisKeys.getSetmealCacheKey()+ ":"+ "setmeal_" + setmealEntity.getCategoryId() + "_" + setmealEntity.getStatus();
+            redisUtils.delete(key);
         });
     }
 
@@ -92,6 +118,10 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
         dto.getSetmealDishes().forEach(setmealDishEntity -> {
             setmealDishEntity.setSetmealId(String.valueOf(setmealEntity.getId()));
             setmealDishDao.insert(setmealDishEntity);
+            //删除缓存
+            String key = RedisKeys.getSetmealCacheKey()+ ":"+ "setmeal_" + setmealEntity.getCategoryId() + "_" + setmealEntity.getStatus();
+            redisUtils.delete(key);
+
         });
         redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(), dto.getImage());
 
@@ -111,6 +141,9 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
         dto.getSetmealDishes().forEach(setmealDishEntity -> {
             setmealDishEntity.setSetmealId(String.valueOf(setmealEntity.getId()));
             setmealDishDao.insert(setmealDishEntity);
+            //删除缓存
+            String key = RedisKeys.getSetmealCacheKey()+ ":"+ "setmeal_" + setmealEntity.getCategoryId() + "_" + setmealEntity.getStatus();
+            redisUtils.delete(key);
         });
         redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(), dto.getImage());
 
@@ -131,6 +164,9 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
             dishLambdaQueryWrapper.eq(SetmealDishEntity::getSetmealId, setmealEntity.getId());
             redisTemplate.opsForSet().remove(RedisKeys.getFoodPicDbResources(), setmealEntity.getImage());
             setmealDishDao.delete(dishLambdaQueryWrapper);
+            //删除缓存
+            String key = RedisKeys.getSetmealCacheKey()+ ":"+ "setmeal_" + setmealEntity.getCategoryId() + "_" + setmealEntity.getStatus();
+            redisUtils.delete(key);
         });
 
     }
