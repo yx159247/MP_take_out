@@ -20,7 +20,7 @@ import java.util.List;
  * @since 1.0.0 2022-08-17
  */
 @RestController
-@RequestMapping("api/dish")
+@RequestMapping("mp/dish")
 @Api(tags="微信小程序菜品模块")
 public class ApiDishController {
     @Autowired

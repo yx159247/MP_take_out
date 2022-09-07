@@ -4,7 +4,7 @@ import regeneratorRuntime, { async } from '../lib/runtime/runtime';
 export const addOrderApi =(data) =>{
 	return new Promise((resolve, reject) => {
 	    requestUtil({
-	        url: '/orders/submit',
+	        url: 'mp/orders/submit',
 	        method: 'post',
 			data:data
 	    }).then((res) => {

@@ -4,7 +4,7 @@ import regeneratorRuntime, { async } from '../lib/runtime/runtime';
 export const addOrderApi = (data) =>{
 	return new Promise((resolve, reject) => {
 	    requestUtil({
-	        url: '/orders/submit',
+	        url: 'mp/orders/submit',
 	        method: 'post',
 	        data: data
 	    }).then((res) => {
@@ -19,7 +19,7 @@ export const addOrderApi = (data) =>{
 export const orderListApi = () =>{
 	return new Promise((resolve, reject) => {
 	    requestUtil({
-	        url: '/orders/list',
+	        url: 'mp/orders/list',
 	        method: 'get',
 	        
 	    }).then((res) => {
@@ -33,7 +33,7 @@ export const orderListApi = () =>{
 export const orderPagingApi = (data) =>{
 	return new Promise((resolve, reject) => {
 	    requestUtil({
-	        url: '/orders/page',
+	        url: 'mp/orders/page',
 	        method: 'get',
 	        data:{...data}
 	    }).then((res) => {
@@ -47,7 +47,7 @@ export const orderPagingApi = (data) =>{
 export const orderAgainApi = (data) =>{
 	return new Promise((resolve, reject) => {
 	    requestUtil({
-	        url: '/orders/again',
+	        url: 'mp/orders/again',
 	        method: 'post',
 	        data:data
 	    }).then((res) => {
@@ -61,7 +61,7 @@ export const orderAgainApi = (data) =>{
 export const deleteOrderApi = (id) =>{
 	return new Promise((resolve, reject) => {
 	    requestUtil({
-	        url: '/orders',
+	        url: 'mp/orders',
 	        method: 'delete',
 	        data:id
 	    }).then((res) => {

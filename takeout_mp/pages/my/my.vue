@@ -226,7 +226,7 @@
 			},
 			async wxLogin(loginParam) {
 				const res = await requestUtil({
-					url: "/login",
+					url: "mp/login",
 					data: loginParam,
 					method: "post"
 				});

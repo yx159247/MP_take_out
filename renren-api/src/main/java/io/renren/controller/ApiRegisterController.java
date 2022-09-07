@@ -30,7 +30,7 @@ import java.util.Date;
  * @author Mark sunlightcs@gmail.com
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/mp")
 @Api(tags="注册接口")
 public class ApiRegisterController {
     @Autowired

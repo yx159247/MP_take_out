@@ -52,7 +52,6 @@ public class SwaggerConfig{
         return new ApiInfoBuilder()
             .title("美食元素小程序接口文档")
             .description("微信小程序api模块接口文档")
-            .termsOfServiceUrl("https://www.renren.io")
             .version("5.x")
             .build();
     }

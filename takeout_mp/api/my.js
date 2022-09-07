@@ -4,7 +4,7 @@ import regeneratorRuntime, { async } from '../lib/runtime/runtime';
 export const logoutApi = (data) =>{
 	return new Promise((resolve, reject) => {
 	    requestUtil({
-	        url: '/logout',
+	        url: 'mp/logout',
 	        method: 'post',
 	        data:data
 	    }).then((res) => {

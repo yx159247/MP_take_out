@@ -29,7 +29,7 @@ import java.util.Map;
  * @since 1.0.0 2022-08-17
  */
 @RestController
-@RequestMapping("api/orders")
+@RequestMapping("mp/orders")
 @Api(tags="订单模块")
 public class ApiOrdersController {
     @Autowired

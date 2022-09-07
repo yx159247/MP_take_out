@@ -21,7 +21,7 @@ import java.util.List;
  * @since 1.0.0 2022-08-17
  */
 @RestController
-@RequestMapping("api/category")
+@RequestMapping("mp/category")
 @Api(tags="微信小程序分类模块")
 public class ApiCategoryController {
     @Autowired

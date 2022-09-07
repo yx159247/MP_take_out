@@ -5,7 +5,7 @@ import regeneratorRuntime, { async } from '../lib/runtime/runtime';
 export const  addCartApi= (data) =>{
     return new Promise((resolve, reject) => {
         requestUtil({
-            url: '/shoppingCart/add',
+            url: 'mp/shoppingCart/add',
             method: 'post',
             data: data
         }).then((res) => {
@@ -20,7 +20,7 @@ export const  addCartApi= (data) =>{
 export const  updateCartApi= (data) =>{
     return new Promise((resolve, reject) => {
         requestUtil({
-            url: '/shoppingCart/sub',
+            url: 'mp/shoppingCart/sub',
             method: 'post',
             data: data
         }).then((res) => {
@@ -34,7 +34,7 @@ export const  updateCartApi= (data) =>{
 export const  clearCartApi= () =>{
     return new Promise((resolve, reject) => {
         requestUtil({
-            url: '/shoppingCart/clean',
+            url: 'mp/shoppingCart/clean',
             method: 'delete'
             
         }).then((res) => {
@@ -49,7 +49,7 @@ export const  clearCartApi= () =>{
 export const  setMealDishDetailsApi= (id) =>{
     return new Promise((resolve, reject) => {
         requestUtil({
-            url: `/setmeal/${id}`,
+            url: `mp/setmeal/${id}`,
             method: "get",
             
         }).then((res) => {
@@ -64,7 +64,7 @@ export const  setMealDishDetailsApi= (id) =>{
 export const  dishListApi= (data) =>{
     return new Promise((resolve, reject) => {
         requestUtil({
-            url: '/dish/list',
+            url: 'mp/dish/list',
             method: "get",
             data: { ...data }
         }).then((res) => {
@@ -78,7 +78,7 @@ export const  dishListApi= (data) =>{
 export const  setmealListApi= (data) =>{
     return new Promise((resolve, reject) => {
         requestUtil({
-            url: '/setmeal/list',
+            url: 'mp/setmeal/list',
             method: "get",
             data: { ...data }
         }).then((res) => {
@@ -92,7 +92,7 @@ export const  setmealListApi= (data) =>{
 export const categoryListApi = () => {
     return new Promise((resolve, reject) => {
         requestUtil({
-            url: "/category/list",
+            url: "mp/category/list",
             method: "get"
         }).then((res) => {
             console.log(res.data)
@@ -105,7 +105,7 @@ export const categoryListApi = () => {
 export const cartListApi = (data) => {
     return new Promise((resolve, reject) => {
         requestUtil({
-            url: "/shoppingCart/list",
+            url: "mp/shoppingCart/list",
             method: "get",
             data: { ...data }
         }).then((res) => {

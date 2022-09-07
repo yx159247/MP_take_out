@@ -22,7 +22,7 @@ import java.util.List;
  * @since 1.0.0 2022-08-17
  */
 @RestController
-@RequestMapping("api/setmeal")
+@RequestMapping("mp/setmeal")
 @Api(tags="微信小程序套餐模块")
 public class ApiSetmealController {
     @Autowired

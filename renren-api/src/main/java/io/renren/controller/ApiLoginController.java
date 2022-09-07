@@ -34,7 +34,7 @@ import java.util.Map;
  * @author Mark sunlightcs@gmail.com
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/mp")
 @Api(tags="登录接口")
 @Slf4j
 public class ApiLoginController {

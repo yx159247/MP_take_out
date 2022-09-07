@@ -32,3 +32,15 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
+# Minio配置
+minio:
+  # minio配置的地址，端口9000
+  url: http://192.168.65.100:9000
+  # 账号
+  accessKey: minio
+  # 密码
+  secretKey: minio123
+  # MinIO桶名字
+  bucketName: images
+

@@ -19,7 +19,7 @@ import java.util.List;
  * @since 1.0.0 2022-08-17
  */
 @RestController
-@RequestMapping("api/shoppingCart")
+@RequestMapping("mp/shoppingCart")
 @Api(tags="微信小程序购物车模块")
 public class ApiShoppingCartController {
     @Autowired

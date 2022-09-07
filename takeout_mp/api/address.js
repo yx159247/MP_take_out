@@ -11,7 +11,7 @@ import regeneratorRuntime, {
 export const getDefaultAddressApi = () => {
 	return new Promise((resolve, reject) => {
 		requestUtil({
-			url: '/addressBook/default',
+			url: 'mp/addressBook/default',
 			method: 'get',
 		}).then((res) => {
 			console.log(res.data)
@@ -24,7 +24,7 @@ export const getDefaultAddressApi = () => {
 export const updateAddressApi = (data) => {
 	return new Promise((resolve, reject) => {
 		requestUtil({
-			url: '/addressBook',
+			url: 'mp/addressBook',
 			method: 'put',
 			data: data
 		}).then((res) => {
@@ -38,7 +38,7 @@ export const updateAddressApi = (data) => {
 export const addAddressApi = (data) => {
 	return new Promise((resolve, reject) => {
 		requestUtil({
-			url: '/addressBook',
+			url: 'mp/addressBook',
 			method: 'post',
 			data: data
 		}).then((res) => {
@@ -52,7 +52,7 @@ export const addAddressApi = (data) => {
 export const deleteAddressApi = (id) => {
 	return new Promise((resolve, reject) => {
 		requestUtil({
-			url: '/addressBook',
+			url: 'mp/addressBook',
 			method: 'delete',
 			header: {
 				"content-type": "application/x-www-form-urlencoded"
@@ -69,7 +69,7 @@ export const deleteAddressApi = (id) => {
 export const addressFindOneApi = (id) => {
 	return new Promise((resolve, reject) => {
 		requestUtil({
-			url: '/addressBook/' + id,
+			url: 'mp/addressBook/' + id,
 			method: 'get',
 
 		}).then((res) => {
@@ -84,7 +84,7 @@ export const addressFindOneApi = (id) => {
 export const addressListApi = () => {
 	return new Promise((resolve, reject) => {
 		requestUtil({
-			url: '/addressBook/list',
+			url: 'mp/addressBook/list',
 			method: 'get',
 
 		}).then((res) => {
@@ -98,7 +98,7 @@ export const addressListApi = () => {
 export const setDefaultAddressApi = (data) => {
 	return new Promise((resolve, reject) => {
 		requestUtil({
-			url: '/addressBook/default',
+			url: 'mp/addressBook/default',
 			method: 'put',
 			data:data
 		}).then((res) => {

@@ -19,7 +19,7 @@ import java.util.List;
  * @since 1.0.0 2022-08-17
  */
 @RestController
-@RequestMapping("api/addressBook")
+@RequestMapping("mp/addressBook")
 @Api(tags = "微信小程序地址模块")
 public class ApiAddressBookController {
 
