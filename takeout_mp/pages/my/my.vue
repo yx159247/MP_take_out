@@ -263,7 +263,7 @@
 			async getPhoneNumber(param) {
 				let that = this
 				const res = await requestUtil({
-					url: "/wxGetPhone",
+					url: "mp/wxGetPhone",
 					data: param,
 					method: "post"
 				})
