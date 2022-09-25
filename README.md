@@ -6,9 +6,11 @@
   </a>
 </p>
 
+
 <p align=center>
    基于Springboot + Vue 开发的前后端分离外卖点单系统
 </p>
+
 
 <p align="center">
    <a target="_blank" href="https://github.com/yx159247/MP_take_out">
@@ -117,13 +119,14 @@ take_out
 
 ## 开发环境
 
-| 开发工具                      | 说明              |
-| ----------------------------- | ----------------- |
-| IDEA                          | Java开发工具IDE   |
-| WebStrom                      | Vue开发工具IDE    |
-| Navicat                       | MySQL远程连接工具 |
-| Another Redis Desktop Manager | Redis远程连接工具 |
-| FinalShell                    | Linux远程连接工具 |
+| 开发工具                      | 说明               |
+| ----------------------------- | ------------------ |
+| IDEA                          | Java开发工具IDE    |
+| WebStrom或者VS Code           | Vue开发工具IDE     |
+| Navicat                       | MySQL远程连接工具  |
+| Another Redis Desktop Manager | Redis远程连接工具  |
+| FinalShell                    | Linux远程连接工具  |
+| HBuilder X                    | 编译微信小程序工具 |
 
 | 开发环境 | 版本   |
 | -------- | ------ |
@@ -131,6 +134,7 @@ take_out
 | MySQL    | 8.0.29 |
 | Redis    | 6.0.5  |
 | Maven    | 3.8    |
+| NodeJs   | 14.x.x |
 
 ## 项目截图
 
@@ -188,7 +192,7 @@ take_out
 
 - 账号密码：admin/admin
 
-#### 安装Minio
+### 安装Minio
 
 - 用docker拉取Minio镜像
 
@@ -199,7 +203,7 @@ take_out
   安装镜像
 
 - ```dockerfile
-   docker run \
+  docker run \
   --name minio \
   -p 9000:9000  \
   -p 9090:9090  \
@@ -230,6 +234,50 @@ take_out
 
   ps：url改成你自己的，账号和密码如果之前安装docker镜像的时候没动就不用改，bucketName可以不用修改。
 
+  
+
+### 安装Nodejs环境(如果有请忽略)
+
+- NodeJs版本不要安装太高，13.x-14.x最好
+- 附上一个下载链接：https://nodejs.org/download/release/v13.10.0/
+- 具体配置环境变量等请自行百度一下找一下教程，步骤很简单。
+
+### 运行后台管理系统前端项目
+
+- 配置好Nodejs环境之后就可以打开后台管理前端源代码
+
+- 打开终端输入
+
+  ```
+  npm install
+  ```
+
+  等待安装依赖完成后，输入
+
+  ```
+  npm run serve
+  ```
+
+  等待编译完成后，会自动打开页面，或者访问 http://localhost:8001/
+
+ ### 安装以及修改HBuilder X配置以及微信开发者工具配置
+
+- 修改微信开发者工具的设置，将服务端口打开，不打开，HBuilder X在编译之后不会自动唤醒微信开发者工具
+
+  ![image](https://user-images.githubusercontent.com/78630698/192106411-320ba427-52ab-480d-bd14-7ff5cfe1c744.png)
+
+  
+
+- 将图片中的AppId修改为你自己申请的小程序测试号AppId
+
+  ![image](https://user-images.githubusercontent.com/78630698/192106120-5937b039-bd43-40dd-8561-b1bd8c8e1e67.png)	
+
+### 启动微信小程序项目
+
+- 完成了以上配置之后就可以启动小程序项目了
+
+  ![image](https://user-images.githubusercontent.com/78630698/192106657-5cdf1224-7802-4016-8cea-333a81ef7bd2.png)	
+
 ## 注意事项
 
 - 如果使用minio存储文件，需要先安装好minio
@@ -243,6 +291,4 @@ take_out
 
 - 有问题可以扫下面的二维码添加我的微信(添加好友时，请备注来意)，我会尽力帮您解答！
 
-![WeChat](https://user-images.githubusercontent.com/78630698/187065150-536ccff2-c5e9-4a52-abea-87deed9047a4.jpg)
-
-
+  ![WeChat](https://user-images.githubusercontent.com/78630698/187065150-536ccff2-c5e9-4a52-abea-87deed9047a4.jpg)	
