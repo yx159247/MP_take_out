@@ -44,8 +44,8 @@
 								<u-icon name="arrow-right"></u-icon>
 							</view>
 						</view>
-						
-						
+
+
 					</view>
 					<view class="divOrders" v-if="flag && user">
 						<view class="title">最新订单</view>
@@ -91,9 +91,11 @@
 		orderPagingApi,
 		orderAgainApi,
 		deleteOrderApi
-	
+
 	} from '../../api/orderList.js'
-	import{logoutApi} from"../../api/my.js"
+	import {
+		logoutApi
+	} from "../../api/my.js"
 	import {
 		getBaseUrl,
 		requestUtil,
@@ -104,12 +106,13 @@
 	export default {
 		data() {
 			return {
-				userId:'',
+				userId: '',
 				content: "微信用户快速登录",
 				flag: false,
 				phoneNumber: "",
 				show: false,
 				user: {},
+				getPhoneParam:{},
 				wh: 0,
 				QiNiuYunUrl: getApp().globalData.QiNiuYunUrl,
 				imageUrl: '',
@@ -120,8 +123,6 @@
 					'status': '',
 					'avatar': '',
 					'idNumber': '',
-
-
 				},
 				form: {
 					phone: '',
@@ -142,7 +143,7 @@
 			};
 		},
 		created() {
-			
+
 		},
 		onShow() {
 			this.initData()
@@ -155,7 +156,10 @@
 		},
 		methods: {
 			initData() {
-				this.getLatestOrder()
+				if(this.userId){
+					this.getLatestOrder()
+				}
+				
 			},
 
 			async getLatestOrder() {
@@ -167,10 +171,10 @@
 				}
 				const res = await orderPagingApi(params)
 				if (res.code === 0) {
-				if(res.data.list.length != 0){
-					this.flag = true
-				}
-			 	this.order = res.data.list
+					if (res.data.list.length != 0) {
+						this.flag = true
+					}
+					this.order = res.data.list
 					if (this.order && this.order[0].orderDetails) {
 						let number = 0
 						this.order[0].orderDetails.forEach(item => {
@@ -196,7 +200,7 @@
 						break;
 					case 4:
 						str = '已完成'
-			  	break;
+						break;
 					case 5:
 						str = '已取消'
 						break;
@@ -214,7 +218,9 @@
 				if (e.detail.errMsg == 'getPhoneNumber:ok') {
 
 					let param = {
-						code: e.detail.code
+						code: e.detail.code,
+						encryptedData: this.getPhoneParam.encryptedData,
+						iv: this.getPhoneParam.iv
 					}
 					this.getPhoneNumber(param)
 
@@ -256,6 +262,8 @@
 						nickName: res[1].userInfo.nickName,
 						avatarUrl: res[1].userInfo.avatarUrl
 					}
+					this.getPhoneParam = res[1]
+					console.log("user:", this.user)
 					console.log(loginParam)
 					this.wxLogin(loginParam);
 				})
@@ -268,9 +276,9 @@
 					method: "post"
 				})
 				if (res.code === 0) {
-					this.phone_info = res.data.phone_info
+					this.phone_info = res.data
 					console.log("手机号" + this.phone_info)
-					let phoneNumber = this.phone_info.phoneNumber
+					let phoneNumber = this.phone_info
 					console.log(phoneNumber, "手机号")
 					wx.setStorageSync('phoneNumber', phoneNumber)
 					this.show = false
@@ -287,19 +295,18 @@
 			getUserInfo() {
 				this.user = wx.getStorageSync('userInfo')
 				this.phoneNumber = wx.getStorageSync('phoneNumber')
-				console.log('用户信息={}',this.user)
+				console.log('用户信息={}', this.user)
 			},
 			async logout() {
-				console.log("userId={}",wx.getStorageSync('userId'))
-				const res = await logoutApi({
-				})
-				if(res.code === 0){
+				console.log("userId={}", wx.getStorageSync('userId'))
+				const res = await logoutApi({})
+				if (res.code === 0) {
 					wx.clearStorageSync()
-				this.getUserInfo()
+					this.getUserInfo()
 				} else {
 					return uni.$showMsg()
 				}
-				
+
 			}
 		},
 

@@ -73,5 +73,19 @@ public class LoginDTO {
     @ApiModelProperty(value = "微信用户code")
     private String code;
 
+    /**
+     * 微信用户敏感信息 前端传来的
+     */
+    @TableField(select = false,exist = false)
+    @ApiModelProperty(value = "微信用户敏感信息")
+    private String encryptedData;
+
+    /**
+     * 解密算法偏移量 前端传来的
+     */
+    @TableField(select = false,exist = false)
+    @ApiModelProperty(value = "解密算法偏移量")
+    private String iv;
+
 
 }

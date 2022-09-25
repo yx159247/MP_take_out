@@ -8,7 +8,6 @@
 
 package io.renren.service;
 
-import com.alibaba.fastjson.JSONObject;
 import io.renren.common.entity.UserEntity;
 import io.renren.common.service.BaseService;
 import io.renren.dto.LoginDTO;
@@ -38,5 +37,5 @@ public interface UserService extends BaseService<UserEntity> {
 	 * @param dto
 	 * @return 返回手机号
 	 */
-	JSONObject wxGetPhone(LoginDTO dto);
+	String wxGetPhone(LoginDTO dto);
 }

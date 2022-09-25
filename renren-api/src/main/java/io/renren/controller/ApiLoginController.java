@@ -64,11 +64,11 @@ public class ApiLoginController {
     @Login
     @PostMapping("wxGetPhone")
     @ApiOperation("微信小程序获取手机号")
-    public Result<JSONObject> wxGetPhone(@RequestBody LoginDTO dto) {
+    public Result<String> wxGetPhone(@RequestBody LoginDTO dto) {
 
-        JSONObject jsonObject = userService.wxGetPhone(dto);
+        String phone = userService.wxGetPhone(dto);
 
-        return new Result().ok(jsonObject);
+        return new Result().ok(phone);
     }
 
     @Login

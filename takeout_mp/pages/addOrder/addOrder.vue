@@ -19,7 +19,7 @@
 
 						<view class="name">
 							<text
-								v-if="address.detail.length > 1">{{address.consignee}}{{address.gender === '1' ? '先生':'女士'}}</text>
+								v-if="address.detail.length > 1">{{address.consignee}}{{address.gender === '1' ? '女士':'先生'}}</text>
 							<text>{{address.phone}}</text>
 
 
