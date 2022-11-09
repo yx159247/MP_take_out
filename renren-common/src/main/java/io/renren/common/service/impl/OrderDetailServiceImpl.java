@@ -55,6 +55,7 @@ public class OrderDetailServiceImpl extends CrudServiceImpl<OrderDetailDao, Orde
             BeanUtils.copyProperties(orderDetail, orderDetailInfoVo);
             amount.addAndGet(orderDetail.getAmount().multiply(new BigDecimal(orderDetail.getNumber())).doubleValue());
             orderDetailInfoVo.setAmount(BigDecimal.valueOf(amount.get()));
+            amount.set(0);
             return orderDetailInfoVo;
         }).collect(Collectors.toList());
         return orderDetailInfoVos;

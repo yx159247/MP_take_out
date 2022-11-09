@@ -222,7 +222,7 @@ public class OrdersServiceImpl extends CrudServiceImpl<OrdersDao, OrdersEntity, 
 
     @Override
     public void submit(OrdersDTO ordersDTO) {
-//获得当前用户id
+        //获得当前用户id
         Long userId = userUtils.getUserId();
 
         //查询当前用户购物车数据
