@@ -24,7 +24,7 @@ knife4j:
 spring:
   # 环境 dev|test|prod
   profiles:
-    active: test
+    active: dev
   messages:
     encoding: UTF-8
     basename: i18n/messages
