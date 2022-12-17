@@ -37,7 +37,7 @@ export const getUserProfile = () => {
 
 
 
-let ajaxTimes = 0;
+
 
 export const requestUtil = (params) => {
     const token = wx.getStorageSync('token')
@@ -46,13 +46,7 @@ export const requestUtil = (params) => {
     if(params.url.includes("/")){
         header["token"] = wx.getStorageSync('token')
     }
-    var start = new Date().getTime();
-    console.log("ajaxTimes=" + ajaxTimes)
-    ajaxTimes++;
-    // 显示加载中 效果
-   
-    
-    // while (true) if (new Date().getTime() - start > 1 * 1000) break;
+
     return new Promise((resolve, reject) => {
         wx.request({
             ...params,

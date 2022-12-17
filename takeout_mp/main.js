@@ -14,6 +14,7 @@ uni.$showMsg = function(title = '数据请求失败' , duration = 1500,icon='non
 	})
 }
 
+
 App.mpType = 'app'
 const app = new Vue({
     ...App

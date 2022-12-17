@@ -10,8 +10,9 @@
 				<view class="divUserName" v-if="user">
 					<u-text :text="user.nickName" bold="true"></u-text>
 				</view>
-				<view class="divLogin" v-else><button style="background: #ffc200;margin-left: 0;padding-left: 0"
-						@click="login" size="mini">登录</button></view>
+				<view class="divLogin" v-else><button
+						style="margin-left: 0;padding-left: 10rpx;background-color: transparent;font-size: 16px;"
+						@click="login" size="mini">点击登录</button></view>
 				<view class="userPhone">
 					<u-text :text="phoneNumber"></u-text>
 				</view>
@@ -23,6 +24,9 @@
 						shape="circle" text="微信用户一键绑定"></u-button>
 
 				</u-modal>
+				<view class="shezhi">
+					<image src="/static/me/xitongshezhi.png"></image>
+				</view>
 			</view>
 			<scroll-view scroll-y="true" :style="{height: wh-75 + 'px'}">
 
@@ -30,7 +34,7 @@
 				<view class="divContent">
 					<view class="divLinks">
 						<view @click="toAddress" class="item">
-							<image src="../../static/images/locations.png"></image>
+							<image src="../../static/index_image/dingwei.png"></image>
 							<text>我的地址</text>
 							<view>
 								<u-icon name="arrow-right"></u-icon>
@@ -38,7 +42,7 @@
 						</view>
 						<view class="divSplit"></view>
 						<view class="item">
-							<image src="../../static/images/orders.png"></image>
+							<image src="../../static/me/dingdan.png"></image>
 							<text>历史订单</text>
 							<view>
 								<u-icon name="arrow-right"></u-icon>
@@ -112,7 +116,7 @@
 				phoneNumber: "",
 				show: false,
 				user: {},
-				getPhoneParam:{},
+				getPhoneParam: {},
 				wh: 0,
 				QiNiuYunUrl: getApp().globalData.QiNiuYunUrl,
 				imageUrl: '',
@@ -143,23 +147,39 @@
 			};
 		},
 		created() {
-
+			
+			this.getUserInfo()
 		},
 		onShow() {
+			this.checkLogin()
+			this.getUserInfo()
 			this.initData()
+		
 		},
 		mounted() {
 			const sysInfo = uni.getSystemInfoSync()
 			this.wh = sysInfo.windowHeight
+			this.checkLogin()
 			this.getUserInfo()
 			this.initData()
+			
+		},
+		watch: {
+
 		},
 		methods: {
+			checkLogin() {
+				if(uni.getStorageSync('token') == null || uni.getStorageSync('token') == ''){
+					uni.$showMsg("未登录")
+					wx.clearStorageSync()
+					console.log("ok!!!!")
+				}
+			},
 			initData() {
-				if(this.userId){
+				if (this.userId) {
 					this.getLatestOrder()
 				}
-				
+
 			},
 
 			async getLatestOrder() {
@@ -209,9 +229,27 @@
 				return str
 			},
 			toAddress() {
-				uni.navigateTo({
-					url: '/pages/address2/address2'
-				})
+				const token = wx.getStorageSync('token');
+				if (token) {
+					uni.navigateTo({
+						url: '/pages/address2/address2'
+					})
+				} else {
+					uni.showModal({
+						title: '提示',
+						content: '请登录',
+						success: function(res) {
+							if (res.confirm) {
+								uni.switchTab({
+									url: '/pages/my/my'
+								});
+							} else if (res.cancel) {
+								console.log('用户点击取消');
+							}
+						}
+					});
+				}
+
 			},
 			confirm(e) {
 				console.log(e.detail.errMsg)
@@ -241,6 +279,7 @@
 				if (res.code === 0) {
 					console.log(res.data.token)
 					wx.setStorageSync('token', res.data.token)
+					this.userToken = res.data.token
 					wx.setStorageSync('userId', res.data.userId)
 					if (res.data.phone == null) {
 						this.show = true
@@ -294,7 +333,7 @@
 			},
 			getUserInfo() {
 				this.user = wx.getStorageSync('userInfo')
-				this.phoneNumber = wx.getStorageSync('phoneNumber')
+				this.phoneNumber = wx.getStorageSync('phoneNumber').replace(/(\d{3})\d{4}(\d{4})/, "$1****$2")
 				console.log('用户信息={}', this.user)
 			},
 			async logout() {

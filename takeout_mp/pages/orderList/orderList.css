@@ -15,7 +15,7 @@
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 500;
   text-align: center;
-  color: #ffffff;
+  /* color: #ffffff; */
   line-height: 50rpx;
   letter-spacing: 0;
   position: absolute;
@@ -32,21 +32,30 @@
 
 .order .divBody {
   margin: 20rpx 24rpx 20rpx 24rpx;
-  background: #ffffff;
+  /* background: #ffffff; */
   border-radius: 12rpx;
   padding-left: 20rpx;
-  padding-right: 20rpx;
+  /* padding-right: 20rpx; */
   height: 100vh;
-  /* overflow-y: auto; */
 }
 
 .order .divBody .u-list .u-list-item .u-cell::after {
   border: 0;
 }
 
+	.order .divBody .item{
+		padding: 0 5px;
+		margin-right: 10rpx;
+		background-color: #ffffff;
+		border-radius: 10px;
+		margin-bottom: 15px;
+		box-shadow: 4rpx 10rpx 12rpx  #dcdcdf;
+	}
 .order .divBody .item .timeStatus {
+  position: relative;
+  padding-left: 8px;
   height: 92rpx;
-  line-height: 32rpx;
+  /* line-height: 32rpx; */
   font-size: 28rpx;
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 400;
@@ -57,18 +66,51 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 4rpx dashed #efefef;
+  border-bottom: 4rpx solid #efefef;
   border-top: 2rpx solid #efefef;
 }
 
 .order .divBody .item .timeStatus text:first-child {
   color: #333333;
 }
-
+.order .divBody .item .timeStatus .time{
+	flex: 1;
+	color: black;
+	height: 50px;
+	line-height: 50px;
+	align-self: flex-start;
+}
+.order .divBody .item .timeStatus .youdingwei {
+  /* color: #333333; */
+  position: relative;
+  padding: 2px 4px 2rpx 10px;
+  right: -20rpx;
+  top: 0;
+ 
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: #1ab71b;
+}
+.order .divBody .item .timeStatus .zuodingwei {
+position: relative;
+left: -14px;
+width: 6px;
+height: 22px;
+background-color: #f05050;
+}
+.order .divBody .item .timeStatus .triangle {
+	position: absolute;
+	right: 0;
+    width: 0;
+    height: 0;
+    border-top: 10rpx solid #1ab71b;
+    border-right:10rpx solid transparent;
+}
 .order .divBody .item .dishList {
   padding-top: 20rpx;
   padding-bottom: 22rpx;
 }
+	
 
 .order .divBody .item .dishList .item {
   padding-top: 10rpx;
@@ -84,6 +126,7 @@
   color: #666666;
   line-height: 40rpx;
   letter-spacing: 0;
+  box-shadow: none;
 }
 
 .order .divBody .item .result {

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="address">
-			<view class="divContent">
+			<view class="divContent" :style="{height: windowheight+'px'}">
 				<u-empty :show="show" text="地址为空" mode="data" marginTop="50%"
 					icon="http://cdn.uviewui.com/uview/empty/data.png">
 				</u-empty>
@@ -58,6 +58,7 @@
 				addressList: [
 
 				],
+				windowheight:0
 			}
 		},
 		computed: {},
@@ -65,6 +66,16 @@
 
 		},
 		mounted() {},
+		onLoad() {
+			let _this=this
+			console.log('init')
+			uni.getSystemInfo({
+				success(res) {
+					console.log(res)
+					_this.windowheight=res.windowHeight
+				}
+			})
+		},
 		onShow() {
 			this.initData()
 		},

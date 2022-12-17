@@ -27,7 +27,7 @@ public class ApiCategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @Login
+
     @GetMapping("list")
     @ApiOperation("分类")
     public Result<List<CategoryDTO>> list(CategoryDTO categoryDTO){

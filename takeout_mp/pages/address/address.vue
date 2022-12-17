@@ -50,11 +50,8 @@
 				addressList: [
 
 				],
+				
 			}
-		},
-		computed: {},
-		created() {
-			
 		},
 		mounted() {},
 		onShow() {

@@ -194,6 +194,7 @@ public class OrdersServiceImpl extends CrudServiceImpl<OrdersDao, OrdersEntity, 
                     getWrapper(params).eq(StringUtils.isNotBlank(userUtils.getUserId().toString()), "user_id", userUtils.getUserId())
             );
             List<OrdersEntity> records = page.getRecords();
+            System.out.println(records);
             List<OrdersDTO> ordersDtoList = new ArrayList<>();
             for (OrdersEntity record : records) {
                 OrdersDTO ordersDto = new OrdersDTO();

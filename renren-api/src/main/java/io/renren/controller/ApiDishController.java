@@ -27,7 +27,7 @@ public class ApiDishController {
     private DishService dishService;
 
 
-    @Login
+
     @GetMapping("list")
     @ApiOperation("菜品")
     public Result<List<DishDTO>> listResult(DishDTO dishDTO){

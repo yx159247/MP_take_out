@@ -13,7 +13,6 @@
             {
                 "navigationBarTitleText": "订单",
                 "enablePullDownRefresh": true,
-				"navigationBarBackgroundColor": "#ffc200",
 				"onReachBottomDistance": 200
 				 
             }
@@ -24,8 +23,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的",
-                "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ffc200"
+                "enablePullDownRefresh": false
 				
             }
             
@@ -35,8 +33,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "提交订单",
-                "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ffc200"
+                "enablePullDownRefresh": false
             }
             
         }
@@ -45,8 +42,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "新增地址",
-                "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ffc200"
+                "enablePullDownRefresh": false
             }
             
         }
@@ -55,8 +51,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "地址管理",
-                "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ffc200"
+                "enablePullDownRefresh": false
             }
             
         }
@@ -65,8 +60,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "提交成功",
-                "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ffc200"
+                "enablePullDownRefresh": false
             }
             
         }
@@ -75,8 +69,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "编辑地址",
-                "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ffc200"
+                "enablePullDownRefresh": false
             }
             
         }
@@ -85,11 +78,21 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "地址管理",
-                "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ffc200"
+                "enablePullDownRefresh": false
             }
             
         }
+       
+        ,{
+            "path" : "pages/orderDetail/orderDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+       
     ],
 	"subPackages": [
 		{
@@ -103,7 +106,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "美食元素",
-		"navigationBarBackgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#f3f2f7"
 		
 		
 	},
@@ -112,20 +115,20 @@
 			{
 				"pagePath": "pages/index/index",
 				"text": "首页",
-				"iconPath": "static/images/index.png",
-				"selectedIconPath": "static/images/index.png"
+				"iconPath": "static/index_image/index.png",
+				"selectedIconPath": "static/index_image/index_active.png"
 			},
 			{
 				"pagePath": "pages/orderList/orderList",
 				"text": "订单",
-				"iconPath": "static/images/orderList.png",
-				"selectedIconPath": "static/images/orderList.png"
+				"iconPath": "static/index_image/order.png",
+				"selectedIconPath": "static/index_image/order_active.png"
 			},
 			{
 				"pagePath": "pages/my/my",
 				"text": "我的",
-				"iconPath": "static/images/my.png",
-				"selectedIconPath": "static/images/my.png"
+				"iconPath": "static/index_image/me.png",
+				"selectedIconPath": "static/index_image/me_active.png"
 			}
 		]
 	}

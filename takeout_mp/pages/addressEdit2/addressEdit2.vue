@@ -2,7 +2,7 @@
 	<view>
 		<view class="address_edit">
 
-			<view class="divContent">
+			<view class="divContent" :style="{height:windowheight+'px'}">
 				<view class="divItem">
 					<text style="font-weight: bold;">联系人：</text>
 					<view class="inputUser">
@@ -11,11 +11,11 @@
 					</view>
 					
 					<text class="spanChecked" @click="form.gender = '1'">
-						<text :class="{iActive:form.gender === '1'}"></text>
+						<text :class="{iActive:form.gender == '1'}"></text>
 						先生
 					</text>
 					<text class="spanChecked" @click="form.gender = '0'">
-						<text :class="{iActive:form.gender === '0'}"></text>
+						<text :class="{iActive:form.gender == '0'}"></text>
 						女士
 					</text>
 				</view>
@@ -80,7 +80,8 @@
 					'无', '公司', '家', '学校'
 				],
 				id: undefined,
-				activeIndex: 0
+				activeIndex: 0,
+				windowheight:0
 			};
 		},
 		onLoad: function(option) {
@@ -94,7 +95,16 @@
 
 				}
 			})
+			let _this=this
+			console.log('init')
+			uni.getSystemInfo({
+				success(res) {
+					console.log(res)
+					_this.windowheight=res.windowHeight
+				}
+			})
 		},
+		
 		computed: {},
 		created() {
 			

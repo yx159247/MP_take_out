@@ -63,7 +63,7 @@ public class AddressBookServiceImpl extends CrudServiceImpl<AddressBookDao, Addr
 
         //通过用户id修改地址
         LambdaQueryWrapper<AddressBookEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(AddressBookEntity::getUserId, userUtils.getUserId());
+        queryWrapper.eq(AddressBookEntity::getId, addressBookDTO.getId());
         AddressBookEntity addressBookEntity = new AddressBookEntity();
         BeanUtils.copyProperties(addressBookDTO, addressBookEntity);
         addressBookDao.update(addressBookEntity, queryWrapper);
