@@ -8,11 +8,13 @@
 
 package io.renren.service;
 
+import io.renren.common.dto.UserDTO;
 import io.renren.common.entity.UserEntity;
 import io.renren.common.service.BaseService;
+import io.renren.dto.UpdateUserInfoDto;
 import io.renren.dto.LoginDTO;
-
-import java.util.Map;
+import io.renren.dto.PhoneLoginDto;
+import io.renren.vo.LoginVo;
 
 /**
  * 用户
@@ -30,7 +32,7 @@ public interface UserService extends BaseService<UserEntity> {
 	 * @param dto    登录表单
 	 * @return        返回登录信息
 	 */
-	Map<String, Object> login(LoginDTO dto);
+	LoginVo login(LoginDTO dto);
 
 	/**
 	 * 微信小程序获取手机号
@@ -38,4 +40,36 @@ public interface UserService extends BaseService<UserEntity> {
 	 * @return 返回手机号
 	 */
 	String wxGetPhone(LoginDTO dto);
+
+	/**
+	 * 更新用户信息
+	 *
+	 * @param userDTO 用户dto
+	 * @return boolean
+	 */
+	//boolean updateUserInfo(UserDTO userDTO);
+
+	/**
+	 * 手机登录
+	 *
+	 * @param dto dto
+	 * @return {@link LoginVo}
+	 */
+	LoginVo phoneLogin(PhoneLoginDto dto);
+
+	/**
+	 * 发送验证码
+	 *
+	 * @param phone 电话
+	 */
+	boolean sendValidateCode(String phone);
+
+
+	/**
+	 * 更新用户电话
+	 *
+	 * @param updateUserInfoDto 改变电话dto
+	 * @return boolean
+	 */
+	boolean updateUserInfo(UpdateUserInfoDto updateUserInfoDto);
 }

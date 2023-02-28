@@ -143,11 +143,11 @@
 				}
 			},
 			goodsPrice() {
-				let price = 0
+				let price = 0;
 				this.cartData.forEach(item => {
-					price += (item.number * item.amount)
-				})
-				return price
+					price += item.number * item.amount;
+				});
+				return price.toFixed(2);
 			}
 		},
 		created() {
@@ -243,4 +243,9 @@
 
 <style>
 	@import url(./addOrder.css);
+</style>
+<style>
+	page{
+		background-color:  #f3f2f7;
+	}
 </style>

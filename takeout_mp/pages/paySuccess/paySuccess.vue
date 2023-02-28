@@ -45,7 +45,7 @@
 			toOrderPage(){
 				console.log("执行了")
 				uni.switchTab({
-					url:'/pages/orderList/orderList'
+					url:'/pages/index/index'
 				})
 							
 			},

@@ -118,7 +118,6 @@
       <el-form-item
           label="菜品图片:"
           prop="region"
-
       >
         <el-upload
             class="avatar-uploader"
@@ -189,7 +188,6 @@ export default {
       },
       QiNiuYunUrl: QiniuUrl,
       imageUrl: '',
-
 
       dataForm: {
         id: '',

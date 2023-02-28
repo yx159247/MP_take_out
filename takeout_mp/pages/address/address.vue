@@ -120,4 +120,7 @@
 
 <style>
 	@import url(./address.css);
+	page{
+		background-color:  #f3f2f7;
+	}
 </style>

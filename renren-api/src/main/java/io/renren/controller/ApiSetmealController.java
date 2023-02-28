@@ -44,7 +44,7 @@ public class ApiSetmealController {
     }
 
 
-    @Login
+
     @GetMapping("/list")
     @ApiOperation("套餐列表")
     public Result<List<SetmealEntity>> list(SetmealDTO setmealDTO){

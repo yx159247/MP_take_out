@@ -49,6 +49,10 @@
         <okhttp.version>4.9.3</okhttp.version>
         <fastjson.version>2.0.12</fastjson.version>
         <docker.plugin.version>1.1.1</docker.plugin.version>
+        <qiniu.version>7.2.27</qiniu.version>
+        <aliyun.oss.version>2.8.3</aliyun.oss.version>
+        <aliyun.core.version>3.2.2</aliyun.core.version>
+        <qcloud.cos.version>5.4.4</qcloud.cos.version>
     </properties>
 
     <dependencies>
@@ -213,6 +217,32 @@
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-miniapp</artifactId>
             <version>4.4.1.B</version>
+        </dependency>
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>${qiniu.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>${aliyun.oss.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>${aliyun.core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>${qcloud.cos.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

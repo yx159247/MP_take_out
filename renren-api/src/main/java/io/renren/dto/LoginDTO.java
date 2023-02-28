@@ -67,6 +67,13 @@ public class LoginDTO {
     private Date updateDate;
 
     /**
+     * 获得电话号码code 前端传来的
+     */
+    @TableField(select = false,exist = false)
+    @ApiModelProperty(value = "获得电话号码code")
+    private String getPhoneCode;
+
+    /**
      * 微信用户code 前端传来的
      */
     @TableField(select = false,exist = false)

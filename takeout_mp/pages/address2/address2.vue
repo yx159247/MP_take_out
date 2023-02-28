@@ -151,7 +151,11 @@
 		}
 	}
 </script>
-
+<style>
+	page{
+		background-color:  #f3f2f7;
+	}
+</style>
 <style>
 	@import url(../address/address.css);
 </style>

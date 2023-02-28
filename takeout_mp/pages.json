@@ -1,114 +1,129 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [ 
+		
 		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "美食元素",
 				"navigationStyle": "custom"
 			}
-		}
-	    ,{
-            "path" : "pages/orderList/orderList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "订单",
-                "enablePullDownRefresh": true,
+		},
+		{
+			"path": "pages/setting/setting",
+			"style": {
+				"navigationBarTitleText": "个人资料",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/setting/changePhone/changePhone",
+			"style": {
+				"navigationBarTitleText": "修改手机",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/setting/sendCode/sendCode",
+			"style": {
+				"navigationBarTitleText": "验证手机",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/orderList/orderList",
+			"style": {
+				"navigationBarTitleText": "订单",
+				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 200
-				 
-            }
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/addOrder/addOrder",
+			"style": {
+				"navigationBarTitleText": "提交订单",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/addressEdit/addressEdit",
+			"style": {
+				"navigationBarTitleText": "新增地址",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/address/address",
+			"style": {
+				"navigationBarTitleText": "地址管理",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/paySuccess/paySuccess",
+			"style": {
+				"navigationBarTitleText": "提交成功",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/addressEdit2/addressEdit2",
+			"style": {
+				"navigationBarTitleText": "编辑地址",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/address2/address2",
+			"style": {
+				"navigationBarTitleText": "地址管理",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/orderDetail/orderDetail",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/setting/setNickName/setNickName",
+			"style": {
+				"navigationBarTitleText": "设置昵称",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+		    "path" : "pages/orderList2/orderList2",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "订单列表"
+		        
+		    }
+		    
+		}
+
             
-        }
-        ,{
-            "path" : "pages/my/my",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的",
-                "enablePullDownRefresh": false
-				
-            }
-            
-        }
-        ,{
-            "path" : "pages/addOrder/addOrder",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "提交订单",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/addressEdit/addressEdit",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "新增地址",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/address/address",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "地址管理",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/paySuccess/paySuccess",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "提交成功",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/addressEdit2/addressEdit2",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "编辑地址",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/address2/address2",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "地址管理",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-       
-        ,{
-            "path" : "pages/orderDetail/orderDetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-       
+        
     ],
 	"subPackages": [
 		{
 			"root": "subpkg",
-			"pages": [
-				
-			
-            ]
+			"pages": []
 		}
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "美食元素",
-		"navigationBarBackgroundColor": "#f3f2f7"
-		
-		
+		"navigationBarBackgroundColor": "#feca50"
 	},
 	"tabBar": {
 		"list": [
@@ -118,12 +133,12 @@
 				"iconPath": "static/index_image/index.png",
 				"selectedIconPath": "static/index_image/index_active.png"
 			},
-			{
-				"pagePath": "pages/orderList/orderList",
-				"text": "订单",
-				"iconPath": "static/index_image/order.png",
-				"selectedIconPath": "static/index_image/order_active.png"
-			},
+			// {
+			// 	"pagePath": "pages/orderList/orderList",
+			// 	"text": "订单",
+			// 	"iconPath": "static/index_image/order.png",
+			// 	"selectedIconPath": "static/index_image/order_active.png"
+			// },
 			{
 				"pagePath": "pages/my/my",
 				"text": "我的",

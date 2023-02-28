@@ -73,7 +73,6 @@ public class AddressBookController {
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
 
         addressBookService.save(dto);
-
         return new Result();
     }
 

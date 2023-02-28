@@ -32,16 +32,21 @@ export const orderListApi = () =>{
 }
 export const orderPagingApi = (data) =>{
 	return new Promise((resolve, reject) => {
-	    requestUtil({
-	        url: 'mp/orders/page',
-	        method: 'get',
-	        data:{...data}
-	    }).then((res) => {
-	        console.log(res.data)
-	        resolve(res)
-	    }).catch((err) => {
-	        reject(err)
-	    })
+		setTimeout(()=>{
+			requestUtil({
+			    url: 'mp/orders/page',
+			    method: 'get',
+			    data:{...data},
+				
+			}).then((res) => {
+				console.log('data',data)
+			    console.log(res.data)
+			    resolve(res)
+			}).catch((err) => {
+			    reject(err)
+			})
+		},1000)
+	    
 	});
 }
 export const orderAgainApi = (data) =>{

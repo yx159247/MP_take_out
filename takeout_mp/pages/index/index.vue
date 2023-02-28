@@ -22,6 +22,9 @@
 			<view class="divDesc">简介: “有滋有味的生活来自于对美食的品味和享受”.</view>
 		</view>
 		<!-- <u-skeleton :loading="loading" rows="15"></u-skeleton> -->
+		<view class="menuBar">
+			<me-tabs v-model="tabIndex" :tabs="tabs" :tab-width="130"></me-tabs>
+		</view>
 		<view class="divBody">
 			<view class="divType">
 				<scroll-view scroll-y class="ul">
@@ -34,9 +37,10 @@
 			</view>
 
 			<view class="divMenu">
-				<scroll-view scroll-y :scroll-top="scrollTop" :style="{ height: wh + 150 + 'rpx' }"
-					style="margin-top: 100rpx;">
-					<view class="divItem" v-for="(item, index) in dishList" :key="index" @click="dishDetails(item)">
+				<scroll-view scroll-y :scroll-top="scrollTop" :style="{'--height':fixedHeight + 'px'}" class="mescro-uni">
+				<!-- <mescroll-uni :fixed="false" ref="mescrollRef" :height="wh"  :down="downOption" :up="upOption"> -->
+					
+					<view class="divItem"  v-for="(item, index) in dishList" :key="index" @click="dishDetails(item)">
 						<u-image width="172rpx" height="172rpx" :src="imgPathConvert(item.image)">
 							<image src="../../static/images/noImg.png" />
 						</u-image>
@@ -57,11 +61,17 @@
 								<view class="divTypes" v-if="item.flavors && item.flavors.length > 0 && !item.number"
 									@click.prevent.stop="chooseFlavorClick(item)">选择规格</view>
 								<view class="divAdd" v-else>
-									<image src="../../static/images/add.png" @click.prevent.stop="addCart(item)" />
+									<image src="../../static/images/add.png" @click.prevent.stop="addCart(item,$event)"></image> 
+								
 								</view>
 							</view>
 						</view>
+						
 					</view>
+				<!-- </mescroll-uni> -->
+				<view class="space_scroll-view">
+					
+				</view>
 				</scroll-view>
 			</view>
 		</view>
@@ -70,12 +80,12 @@
 			<view class="divLayerRight"></view>
 		</view>
 		<!-- 购物车 -->
-		<view class="divCart" v-if="categoryList.length > 0">
+		<view  class="divCart" v-if="categoryList.length > 0">
 			<view class="imgCart" v-if="!cartData || cartData.length < 1">
-				<image src="/static//index_image/暂无配送.png" style="height: 100%;width: 100%;"></image>
+				<!-- <image src="/static//index_image/暂无配送.png" style="height: 100%;width: 100%;"></image> -->
 			</view>
 			<view class="imgCartActive" @click="openCart" v-else>
-				<image src="/static//index_image/配送快递服务.png" style="height: 100%;width: 100%;"></image>
+				<!-- <image src="/static//index_image/配送快递服务.png" style="height: 100%;width: 100%;"></image> -->
 			</view>
 
 			<view :class="{ divGoodsNum: 1 === 1, moreGoods: cartData && cartData.length > 99 }"
@@ -92,6 +102,9 @@
 			<!-- <u-button color="#ffc200" shape="circle" openType="getphonenumber">去结算</u-button> -->
 		</view>
 
+
+		
+		
 		<!-- 口味选项弹框 -->
 		<u-popup ref="flavorDialog" @close="flavorclose" :closeOnClickOverlay="true" :round="10" mode="center"
 			:show="dialogFlavor.show" v-model="dialogFlavor.show">
@@ -112,7 +125,7 @@
 						{{ dialogFlavor.price / 100 }}
 					</view>
 
-					<view @click="dialogFlavorAddCart">加入购物车</view>
+					<view @click="dialogFlavorAddCart($event)">加入购物车</view>
 				</view>
 			</view>
 		</u-popup>
@@ -129,7 +142,8 @@
 						清空
 					</view>
 				</view>
-				<scroll-view scroll-y="true" :style="{ height: wh + 'rpx' }">
+				<!-- <scroll-view scroll-y="true" :style="{ height: wh + 'rpx' }"> -->
+					<mescroll-uni :fixed="false" :height=wh ref="mescrollRef" :down="downOption" :up="upOption">
 					<view class="divCartContent">
 						<view v-for="item in cartData" :key="item.id" class="divCartItem">
 							<u-image width="128rpx" height="128rpx" :src="imgPathConvert(item.image)"></u-image>
@@ -153,23 +167,14 @@
 							<view class="divSplit"></view>
 						</view>
 					</view>
-				</scroll-view>
+				<!-- </scroll-view> -->
+				</mescroll-uni>
 			</view>
 		</u-popup>
 
 		<!-- 菜品详情弹窗 -->
 		<u-popup @close="dishclose" :closeOnClickOverlay="true" :round="10" mode="center" :show="detailsDialog.show"
-			v-model="detailsDialog.show" v-if="detailsDialog.show" ref="detailsDialog">
-			<!-- <u-modal
-				 @close="close"
-				 :content-slot="true" 
-				 :closeOnClickOverlay="true" 
-				 :showConfirmButton="false" 
-				 :show="detailsDialog.show" 
-				 mode="center" 
-				 v-model="detailsDialog.show"
-				 v-if="detailsDialog.show"
-				   ref="detailsDialog"> -->
+			 ref="detailsDialog">
 			<view class="detailsDialog">
 				<view class="divContainer">
 					<u-image :src="imgPathConvert(detailsDialog.item.image)">
@@ -189,14 +194,14 @@
 						<view class="divSubtract" v-if="detailsDialog.item.number > 0">
 							<image src="../../static/images/subtract.png" @click="subtractCart(detailsDialog.item)" />
 						</view>
-						<view class="divDishNum">{{ detailsDialog.item.number }}</view>
+						<view class="divDishNum">{{detailsDialog.item.number == null ? "" : detailsDialog.item.number}}</view>
 						<view class="divTypes"
 							v-if="detailsDialog.item.flavors && detailsDialog.item.flavors.length > 0 && !detailsDialog.item.number"
 							@click="chooseFlavorClick(detailsDialog.item)">
 							选择规格
 						</view>
 						<view class="divAdd" v-else>
-							<image src="../../static/images/add.png" @click="addCart(detailsDialog.item)" />
+							<image src="../../static/images/add.png" @click="addCart(detailsDialog.item,$event)" />
 						</view>
 					</view>
 				</view>
@@ -248,18 +253,23 @@
 				</view>
 			</view>
 		</u-popup>
+		
+		
 	</view>
 </template>
 <style>
 	@import url('./index.css');
+	.divBody .divMenu .mescro-uni{
+		 height: calc(100vh - var(--height));
+	 }
 </style>
 <script>
-	import '../../api/index.js';
+	
+	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
+	
 	import {
 		getBaseUrl,
 		requestUtil,
-		getWxLogin,
-		getUserProfile
 	} from '../../utils/requestUtils';
 	import regeneratorRuntime, {
 		async
@@ -276,8 +286,18 @@
 	} from '../../api/index';
 
 	export default {
+		mixins: [MescrollMixin], // 使用mixin
 		data() {
 			return {
+				downOption:{
+					use : false
+				},
+				upOption : {
+					use : false
+				},
+				fixedHeight: 0,
+				tabs: [{name:'点菜'}],
+				tabIndex: 0, // 当前tab的下标
 				checked: false,
 				loading: true,
 				phone_info: [],
@@ -308,12 +328,17 @@
 				detailsDialog: {
 					show: false,
 					item: {
-						image: ''
+						image: '',
+						number : undefined
 					}
 				},
 				setMealDialog: {
 					show: false,
 					item: {}
+				},
+				busPos:{
+				    x:uni.getSystemInfoSync().windowWidth - uni.getSystemInfoSync().windowWidth * 0.91,
+				    y:uni.getSystemInfoSync().windowHeight + uni.getSystemInfoSync().windowWidth * 0.1
 				}
 			};
 		},
@@ -327,6 +352,7 @@
 			}
 			this.activeType = 0;
 			this.dialogFlavor.show = false;
+
 		},
 		computed: {
 			goodsNum() {
@@ -363,12 +389,59 @@
 			// 	}
 			// },
 		},
+		
 		mounted() {
 			const sysInfo = uni.getSystemInfoSync();
-			this.wh = sysInfo.windowHeight;
+			this.wh = sysInfo.windowHeight * 0.6
+			console.log('wh',this.wh)
 			this.cartData = [];
 			this.initData();
+			
+
 		},
+		onReady(){
+			let _this = this
+			let menuBarComponentsHeight = 0
+			let divHeadComponentsHeight = 0
+			let divCartComponentsHeight = 0
+			setTimeout(()=>{
+				let menuBar = uni.createSelectorQuery().in(this).select(".menuBar");
+				let divHead = uni.createSelectorQuery().in(this).select(".divHead");
+				let divCart = uni.createSelectorQuery().in(this).select(".divCart");
+
+				divHead.fields({
+				size : true,
+				scrollOffset: true
+				},data =>{
+				divHeadComponentsHeight = data.height
+				console.log('divHeadComponentsHeight',divHeadComponentsHeight);
+				console.log("得到节点信息" + JSON.stringify(data));
+				}).exec();
+				
+				menuBar.fields({
+				 size: true,
+				 scrollOffset: true
+				}, data => {
+				menuBarComponentsHeight = data.height
+				console.log('menuBarComponentsHeight',menuBarComponentsHeight);
+				console.log("得到节点信息" + JSON.stringify(data));
+				}).exec();
+				
+				divCart.fields({
+				 size: true,
+				 scrollOffset: true
+				}, data => {
+				divCartComponentsHeight = data.height
+				console.log('divCartComponentsHeight',divCartComponentsHeight);
+				console.log("得到节点信息" + JSON.stringify(data));
+				_this.fixedHeight = menuBarComponentsHeight + divCartComponentsHeight + divHeadComponentsHeight + 30
+				console.log('ComponentsHeight',_this.fixedHeight);
+				}).exec();
+				
+
+			},500)
+
+			},
 		methods: {
 			cartclose() {
 				this.cartDialogShow = false;
@@ -418,6 +491,7 @@
 				this.scrollTop = this.scrollTop === 0 ? 1 : 0;
 				this.activeType = index;
 				this.categoryId = id;
+				console.log('index',index,'type',type)
 				if (type === 1) {
 					//菜品
 					this.getDishList();
@@ -488,78 +562,47 @@
 				}
 			},
 			//菜单中往购物车中添加商品
-			async addCart(item) {
-				const token = uni.getStorageSync('token')
-				if (token) {
-					let params = {
-						amount: item.price / 100, //金额
-						dishFlavor: item.dishFlavor, //口味  如果没有传undefined
-						dishId: undefined, //菜品id
-						setmealId: undefined, //套餐id
-						name: item.name,
-						image: item.image
-					};
-					if (Array.isArray(item.flavors)) {
-						//表示是菜品
-						params.dishId = item.id;
-					} else {
-						//表示套餐 套餐没有口味
-						params.setmealId = item.id;
-					}
-					const res = await addCartApi(params);
-					if (res.code === 0) {
-						this.dishList.forEach(dish => {
-							if (dish.id === item.id) {
-								console.log('数量={}', res.data.number);
-								dish.number = res.data.number;
-							}
-						});
-						if (this.setMealDialog.show) {
-							console.log(res.data.number);
-							item.number = res.data.number;
-						}
-						this.getCartData();
-					} else {
-						return uni.$showMsg();
-					}
+			async addCart(item,event) {
+				const token = this.getTokenInfo();
+				if (!token) return;
+				
+				let params = {
+					amount: item.price / 100, //金额
+					dishFlavor: item.dishFlavor, //口味  如果没有传undefined
+					dishId: undefined, //菜品id
+					setmealId: undefined, //套餐id
+					name: item.name,
+					image: item.image
+				};
+				if (Array.isArray(item.flavors)) {
+					//表示是菜品
+					params.dishId = item.id;
 				} else {
-					uni.showModal({
-						title: '提示',
-						content: '请登录',
-						success: function(res) {
-							if (res.confirm) {
-								uni.switchTab({
-									url: '/pages/my/my'
-								});
-							} else if (res.cancel) {
-								console.log('用户点击取消');
-							}
+					//表示套餐 套餐没有口味
+					params.setmealId = item.id;
+				}
+				const res = await addCartApi(params);
+				if (res.code === 0) {
+					this.dishList.forEach(dish => {
+						if (dish.id === item.id) {
+							console.log('数量={}', res.data.number);
+							dish.number = res.data.number;
 						}
 					});
+					if (this.setMealDialog.show) {
+						console.log(res.data.number);
+						item.number = res.data.number;
+					}
+					this.getCartData();
+				} else {
+					return uni.$showMsg();
 				}
-
 			},
 
 			//菜单中减少选中的商品
 			async subtractCart(item) {
-				const token = uni.getStorageSync('token')
-				if (!token) {
-					uni.showModal({
-						title: '提示',
-						content: '请登录',
-						success: function(res) {
-							if (res.confirm) {
-								uni.switchTab({
-									url: '/pages/my/my'
-								});
-							} else if (res.cancel) {
-								console.log('用户点击取消');
-							}
-						}
-					});
-					return;
-				}
-
+				const token = this.getTokenInfo();
+				if (!token) return;
 				let params = {
 					dishId: item.id
 				};
@@ -573,10 +616,16 @@
 					this.dishList.forEach(dish => {
 						if (dish.id === item.id) {
 							dish.number = res.data.number === 0 ? undefined : res.data.number;
+							if (this.detailsDialog.show && dish.number == undefined){
+								this.detailsDialog.show = false
+							}
 						}
 					});
 					if (this.setMealDialog.show) {
 						item.number = res.data.number === 0 ? undefined : res.data.number;
+						if (this.detailsDialog.show && item.number == undefined){
+							this.detailsDialog.show = false
+						}
 					}
 					this.getCartData();
 				} else {
@@ -585,7 +634,7 @@
 						type: 'warning',
 						message: res.msg
 					});
-				}
+				}				
 			},
 
 			//展开购物车
@@ -597,46 +646,34 @@
 			},
 			//购物车中增加商品数量
 			async cartNumAdd(item) {
-				const token = uni.getStorageSync('token');
-				if (token) {
-					let params = {
-						amount: item.amount, //金额
-						dishFlavor: item.dishFlavor, //口味  如果没有传undefined
-						dishId: item.dishId, //菜品id
-						setmealId: item.setmealId, //套餐id
-						name: item.name,
-						image: item.image
-					};
-					const res = await addCartApi(params);
-					if (res.code === 0) {
-						this.dishList.forEach(dish => {
-							if (dish.id === (item.dishId || item.setmealId)) {
-								dish.number = res.data.number;
-							}
-						});
-						console.log(this.dishList);
-						this.getCartData();
-					} else {
-						return uni.$showMsg();
-					}
-				} else {
-					uni.showModal({
-						title: '提示',
-						content: '请登录',
-						success: function(res) {
-							if (res.confirm) {
-								uni.switchTab({
-									url: '/pages/my/my'
-								});
-							} else if (res.cancel) {
-								console.log('用户点击取消');
-							}
+				
+				const token = this.getTokenInfo();
+				if (!token) return;
+				let params = {
+					amount: item.amount, //金额
+					dishFlavor: item.dishFlavor, //口味  如果没有传undefined
+					dishId: item.dishId, //菜品id
+					setmealId: item.setmealId, //套餐id
+					name: item.name,
+					image: item.image
+				};
+				const res = await addCartApi(params);
+				if (res.code === 0) {
+					this.dishList.forEach(dish => {
+						if (dish.id === (item.dishId || item.setmealId)) {
+							dish.number = res.data.number;
 						}
 					});
+					console.log(this.dishList);
+					this.getCartData();
+				} else {
+					return uni.$showMsg();
 				}
 			},
 			//购物车中减少商品数量
 			async cartNumberSubtract(item) {
+				const token = this.getTokenInfo();
+				if (!token) return;
 				let params = {
 					dishId: item.dishId,
 					setmealId: item.setmealId
@@ -646,6 +683,9 @@
 					this.dishList.forEach(dish => {
 						if (dish.id === (item.dishId || item.setmealId)) {
 							dish.number = res.data.number === 0 ? undefined : res.data.number;
+							if (dish.number == undefined && this.cartData.length == 1){
+								this.cartDialogShow = false
+							}
 						}
 					});
 					this.getCartData();
@@ -665,16 +705,20 @@
 
 			//清空购物车
 			async clearCart() {
+				const token = this.getTokenInfo();
+				if (!token) return;
 				const res = await clearCartApi();
 				if (res.code === 0) {
 					for (let ele of this.dishList) {
 						ele.number = undefined;
 					}
+					// this.updataNums()
+					
 					this.cartData = [];
 					this.cartDialogShow = false;
 				} else {
 					return uni.$showMsg();
-				}
+				}				
 			},
 			//点击选择规格
 			chooseFlavorClick(item) {
@@ -713,8 +757,8 @@
 				this.dialogFlavor.show = true;
 			},
 			//选择规格加入购物车
-			dialogFlavorAddCart() {
-
+			dialogFlavorAddCart(event) {
+			
 				const dialogFlavor = this.dialogFlavor;
 				let flag = true;
 				let dishFlavor = [];
@@ -739,10 +783,10 @@
 						flavors: [],
 						image: dialogFlavor.image,
 						name: dialogFlavor.name
-					});
+					},event);
 					this.dialogFlavor.show = false;
 				}
-
+			
 			},
 			//网络图片路径转换
 			imgPathConvert(path) {
@@ -751,34 +795,13 @@
 			},
 			//跳转到去结算界面
 			toAddOrderPage() {
-				const token = uni.getStorageSync('token');
-				if (token) {
-					if (this.cartData.length > 0) {
-						uni.navigateTo({
-							url: '/pages/addOrder/addOrder'
-						});
-					}
-				} else {
-					uni.showModal({
-						title: '提示',
-						content: '请登录',
-						success: function(res) {
-							if (res.confirm) {
-								uni.switchTab({
-									url: '/pages/my/my'
-								});
-							} else if (res.cancel) {
-								console.log('用户点击取消');
-							}
-						}
+				const token = this.getTokenInfo();
+				if (!token) return;
+				if (this.cartData.length > 0) {
+					uni.navigateTo({
+						url: '/pages/addOrder/addOrder'
 					});
 				}
-
-			},
-			toUserPage() {
-				window.requestAnimationFrame(() => {
-					window.location.href = '/front/page/user.html';
-				});
 			},
 			async dishDetails(item) {
 				//先清除对象数据，如果不行的话dialog使用v-if
@@ -786,6 +809,7 @@
 				this.setMealDialog.item = {};
 				if (Array.isArray(item.flavors)) {
 					this.detailsDialog.item = item;
+					console.log('item',item)
 					this.detailsDialog.show = true;
 				} else {
 					//显示套餐的数据
@@ -800,7 +824,28 @@
 						return uni.$showMsg();
 					}
 				}
-			}
+			},
+			// 获取 Token 信息
+			getTokenInfo() {
+			    const token = uni.getStorageSync('token');
+			    if (!token) {
+			        uni.showModal({
+			            title: '提示',
+			            content: '请登录',
+			            success: function(res) {
+			                if (res.confirm) {
+			                    uni.switchTab({
+			                        url: '/pages/my/my'
+			                    });
+			                } else if (res.cancel) {
+			                    console.log('用户点击取消');
+			                }
+			            }
+			        });
+			        return;
+			    }
+			    return token;
+			},
 		}
 	};
 </script>
