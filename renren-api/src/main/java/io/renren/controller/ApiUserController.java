@@ -1,7 +1,6 @@
 package io.renren.controller;
 
 import io.renren.annotation.Login;
-import io.renren.common.dto.UserDTO;
 import io.renren.common.entity.UserEntity;
 import io.renren.common.utils.Result;
 import io.renren.dto.UpdateUserInfoDto;

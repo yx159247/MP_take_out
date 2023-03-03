@@ -8,7 +8,6 @@
 
 package io.renren.modules.sys.dao;
 
-import io.renren.common.dao.BaseDao;
 import io.renren.modules.sys.entity.SysDeptEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,7 +20,7 @@ import java.util.Map;
  * @author Mark sunlightcs@gmail.com
  */
 @Mapper
-public interface SysDeptDao extends BaseDao<SysDeptEntity> {
+public interface SysDeptDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<SysDeptEntity> {
 
     List<SysDeptEntity> getList(Map<String, Object> params);
 

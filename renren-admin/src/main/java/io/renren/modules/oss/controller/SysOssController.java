@@ -17,13 +17,14 @@ import io.renren.common.oss.cloud.OSSFactory;
 import io.renren.common.oss.entity.SysOssEntity;
 import io.renren.common.oss.service.SysOssService;
 import io.renren.common.page.PageData;
+import io.renren.common.service.SysParamsService;
 import io.renren.common.utils.*;
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.common.validator.group.AliyunGroup;
 import io.renren.common.validator.group.QcloudGroup;
 import io.renren.common.validator.group.QiniuGroup;
 
-import io.renren.modules.sys.service.SysParamsService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FilenameUtils;

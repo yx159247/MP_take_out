@@ -8,7 +8,6 @@
 
 package io.renren.service;
 
-import io.renren.common.dto.UserDTO;
 import io.renren.common.entity.UserEntity;
 import io.renren.common.service.BaseService;
 import io.renren.dto.UpdateUserInfoDto;
@@ -23,7 +22,7 @@ import io.renren.vo.LoginVo;
  */
 public interface UserService extends BaseService<UserEntity> {
 
-	UserEntity getByMobile(String mobile);
+
 
 	UserEntity getUserByUserId(Long userId);
 

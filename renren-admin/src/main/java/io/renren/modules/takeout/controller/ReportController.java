@@ -2,8 +2,8 @@ package io.renren.modules.takeout.controller;
 
 import io.renren.common.utils.Result;
 import io.renren.modules.sys.service.SysUserService;
-import io.renren.common.service.OrdersService;
-import io.renren.common.service.UserService;
+import io.renren.modules.takeout.service.OrdersService;
+import io.renren.modules.takeout.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

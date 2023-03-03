@@ -9,8 +9,8 @@
 package io.renren.common.service;
 
 
-import io.renren.common.page.PageData;
 import io.renren.common.dto.SysParamsDTO;
+import io.renren.common.page.PageData;
 import io.renren.common.entity.SysParamsEntity;
 
 import java.util.List;

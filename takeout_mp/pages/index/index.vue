@@ -41,7 +41,7 @@
 				<!-- <mescroll-uni :fixed="false" ref="mescrollRef" :height="wh"  :down="downOption" :up="upOption"> -->
 					
 					<view class="divItem"  v-for="(item, index) in dishList" :key="index" @click="dishDetails(item)">
-						<u-image width="172rpx" height="172rpx" :src="imgPathConvert(item.image)">
+						<u-image width="172rpx" height="172rpx" :src="item.image">
 							<image src="../../static/images/noImg.png" />
 						</u-image>
 						<view>
@@ -146,7 +146,7 @@
 					<mescroll-uni :fixed="false" :height=wh ref="mescrollRef" :down="downOption" :up="upOption">
 					<view class="divCartContent">
 						<view v-for="item in cartData" :key="item.id" class="divCartItem">
-							<u-image width="128rpx" height="128rpx" :src="imgPathConvert(item.image)"></u-image>
+							<u-image width="128rpx" height="128rpx" :src="item.image"></u-image>
 							<view class="divDesc">
 								<view class="name">{{ item.name }}</view>
 								<view class="price">
@@ -177,7 +177,7 @@
 			 ref="detailsDialog">
 			<view class="detailsDialog">
 				<view class="divContainer">
-					<u-image :src="imgPathConvert(detailsDialog.item.image)">
+					<u-image :src="detailsDialog.item.image">
 						<view slot="error" class="image-slot">
 							<image src="../../static/images/noImg.png" />
 						</view>
@@ -219,7 +219,7 @@
 				<view class="divContainer">
 					<view class="title">{{ setMealDialog.item.name }}</view>
 					<view class="item" v-for="(item, index) in setMealDialog.item.list" :key="index">
-						<u-image :src="imgPathConvert(item.image)">
+						<u-image :src="item.image">
 							<view slot="error" class="image-slot">
 								<image src="../../static/images/noImg.png" />
 							</view>
@@ -787,11 +787,6 @@
 					this.dialogFlavor.show = false;
 				}
 			
-			},
-			//网络图片路径转换
-			imgPathConvert(path) {
-				return this.QiNiuYunUrl + path;
-				// return imgPath(path)
 			},
 			//跳转到去结算界面
 			toAddOrderPage() {

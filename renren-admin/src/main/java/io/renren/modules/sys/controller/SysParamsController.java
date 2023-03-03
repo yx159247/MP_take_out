@@ -10,7 +10,9 @@ package io.renren.modules.sys.controller;
 
 import io.renren.common.annotation.LogOperation;
 import io.renren.common.constant.Constant;
+import io.renren.common.dto.SysParamsDTO;
 import io.renren.common.page.PageData;
+import io.renren.common.service.SysParamsService;
 import io.renren.common.utils.ExcelUtils;
 import io.renren.common.utils.Result;
 import io.renren.common.validator.AssertUtils;
@@ -18,9 +20,9 @@ import io.renren.common.validator.ValidatorUtils;
 import io.renren.common.validator.group.AddGroup;
 import io.renren.common.validator.group.DefaultGroup;
 import io.renren.common.validator.group.UpdateGroup;
-import io.renren.modules.sys.dto.SysParamsDTO;
+
 import io.renren.modules.sys.excel.SysParamsExcel;
-import io.renren.modules.sys.service.SysParamsService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

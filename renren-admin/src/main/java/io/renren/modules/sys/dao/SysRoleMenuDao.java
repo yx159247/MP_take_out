@@ -8,7 +8,6 @@
 
 package io.renren.modules.sys.dao;
 
-import io.renren.common.dao.BaseDao;
 import io.renren.modules.sys.entity.SysRoleMenuEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,7 +19,7 @@ import java.util.List;
  * @author Mark sunlightcs@gmail.com
  */
 @Mapper
-public interface SysRoleMenuDao extends BaseDao<SysRoleMenuEntity> {
+public interface SysRoleMenuDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<SysRoleMenuEntity> {
 
 	/**
 	 * 根据角色ID，获取菜单ID列表

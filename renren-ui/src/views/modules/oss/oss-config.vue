@@ -6,6 +6,7 @@
           <el-radio :label="1">{{ $t('oss.type1') }}</el-radio>
           <el-radio :label="2">{{ $t('oss.type2') }}</el-radio>
           <el-radio :label="3">{{ $t('oss.type3') }}</el-radio>
+          <el-radio :label="6">{{ $t('oss.type6') }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <template v-if="dataForm.type === 1">
@@ -88,6 +89,29 @@
           </el-select>
         </el-form-item>
       </template>
+      <template v-else-if="dataForm.type === 6">
+        <el-form-item prop="minioEndpoint" :label="$t('oss.minioEndpoint')">
+          <el-input v-model="dataForm.minioEndpoint" :placeholder="$t('oss.minioEndpointTips')"></el-input>
+        </el-form-item>
+        <el-form-item prop="minioDomain" :label="$t('oss.minioDomain')">
+          <el-input v-model="dataForm.minioDomain" :placeholder="$t('oss.minioDomainTips')"></el-input>
+        </el-form-item>
+        <el-form-item prop="minioAccessKey" :label="$t('oss.minioAccessKeyId')">
+          <el-input v-model="dataForm.minioAccessKey" :placeholder="$t('oss.minioAccessKeyIdTips')"></el-input>
+        </el-form-item>
+        <el-form-item prop="minioSecretKey" :label="$t('oss.minioAccessKeySecret')">
+          <el-input v-model="dataForm.minioSecretKey" :placeholder="$t('oss.minioAccessKeySecretTips')"></el-input>
+        </el-form-item>
+        <el-form-item prop="minioBucketName" :label="$t('oss.minioBucketName')">
+          <el-input v-model="dataForm.minioBucketName" :placeholder="$t('oss.minioBucketNameTips')"></el-input>
+        </el-form-item>
+        <el-form-item prop="minioPrefix" :label="$t('oss.minioPrefix')">
+          <el-input v-model="dataForm.minioPrefix" :placeholder="$t('oss.minioPrefixTips')"></el-input>
+        </el-form-item>
+        <el-form-item label="是否HTTPS" prop="isHttps">
+          <el-switch v-model="dataForm.isHttps" :active-value="1" :inactive-value="0"></el-switch>
+        </el-form-item>
+      </template>
     </el-form>
     <template slot="footer">
       <el-button @click="visible = false">{{ $t('cancel') }}</el-button>
@@ -121,7 +145,14 @@ export default {
         qcloudSecretId: '',
         qcloudSecretKey: '',
         qcloudBucketName: '',
-        qcloudRegion: ''
+        qcloudRegion: '',
+        minioEndpoint: '',
+        minioDomain: '',
+        minioAccessKey: '',
+        minioSecretKey: '',
+        minioBucketName: '',
+        minioPrefix: '',
+        isHttps: 0
       }
     }
   },
@@ -171,6 +202,19 @@ export default {
           { required: true, message: this.$t('validate.required'), trigger: 'blur' }
         ],
         qcloudRegion: [
+          { required: true, message: this.$t('validate.required'), trigger: 'blur' }
+        ],
+        minioEndpoint: [
+          { required: true, message: this.$t('validate.required'), trigger: 'blur' }
+        ],
+
+        minioAccessKey: [
+          { required: true, message: this.$t('validate.required'), trigger: 'blur' }
+        ],
+        minioSecretKey: [
+          { required: true, message: this.$t('validate.required'), trigger: 'blur' }
+        ],
+        minioBucketName: [
           { required: true, message: this.$t('validate.required'), trigger: 'blur' }
         ]
       }

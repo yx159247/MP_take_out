@@ -21,7 +21,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Mapper
-public interface SysParamsDao extends BaseDao<SysParamsEntity> {
+public interface SysParamsDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<SysParamsEntity> {
     /**
      * 根据参数编码，查询value
      * @param paramCode 参数编码

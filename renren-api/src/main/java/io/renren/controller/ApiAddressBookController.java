@@ -1,10 +1,10 @@
 package io.renren.controller;
 
 import io.renren.annotation.Login;
-import io.renren.common.dto.AddressBookDTO;
 import io.renren.common.entity.AddressBookEntity;
-import io.renren.common.service.AddressBookService;
 import io.renren.common.utils.Result;
+import io.renren.dto.AddressBookDTO;
+import io.renren.service.AddressBookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

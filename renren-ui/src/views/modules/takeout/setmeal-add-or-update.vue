@@ -58,7 +58,7 @@
         <el-form-item label="套餐图片" class="uploadImg">
           <el-upload
               class="avatar-uploader"
-              action="http://localhost:8080/api/takeout/common/upload"
+              :action="uploadUrl"
               :headers="headerObj"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
@@ -188,6 +188,7 @@ import {getCategoryList, queryDishList} from "@/api/dish/dish";
 export default {
   data() {
     return {
+      uploadUrl: '',
       visible: false,
       dataForm: {
         name: '',
@@ -275,6 +276,7 @@ export default {
   },
   methods: {
     init() {
+      this.uploadUrl = `${window.SITE_CONFIG['apiURL']}/sys/oss/upload?token=${Cookies.get('token')}`
       this.visible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
@@ -296,9 +298,7 @@ export default {
 
         this.dataForm.price = res.data.price / 100
 
-        this.imageUrl = this.QiNiuYunUrl+this.dataForm.image;
-
-        //this.imageUrl = `/common/download?name=${res.data.image}`
+        this.imageUrl = this.dataForm.image;
         this.checkList = res.data.setmealDishes
         this.dishTable = res.data.setmealDishes
         this.dataForm.idType = res.data.categoryId
@@ -348,11 +348,21 @@ export default {
     }, 1000, {'leading': true, 'trailing': false}),
 
     handleAvatarSuccess(response, file, fileList) {
-      // this.imageUrl = response.data
-
-      this.imageUrl = this.QiNiuYunUrl + response.data
-      this.dataForm.image = response.data
-
+      if(response.code === 0){
+        this.imageUrl = response.data.src
+        this.dataForm.image = this.imageUrl
+        this.$message({
+            message: this.$t('prompt.uploadSuccess'),
+            type: 'success',
+            duration: 1000,
+          })
+      } else{
+        this.$message({
+            message: this.$t('prompt.uploadFailed'),
+            type: 'error',
+            duration: 1000,
+          })
+      }
     },
 
     onChange(file) {

@@ -8,7 +8,6 @@
 
 package io.renren.modules.sys.dao;
 
-import io.renren.common.dao.BaseDao;
 import io.renren.modules.sys.entity.SysRoleDataScopeEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,7 +20,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Mapper
-public interface SysRoleDataScopeDao extends BaseDao<SysRoleDataScopeEntity> {
+public interface SysRoleDataScopeDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<SysRoleDataScopeEntity> {
 
     /**
      * 根据角色ID，获取部门ID列表

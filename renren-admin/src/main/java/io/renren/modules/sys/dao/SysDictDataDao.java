@@ -8,7 +8,6 @@
 
 package io.renren.modules.sys.dao;
 
-import io.renren.common.dao.BaseDao;
 import io.renren.modules.sys.entity.DictData;
 import io.renren.modules.sys.entity.SysDictDataEntity;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,7 +20,7 @@ import java.util.List;
  * @author Mark sunlightcs@gmail.com
  */
 @Mapper
-public interface SysDictDataDao extends BaseDao<SysDictDataEntity> {
+public interface SysDictDataDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<SysDictDataEntity> {
 
     /**
      * 字典数据列表

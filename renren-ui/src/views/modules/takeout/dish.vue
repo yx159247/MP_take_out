@@ -44,8 +44,8 @@
         <el-table-column  prop="image" label="图片" align="center">
           <template slot-scope="{ row }">
             <el-image style="width: auto; height: 40px; border:none;cursor: pointer;"
-                      :src="getImage(row.image)"
-                      :preview-src-list="[ QiNiuYunUrl+row.image ]" >
+                      :src="row.image"
+                      :preview-src-list="row.image" >
               <div slot="error" class="image-slot">
                 <img src="../../../assets/img/noImg.png"  style="width: auto; height: 40px; border:none;" >
               </div>
@@ -119,11 +119,7 @@ export default {
     AddOrUpdate
   },
   methods:{
-    getImage (image) {
-      //return `http://rafqqxzvc.hn-bkt.clouddn.com/${image}`
-      console.log(this.QiNiuYunUrl+image)
-      return this.QiNiuYunUrl+image
-    },
+
     updateStatus(row){
       let params = {}
       params.id = row.id

@@ -1,11 +1,3 @@
-/**
- * Copyright (c) 2018 人人开源 All rights reserved.
- * <p>
- * https://www.renren.io
- * <p>
- * 版权所有，侵权必究！
- */
-
 package io.renren.service.impl;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
@@ -13,18 +5,16 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import cn.binarywang.wx.miniapp.util.WxMaConfigHolder;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import io.renren.common.dao.UserDao;
-import io.renren.common.dto.UserDTO;
 import io.renren.common.entity.UserEntity;
 import io.renren.common.exception.RenException;
 import io.renren.common.redis.RedisUtils;
-import io.renren.common.service.impl.BaseServiceImpl;
 import io.renren.common.utils.UserUtils;
 import io.renren.common.utils.ValidateCodeUtils;
-import io.renren.dto.UpdateUserInfoDto;
-import io.renren.dto.PhoneLoginDto;
-import io.renren.entity.TokenEntity;
+import io.renren.dao.UserDao;
 import io.renren.dto.LoginDTO;
+import io.renren.dto.PhoneLoginDto;
+import io.renren.dto.UpdateUserInfoDto;
+import io.renren.entity.TokenEntity;
 import io.renren.properties.WeixinProperties;
 import io.renren.service.TokenService;
 import io.renren.service.UserService;
@@ -40,9 +30,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
-@Service("io.renren.service.UserService")
+/**
+ * 用户信息
+ *
+ * @author David 321740709@qq.com
+ * @since 1.0.0 2022-08-17
+ */
+@Service
 @Slf4j
 public class UserServiceImpl extends BaseServiceImpl<UserDao, UserEntity> implements UserService {
     @Autowired
@@ -59,11 +54,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserDao, UserEntity> implem
     private RedisUtils redisUtils;
     @Autowired
     private UserUtils userUtils;
-
-    @Override
-    public UserEntity getByMobile(String mobile) {
-        return baseDao.getUserByMobile(mobile);
-    }
 
     @Override
     public UserEntity getUserByUserId(Long userId) {
@@ -166,7 +156,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserDao, UserEntity> implem
     //}
 
     @Override
-	@Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public LoginVo phoneLogin(PhoneLoginDto dto) {
         String phone = dto.getPhone();
         String code = dto.getCode();
@@ -232,8 +222,5 @@ public class UserServiceImpl extends BaseServiceImpl<UserDao, UserEntity> implem
         int res = userDao.updateById(userEntity);
         return res > 0;
     }
-
-
-
 
 }

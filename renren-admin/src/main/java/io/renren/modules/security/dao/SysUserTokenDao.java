@@ -8,7 +8,6 @@
 
 package io.renren.modules.security.dao;
 
-import io.renren.common.dao.BaseDao;
 import io.renren.modules.security.entity.SysUserTokenEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,7 +18,7 @@ import org.apache.ibatis.annotations.Param;
  * @author Mark sunlightcs@gmail.com
  */
 @Mapper
-public interface SysUserTokenDao extends BaseDao<SysUserTokenEntity> {
+public interface SysUserTokenDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<SysUserTokenEntity> {
 
     SysUserTokenEntity getByToken(String token);
 

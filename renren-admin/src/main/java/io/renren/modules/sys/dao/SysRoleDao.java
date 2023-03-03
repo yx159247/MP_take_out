@@ -8,7 +8,6 @@
 
 package io.renren.modules.sys.dao;
 
-import io.renren.common.dao.BaseDao;
 import io.renren.modules.sys.entity.SysRoleEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,7 +17,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author Mark sunlightcs@gmail.com
  */
 @Mapper
-public interface SysRoleDao extends BaseDao<SysRoleEntity> {
+public interface SysRoleDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<SysRoleEntity> {
 	
 
 }

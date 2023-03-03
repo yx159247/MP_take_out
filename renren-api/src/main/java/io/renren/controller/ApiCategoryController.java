@@ -1,10 +1,8 @@
 package io.renren.controller;
 
-import io.renren.annotation.Login;
-import io.renren.common.dto.CategoryDTO;
-import io.renren.common.entity.CategoryEntity;
-import io.renren.common.service.CategoryService;
 import io.renren.common.utils.Result;
+import io.renren.dto.CategoryDTO;
+import io.renren.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,12 +9,12 @@
 package io.renren.common.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
+import redis.clients.jedis.params.ScanParams;
 
-import java.util.Collection;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -122,5 +122,15 @@ public class RedisUtils {
 
     public Object rightPop(String key){
         return redisTemplate.opsForList().rightPop(key);
+    }
+
+    public void deleteKeysWithPrefix(String prefix) {
+        Set<String> keys = redisTemplate.keys(prefix + '*');
+
+        if (keys != null && keys.size() > 0) {
+            for (String key : keys) {
+                redisTemplate.delete(key);
+            }
+        }
     }
 }

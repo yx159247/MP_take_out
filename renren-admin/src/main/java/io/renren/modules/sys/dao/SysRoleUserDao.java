@@ -8,7 +8,6 @@
 
 package io.renren.modules.sys.dao;
 
-import io.renren.common.dao.BaseDao;
 import io.renren.modules.sys.entity.SysRoleUserEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,7 +20,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Mapper
-public interface SysRoleUserDao extends BaseDao<SysRoleUserEntity> {
+public interface SysRoleUserDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<SysRoleUserEntity> {
 
     /**
      * 根据角色ids，删除角色用户关系

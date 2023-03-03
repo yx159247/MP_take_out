@@ -1,9 +1,8 @@
 package io.renren.controller;
 
-import io.renren.annotation.Login;
-import io.renren.common.dto.DishDTO;
-import io.renren.common.service.DishService;
 import io.renren.common.utils.Result;
+import io.renren.dto.DishDTO;
+import io.renren.service.DishService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

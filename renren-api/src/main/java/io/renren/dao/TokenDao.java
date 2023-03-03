@@ -8,7 +8,6 @@
 
 package io.renren.dao;
 
-import io.renren.common.dao.BaseDao;
 import io.renren.entity.TokenEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,7 +17,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author Mark sunlightcs@gmail.com
  */
 @Mapper
-public interface TokenDao extends BaseDao<TokenEntity> {
+public interface TokenDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<TokenEntity> {
     TokenEntity getByToken(String token);
 
     TokenEntity getByUserId(Long userId);

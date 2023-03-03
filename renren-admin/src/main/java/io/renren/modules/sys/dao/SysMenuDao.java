@@ -8,7 +8,6 @@
 
 package io.renren.modules.sys.dao;
 
-import io.renren.common.dao.BaseDao;
 import io.renren.modules.sys.entity.SysMenuEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,7 +20,7 @@ import java.util.List;
  * @author Mark sunlightcs@gmail.com
  */
 @Mapper
-public interface SysMenuDao extends BaseDao<SysMenuEntity> {
+public interface SysMenuDao extends com.baomidou.mybatisplus.core.mapper.BaseMapper<SysMenuEntity> {
 
 	SysMenuEntity getById(@Param("id") Long id);
 
