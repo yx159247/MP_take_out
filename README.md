@@ -56,8 +56,8 @@ SQL文件位于根目录下的takeout_mysql8.sql，需要MYSQL8以上版本。
 ```
 take_out
 │ 
-├─renren-admin      管理后台
-│    ├─db  数据库SQL脚本
+├─renren-admin      美食元素后台管理后端服务
+│    │
 │    │ 
 │    ├─modules  模块
 │    │    ├─job 定时任务
@@ -73,7 +73,7 @@ take_out
 │        └─application.yml   全局配置文件
 │       
 │ 
-├─renren-api        外卖小程序API服务
+├─renren-api        美食元素小程序后端服务
 │ 
 ├─renren-common     公共模块
 ├─renren-generator  代码生成器
@@ -83,7 +83,7 @@ take_out
 │           ├─application.yml    全局配置文件
 │           └─generator.properties   代码生成器，配置文件
 │
-├─renren-ui     后台管理VUe前端项目
+├─renren-ui     美食元素后台管理Vue前端项目
 ├─takeout_mp    uniapp微信小程序项目
 ```
 
@@ -137,64 +137,28 @@ take_out
 | NodeJs   | 14.x.x |
 
 ## 项目截图
-
-![image](https://user-images.githubusercontent.com/78630698/174472611-aca5b2e1-b48e-4af6-9ed6-710d46a79a0f.png)
-![image](https://user-images.githubusercontent.com/78630698/174472624-1a0ee932-8320-4822-9d35-e047db6eddb3.png)
-![image](https://user-images.githubusercontent.com/78630698/174472629-290d4791-683b-48c5-9a9f-4d361d843db1.png)
+![8771677830544_ pic](https://user-images.githubusercontent.com/78630698/222665185-afb2d72e-be42-4b09-9674-775dbfd015bc.jpg)
+![8781677830544_ pic](https://user-images.githubusercontent.com/78630698/222665241-fd8824a0-42e3-463f-b403-10b2a97867c1.jpg)
+![8721677830542_ pic](https://user-images.githubusercontent.com/78630698/222665285-651bd8d3-08fb-4c31-9570-4ac38b2cfa44.jpg)
+![8731677830542_ pic](https://user-images.githubusercontent.com/78630698/222665305-fff913e2-2c6c-46c8-ab33-e1a651f9d00f.jpg)
+![8741677830542_ pic](https://user-images.githubusercontent.com/78630698/222665319-372ebf34-6f6b-4d2b-9caf-81b9e288432b.jpg)
+![8751677830543_ pic](https://user-images.githubusercontent.com/78630698/222665332-297d2390-8377-4cfe-ac0b-0c4b0b691fb2.jpg)
+![8761677830543_ pic](https://user-images.githubusercontent.com/78630698/222665344-6a3e6977-7865-44a0-bf41-bf87a3d96a9f.jpg)
 ![image](https://user-images.githubusercontent.com/78630698/187065050-6382f8fd-7f62-4921-8474-aa438b519e0b.png)
 ![image](https://user-images.githubusercontent.com/78630698/187065081-ce95050e-39cd-4e3f-9e03-3e5fbcfa86e6.png)
 
-
 ## 快速开始
 
-- 通过git下载源码
+### 准备工作(IDE、小程序测试号、环境等)
 
-- idea、eclipse需安装lombok插件，不然会提示找不到entity的get set方法
+#### 注册小程序测试账号
 
-- 创建数据库takeout，数据库编码为UTF-8mb4
+- 打开网址：https://developers.weixin.qq.com/miniprogram/dev/devtools/sandbox.html
+- 按着步骤操作就可以了
 
-- 执行takeout_mysql8.sql文件，初始化数据
+#### 安装Minio(如果你用阿里云、腾讯云、七牛云可以忽略此步骤，直接看文件上传配置那一步)
 
-- 修改application-dev.yml文件，更新MySQL账号和密码、Redis的相关配置信息
-
-- 修改application-dev.yml文件，更新Minio配置（下面有安装Minio的教程）
-
-- ```
-  minio:
-    # minio配置的地址，端口9000
-    url: http://你安装minio的ip:9000
-    # 账号
-    accessKey: minio
-    # 密码
-    secretKey: minio123
-    # MinIO桶名字
-    bucketName: images
-  ```
-
-- 在renren-api模块下，修改application.yml文件，更新微信小程序配置
-
-  ```
-  weixin:
-    getPhoneNumberUrl:
-    getAccessTokenUrl:
-    jscode2sessionUrl:
-    appid:
-    secret:
-  ```
-
-- 
-
-- 在takeout目录下，执行mvn clean install
-
-- Eclipse、IDEA运行AdminApplication.java，则可启动项目【renren-admin】
-
-- 再启动前端项目
-
-- 账号密码：admin/admin
-
-### 安装Minio
-
-- 用docker拉取Minio镜像
+- 虚拟机或者云服务器用docker拉取Minio镜像
 
   ```dockerfile
   docker pull minio/minio
@@ -228,23 +192,54 @@ take_out
   ![image](https://user-images.githubusercontent.com/78630698/183250838-be4dc053-5073-4415-9c23-657cdcf805f2.png)
   ![image](https://user-images.githubusercontent.com/78630698/183250865-e3e7d3ce-5fc5-4c42-9ecd-d0723d57f944.png)
 
-- 更改Yml配置文件
-
-  ![image](https://user-images.githubusercontent.com/78630698/183250736-99e50ba9-82fe-43d9-8674-c57ba933aa9a.png)
-
-  ps：url改成你自己的，账号和密码如果之前安装docker镜像的时候没动就不用改，bucketName可以不用修改。
-
-  
-
-### 安装Nodejs环境(如果有请忽略)
+#### 安装Nodejs环境(如果有请忽略)
 
 - NodeJs版本不要安装太高，13.x-14.x最好
 - 附上一个下载链接：https://nodejs.org/download/release/v13.10.0/
 - 具体配置环境变量等请自行百度一下找一下教程，步骤很简单。
 
+### 运行后台管理系统后端项目
+
+- 通过git下载源码
+
+- idea、eclipse需安装lombok插件，不然会提示找不到entity的get set方法
+
+- 创建数据库takeout，数据库编码为UTF-8mb4
+
+- 执行takeout_mysql8.sql文件，初始化数据
+
+- 打开application-dev.yml文件，修改MySQL账号和密码、Redis的相关配置信息
+
+- 打开application-dev.yml文件，更新Minio配置（下面有安装Minio的教程）
+
+- ```
+  minio:
+    # minio配置的地址，端口9000
+    url: http://你安装minio的ip:9000
+    # 账号
+    accessKey: minio
+    # 密码
+    secretKey: minio123
+    # MinIO桶名字
+    bucketName: images
+  ```
+
+- 在renren-api模块下，打开application.yml文件，修改微信小程序appid和secret配置
+
+  ```
+  weixin:
+    appid:
+    secret:
+  ```
+
+- 在takeout目录下，执行mvn clean install
+
+- Eclipse、IDEA运行AdminApplication.java，则可启动项目【renren-admin】
+
+
 ### 运行后台管理系统前端项目
 
-- 配置好Nodejs环境之后就可以打开后台管理前端源代码
+- 配置好Nodejs环境之后就可以用WebStorm或者VsCode打开renren-ui文件夹(后台管理前端源代码)
 
 - 打开终端输入
 
@@ -259,10 +254,24 @@ take_out
   ```
 
   等待编译完成后，会自动打开页面，或者访问 http://localhost:8001/
+  - 账号密码：admin/admin
+- 
+
+- 更改Yml配置文件
+
+  ![image](https://user-images.githubusercontent.com/78630698/183250736-99e50ba9-82fe-43d9-8674-c57ba933aa9a.png)
+
+  ps：url改成你自己的，账号和密码如果之前安装docker镜像的时候没动就不用改，bucketName可以不用修改。
+
 
  ### 安装以及修改HBuilder X配置以及微信开发者工具配置
 
-- 修改微信开发者工具的设置，将服务端口打开，不打开，HBuilder X在编译之后不会自动唤醒微信开发者工具
+- 先去Dcloud官网下载Hubilder X 、以及微信开发者工具
+- Hbuilder X：https://www.dcloud.io/hbuilderx.html?source=javascriptc.com
+- 微信开发者工具：https://developers.weixin.qq.com/miniprogram/dev/devtools/nightly.html
+- 然后安装打开Hbuilder X软件，打开takeout_mp文件夹(小程序的源代码)
+
+- 打开微信开发者工具微信修改微信开发者工具的设置，将服务端口打开，不打开，HBuilder X在编译之后不会自动唤醒微信开发者工具
 
   ![image](https://user-images.githubusercontent.com/78630698/192106411-320ba427-52ab-480d-bd14-7ff5cfe1c744.png)
 
@@ -276,7 +285,12 @@ take_out
 
 - 完成了以上配置之后就可以启动小程序项目了
 
-  ![image](https://user-images.githubusercontent.com/78630698/192106657-5cdf1224-7802-4016-8cea-333a81ef7bd2.png)	
+  ### ![image](https://user-images.githubusercontent.com/78630698/192106657-5cdf1224-7802-4016-8cea-333a81ef7bd2.png)
+
+### 文件上传配置
+
+- 在后台管理系统里直接更改配置
+- ![image](https://user-images.githubusercontent.com/78630698/222681494-1f2862da-9e47-4d42-8684-12b73ed030b1.png)
 
 ## 注意事项
 
@@ -292,3 +306,4 @@ take_out
 - 有问题可以扫下面的二维码添加我的微信(添加好友时，请备注来意)，我会尽力帮您解答！
 
   ![WeChat](https://user-images.githubusercontent.com/78630698/187065150-536ccff2-c5e9-4a52-abea-87deed9047a4.jpg)	
+
