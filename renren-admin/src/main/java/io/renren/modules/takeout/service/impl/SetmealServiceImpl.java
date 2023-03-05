@@ -67,25 +67,6 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
         return setmealDto;
     }
 
-    @Override
-    public List<SetmealDTO> findSetmealByCategoryId(SetmealDTO setmealDTO) {
-
-        List<SetmealDTO> setmealDTOList = null;
-
-        LambdaQueryWrapper<SetmealEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(setmealDTO.getCategoryId() != null, SetmealEntity::getCategoryId, setmealDTO.getCategoryId());
-        queryWrapper.eq(setmealDTO.getStatus() != null, SetmealEntity::getStatus, setmealDTO.getStatus());
-        queryWrapper.orderByDesc(SetmealEntity::getUpdateDate);
-        List<SetmealEntity> setmealEntityList= setmealDao.selectList(queryWrapper);
-        setmealDTOList = new ArrayList<>();
-        for (SetmealEntity setmealEntity : setmealEntityList) {
-            SetmealDTO setmealDTO1 = new SetmealDTO();
-            BeanUtils.copyProperties(setmealEntity, setmealDTO1);
-            setmealDTOList.add(setmealDTO1);
-        }
-
-        return setmealDTOList;
-    }
 
     @Override
     public void updateStatus(Long[] ids) {

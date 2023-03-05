@@ -11,4 +11,7 @@ public class UpdateUserInfoDto extends PhoneLoginDto{
     private String nickName;
     private Integer gender;
     private String avatarUrl;
+    private String name;
+
+    private String idNumber;
 }

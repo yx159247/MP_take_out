@@ -2,11 +2,13 @@ package io.renren.modules.takeout.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.renren.common.entity.CategoryEntity;
 import io.renren.common.entity.DishEntity;
 import io.renren.common.entity.DishFlavorEntity;
 import io.renren.common.entity.SetmealDishEntity;
 import io.renren.common.exception.RenException;
+import io.renren.common.page.PageData;
 import io.renren.common.redis.RedisKeys;
 import io.renren.common.redis.RedisUtils;
 import io.renren.modules.takeout.dao.CategoryDao;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 菜品管理
@@ -59,6 +62,22 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
         return wrapper;
     }
 
+    @Override
+    public PageData<DishDTO> page(Map<String, Object> params) {
+        IPage<DishEntity> page = dishDao.selectPage(
+                getPage(params, null, false),
+                getWrapper(params)
+        );
+        PageData<DishDTO> pageData = getPageData(page, DishDTO.class);
+
+        List<DishDTO> collect = pageData.getList().stream().map(dishDTO -> {
+            CategoryEntity categoryEntity = categoryDao.selectById(dishDTO.getCategoryId());
+            dishDTO.setCategoryName(categoryEntity.getName());
+            return dishDTO;
+        }).collect(Collectors.toList());
+        pageData.setList(collect);
+        return pageData;
+    }
     @Override
     public DishDTO getByWithFlavor(Long id) {
         DishEntity dishEntity = dishDao.selectById(id);

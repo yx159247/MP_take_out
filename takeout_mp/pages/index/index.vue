@@ -99,7 +99,7 @@
 			<button class="btnSubmit" v-if="cartData.length < 1">去结算</button>
 			<!-- <view  class="btnSubmitActive" @click="toAddOrderPage" v-else>去结算</view> -->
 			<button class="btnSubmitActive" @click="toAddOrderPage" v-else>去结算</button>
-			<!-- <u-button color="#ffc200" shape="circle" openType="getphonenumber">去结算</u-button> -->
+			<!-- <u-button color="#feca50" shape="circle" openType="getphonenumber">去结算</u-button> -->
 		</view>
 
 
@@ -434,7 +434,7 @@
 				divCartComponentsHeight = data.height
 				console.log('divCartComponentsHeight',divCartComponentsHeight);
 				console.log("得到节点信息" + JSON.stringify(data));
-				_this.fixedHeight = menuBarComponentsHeight + divCartComponentsHeight + divHeadComponentsHeight + 30
+				_this.fixedHeight = menuBarComponentsHeight + divCartComponentsHeight + divHeadComponentsHeight + 33
 				console.log('ComponentsHeight',_this.fixedHeight);
 				}).exec();
 				
@@ -471,7 +471,7 @@
 							}
 						}
 					} else {
-						return uni.$showMsg();
+						return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 					}
 					//获取菜品数据
 					if (res[1].code === 0) {
@@ -522,7 +522,7 @@
 					}
 					this.dishList = dishList;
 				} else {
-					return uni.$showMsg();
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 				}
 			},
 			//获取套餐数据setmealId
@@ -548,7 +548,7 @@
 					}
 					this.dishList = dishList;
 				} else {
-					return uni.$showMsg();
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 				}
 			},
 			//获取购物车数据
@@ -558,7 +558,7 @@
 					this.cartData = res.data;
 				} else {
 					console.log("-----------获取购物车失败-----------")
-					return uni.$showMsg();
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 				}
 			},
 			//菜单中往购物车中添加商品
@@ -595,7 +595,7 @@
 					}
 					this.getCartData();
 				} else {
-					return uni.$showMsg();
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 				}
 			},
 
@@ -629,7 +629,7 @@
 					}
 					this.getCartData();
 				} else {
-					return uni.$showMsg();
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 					this.$notify({
 						type: 'warning',
 						message: res.msg
@@ -667,7 +667,7 @@
 					console.log(this.dishList);
 					this.getCartData();
 				} else {
-					return uni.$showMsg();
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 				}
 			},
 			//购物车中减少商品数量
@@ -690,7 +690,7 @@
 					});
 					this.getCartData();
 				} else {
-					return uni.$showMsg();
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 				}
 			},
 
@@ -717,7 +717,7 @@
 					this.cartData = [];
 					this.cartDialogShow = false;
 				} else {
-					return uni.$showMsg();
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 				}				
 			},
 			//点击选择规格
@@ -816,7 +816,7 @@
 						};
 						this.setMealDialog.show = true;
 					} else {
-						return uni.$showMsg();
+						return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 					}
 				}
 			},

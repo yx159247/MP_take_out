@@ -5,7 +5,7 @@
 				<view class="divAddress">
 					<view @click="toAddressPage">
 						<view class="address">
-							<view v-if="address.detail.length < 1">
+							<view v-if="address == null">
 								<text style="color: gainsboro;font-size: 36rpx">请选择收货地址</text>
 
 							</view>
@@ -19,7 +19,7 @@
 
 						<view class="name">
 							<text
-								v-if="address.detail.length > 1">{{address.consignee}}{{address.gender === '1' ? '女士':'先生'}}</text>
+								v-if="!address == null">{{address.consignee}}{{address.gender === '1' ? '女士':'先生'}}</text>
 							<text>{{address.phone}}</text>
 
 
@@ -35,7 +35,7 @@
 					<view class="itemList">
 						<view class="item" v-for="(item,index) in cartData" :key="index">
 							<view class="u-image1">
-								<u-image width="128rpx" height="128rpx" :src="imgPathConvert(item.image)">
+								<u-image width="128rpx" height="128rpx" :src="item.image">
 
 									<image src="../../static/images/noImg.png" />
 
@@ -110,7 +110,7 @@
 	export default {
 		data() {
 			return {
-				QiNiuYunUrl: getApp().globalData.QiNiuYunUrl,
+				
 				imageUrl: '',
 				address: {
 					phone: '', //手机号
@@ -156,9 +156,6 @@
 		},
 		mounted() {},
 		methods: {
-			goBack() {
-				history.go(-1)
-			},
 			initData() {
 				//获取默认的地址
 				this.defaultAddress()
@@ -230,11 +227,6 @@
 				} else {
 					return uni.$showMsg(res.msg)
 				}
-			},
-			//网络图片路径转换
-			imgPathConvert(path) {
-
-				return this.QiNiuYunUrl + path
 			},
 		}
 

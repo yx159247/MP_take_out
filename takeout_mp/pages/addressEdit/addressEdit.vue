@@ -8,12 +8,12 @@
 					<view class="inputUser"><u-input fontSize="28rpx" border="none" maxlength='10' placeholder="请填写收货人的姓名" v-model="form.consignee"></u-input>
 					</view>
 					</el-input>
-					<text class="spanChecked" @click="form.gender = '1'">
-					<text :class="{iActive:form.gender === '1'}"></text>
+					<text class="spanChecked" @click="form.gender = '0'">
+					<text :class="{iActive:form.gender === '0'}"></text>
 					先生
 					</text>
-					<text class="spanChecked" @click="form.gender = '0'">
-						<text :class="{iActive:form.gender === 'gender0'}"></text>
+					<text class="spanChecked" @click="form.gender = '1'">
+						<text :class="{iActive:form.gender === '1'}"></text>
 						女士
 					</text>
 				</view>

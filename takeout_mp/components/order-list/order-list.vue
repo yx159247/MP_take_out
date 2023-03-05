@@ -209,7 +209,7 @@ position: relative;
 left: -14px;
 width: 6px;
 height: 22px;
-background-color: #f05050;
+background-color: #feca50;
 }
 .order .divBody .item .timeStatus .triangle {
 	position: absolute;

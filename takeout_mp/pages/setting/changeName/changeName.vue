@@ -2,42 +2,39 @@
 	<view>
 		<view class="nickname">
 			<u-input
-		placeholder="请输入昵称"
+		placeholder="请输入姓名"
 		clearable
 		border="none"
-		v-model="nickName"
+		v-model="name"
 		></u-input>
 		</view>
 		<view class="submit">
-			<u-button  color="#feca50" type="warning" text="确定" @click="onsubmit"></u-button>
+			<u-button color="#feca50" type="warning" text="确定" @click="onsubmit"></u-button>
 		</view>
 				
 	</view>
 </template>
 
 <script>
-import { h } from "vue"
+
 import {updateUserInfo} from'../../../api/sendCode.js'
 	export default {
 		data() {
 			return {
-				nickName : '',
+				name : '',
 			}
 		},
 		methods: {
 			onsubmit(){
 				let _this = this
 				let httpData = {
-					nickName : this.nickName
+					name : this.name
 				}
 				updateUserInfo(httpData).then(res =>{
 					uni.showLoading({
 							title: '加载中'
 						})
 					if (res.code === 0){
-						let userInfo = wx.getStorageSync('userInfo')
-						userInfo.nickName = _this.nickName
-						wx.setStorageSync('userInfo',userInfo)
 						setTimeout(() => {
 							uni.hideLoading();
 							// 这里此提示会被this.start()方法中的提示覆盖

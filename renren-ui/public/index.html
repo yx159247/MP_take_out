@@ -48,7 +48,7 @@
   <!-- 生产环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'prod') { %>
     <script>
-      window.SITE_CONFIG['apiURL'] = 'http://47.109.34.43:8080/api';
+      window.SITE_CONFIG['apiURL'] = 'http://localhost:8080/api';
     </script>
   <% } %>
 </head>

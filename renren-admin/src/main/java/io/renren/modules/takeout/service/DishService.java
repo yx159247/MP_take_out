@@ -1,9 +1,11 @@
 package io.renren.modules.takeout.service;
 
 import io.renren.common.entity.DishEntity;
+import io.renren.common.page.PageData;
 import io.renren.modules.takeout.dto.DishDTO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜品管理
@@ -57,4 +59,6 @@ public interface DishService extends CrudService<DishEntity, DishDTO> {
      */
     @Override
     void delete(Long[] aLong);
+
+    PageData<DishDTO> page(Map<String, Object> params);
 }

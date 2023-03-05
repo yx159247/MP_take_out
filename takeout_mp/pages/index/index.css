@@ -269,7 +269,7 @@
     width: 128rpx;
     height: 48rpx;
     opacity: 1;
-    background: #ffc200;
+    background: #feca50;
     border-radius: 24rpx;
     font-size: 24rpx;
     font-family: PingFangSC, PingFangSC-Regular;
@@ -458,7 +458,7 @@
     height: 60rpx;
     opacity: 1;
     background: #ffffff;
-    border: 2rpx solid #ffc200;
+    border: 2rpx solid #feca50;
     border-radius: 7px;
     line-height: 60rpx;
     padding-left: 26rpx;
@@ -476,7 +476,7 @@
 	height: 60rpx;
 	opacity: 1;
 	
-	border: 2rpx solid #ffc200;
+	border: 2rpx solid #feca50;
 	border-radius: 7px;
 	line-height: 60rpx;
 	padding-left: 26rpx;
@@ -487,7 +487,7 @@
 	
 	text-align: center;
 	color: #333333;   
-    background: #ffc200;
+    background: #feca50;
     font-weight: 500;
   }
   
@@ -519,7 +519,7 @@
     width: 200rpx;
     height: 60rpx;
     opacity: 1;
-    background: #ffc200;
+    background: #feca50;
     border-radius: 30rpx;
     text-align: center;
     line-height: 60rpx;
@@ -758,7 +758,7 @@
     width: 128rpx;
     height: 48rpx;
     opacity: 1;
-    background: #ffc200;
+    background: #feca50;
     border-radius: 24rpx;
     font-size: 24rpx;
     font-family: PingFangSC, PingFangSC-Regular;
@@ -924,7 +924,7 @@
     width: 128rpx;
     height: 48rpx;
     opacity: 1;
-    background: #ffc200;
+    background: #feca50;
     border-radius: 24rpx;
     font-size: 24rpx;
     font-family: PingFangSC, PingFangSC-Regular;
@@ -949,7 +949,7 @@
     width: 200rpx;
     height: 60rpx;
     opacity: 1;
-    background: #ffc200;
+    background: #feca50;
     border-radius: 30rpx;
     font-size: 28rpx;
     font-family: PingFangSC, PingFangSC-Regular;

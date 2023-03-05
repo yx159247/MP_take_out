@@ -85,6 +85,7 @@
           :visible.sync="dialogVisible"
           width="60%"
           :before-close="handleClose"
+          :modal="false"
       >
         <el-input
             v-model="value"
@@ -681,7 +682,7 @@ export default {
   overflow: hidden;
 }
 .avatar-uploader .el-upload:hover {
-  border-color: #409EFF;
+  border-color: #feca50;
 }
 .avatar-uploader-icon {
   font-size: 28px;

@@ -100,59 +100,6 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
     }
 
     @Override
-    public void updateStatus(Long[] ids) {
-        setmealDao.selectBatchIds(Arrays.asList(ids)).forEach(setmealEntity -> {
-            setmealEntity.setStatus(setmealEntity.getStatus() == 1 ? 0 : 1);
-            setmealDao.updateById(setmealEntity);
-
-            //删除缓存
-            String key = RedisKeys.getSetmealCacheKey()+ ":"+ "setmeal_" + setmealEntity.getCategoryId() + "_" + setmealEntity.getStatus();
-            redisUtils.delete(key);
-        });
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void saveWithDishes(SetmealDTO dto) {
-        SetmealEntity setmealEntity = ConvertUtils.sourceToTarget(dto, SetmealEntity.class);
-        //插入套餐实体
-        setmealDao.insert(setmealEntity);
-        //插入套餐实体中的SetmealDishes
-        dto.getSetmealDishes().forEach(setmealDishEntity -> {
-            setmealDishEntity.setSetmealId(String.valueOf(setmealEntity.getId()));
-            setmealDishDao.insert(setmealDishEntity);
-            //删除缓存
-            String key = RedisKeys.getSetmealCacheKey()+ ":"+ "setmeal_" + setmealEntity.getCategoryId() + "_" + setmealEntity.getStatus();
-            redisUtils.delete(key);
-
-        });
-        redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(), dto.getImage());
-
-    }
-
-    @Override
-    public void updateWithDishes(SetmealDTO dto) {
-
-        SetmealEntity setmealEntity = ConvertUtils.sourceToTarget(dto, SetmealEntity.class);
-        //更新套餐实体
-        setmealDao.updateById(setmealEntity);
-        //删除套餐实体中的SetmealDishes
-        LambdaQueryWrapper<SetmealDishEntity> dishLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        dishLambdaQueryWrapper.eq(SetmealDishEntity::getSetmealId, setmealEntity.getId());
-        setmealDishDao.delete(dishLambdaQueryWrapper);
-        //插入套餐实体中的SetmealDishes
-        dto.getSetmealDishes().forEach(setmealDishEntity -> {
-            setmealDishEntity.setSetmealId(String.valueOf(setmealEntity.getId()));
-            setmealDishDao.insert(setmealDishEntity);
-            //删除缓存
-            String key = RedisKeys.getSetmealCacheKey()+ ":"+ "setmeal_" + setmealEntity.getCategoryId() + "_" + setmealEntity.getStatus();
-            redisUtils.delete(key);
-        });
-        redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(), dto.getImage());
-
-    }
-
-    @Override
     public void delete(Long[] ids) {
 
         setmealDao.selectBatchIds(Arrays.asList(ids)).forEach(setmealEntity -> {

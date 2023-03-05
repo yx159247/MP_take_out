@@ -12,6 +12,7 @@
 target
 
 # Package Files #
+.DS_Store
 *.jar
 *.war
 *.ear

@@ -46,22 +46,5 @@ public interface OrdersService extends CrudService<OrdersEntity, OrdersDTO> {
      */
     Map hotSeal();
 
-    /**
-     * 微信小程序用户订单查询
-     * @param params
-     * @return
-     */
-    PageData<OrdersDTO> userPage(Map<String, Object> params);
 
-    /**
-     * 小程序提交订单
-     * @param ordersDTO
-     */
-    void submit(OrdersDTO ordersDTO);
-
-    /**
-     * 小程序删除订单
-     * @param id
-     */
-    void deleteOrder(Long id);
 }

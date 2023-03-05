@@ -8,6 +8,8 @@
 			</view>
 
 			<u-cell-group>
+				<u-cell title="姓名" :value="name" isLink="true" url="/pages/setting/changeName/changeName"></u-cell>
+				<u-cell title="身份证号" :value="idNumber" isLink="true" url="/pages/setting/changeIdNumber/changeIdNumber"></u-cell>
 				<u-cell title="手机号" :value="phoneNumber" isLink="true" url="/pages/setting/changePhone/changePhone">
 				</u-cell>
 				<u-cell title="昵称" :value="nickName" isLink="true" url="/pages/setting/setNickName/setNickName">
@@ -39,11 +41,12 @@
 				sex: '男',
 				nickName: '',
 				phoneNumber: '',
-
+				name : '',
+				idNumber : ''
 			}
 		},
 		onLoad() {
-			this.getUserInfo()
+			
 		},
 		onShow() {
 			this.getUserInfo()
@@ -66,11 +69,13 @@
 							_this.phoneNumber = res.data.phone
 							_this.avatarUrl = res.data.avatarUrl
 							_this.nickName = res.data.nickName
+							_this.name = res.data.name,
+							_this.idNumber = res.data.idNumber.replace(/^(.{6}).*(.{4})$/, '$1********$2')
 							_this.sex = gender[res.data.gender]
 						}, 500);
 
 					} else {
-						uni.$u.toast(res.msg)
+						uni.$u.toast(res.msg == 'token不能为空'? '未登录' : res.msg)
 					}
 				})
 			},
@@ -96,7 +101,7 @@
 								}, 500);
 
 							} else {
-								uni.$u.toast(res.msg)
+								uni.$u.toast(res.msg == 'token不能为空'? '未登录' : res.msg)
 							}
 						})
 
@@ -143,7 +148,7 @@
 										duration: 500
 									});
 								} else{
-									uni.$u.toast(res.msg)
+									uni.$u.toast(res.msg == 'token不能为空'? '未登录' : res.msg)
 								}
 							})
 							

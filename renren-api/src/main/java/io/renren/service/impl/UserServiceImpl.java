@@ -218,6 +218,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserDao, UserEntity> implem
 
         Integer gender = updateUserInfoDto.getGender();
         userEntity.setGender(gender != null ? gender : userEntity.getGender());
+        String name = updateUserInfoDto.getName();
+        userEntity.setName(name != null ? name : userEntity.getName());
+
+        String idNumber = updateUserInfoDto.getIdNumber();
+        userEntity.setIdNumber(idNumber != null ? idNumber : userEntity.getIdNumber());
 
         int res = userDao.updateById(userEntity);
         return res > 0;

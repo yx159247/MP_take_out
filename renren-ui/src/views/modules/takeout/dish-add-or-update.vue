@@ -513,7 +513,7 @@ export default {
 }
 
 .avatar-uploader .el-upload:hover {
-  border-color: #409EFF;
+  border-color: #feca50;
 }
 
 .avatar-uploader-icon {

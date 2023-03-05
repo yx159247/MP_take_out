@@ -20,12 +20,6 @@ public interface SetmealService extends CrudService<SetmealEntity, SetmealDTO> {
      */
     SetmealDTO getByWithDish(Long id);
 
-    /**
-     * 通过分类ID查找套餐信息，回显在前端页面
-     * @param setmealDTO
-     * @return
-     */
-    List<SetmealDTO> findSetmealByCategoryId(SetmealDTO setmealDTO);
 
     /**
      * 修改套餐状态

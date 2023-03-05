@@ -100,6 +100,10 @@
   margin-right: 4rpx;
 }
 
+.address .divContent .divItem .divAddress .spanNone {
+  background-color: #c9d8e6;
+}
+
 .address .divContent .divItem .divAddress .spanCompany {
   background-color: #e1f1fe;
 }
@@ -144,7 +148,7 @@
 .address .divBottom {
   height: 72rpx;
   opacity: 1;
-  background: #ffc200;
+  background: #feca50;
   border-radius: 36rpx;
   opacity: 1;
   font-size: 30rpx;

@@ -14,4 +14,7 @@ public class UserInfoOfSettingVo {
     private Integer gender;
 
     private String phone;
+    private String name;
+
+    private String idNumber;
 }

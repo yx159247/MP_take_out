@@ -401,7 +401,7 @@
 										duration: 500
 									});
 								} else {
-									uni.$u.toast(res.msg)
+									uni.$u.toast(res.msg == 'token不能为空'? '未登录' : res.msg)
 								}
 							})
 
@@ -773,7 +773,7 @@
 						})
 						_this.showAuthorizationModal = false
 					} else {
-						uni.$u.toast(res.msg)
+						uni.$u.toast(res.msg == 'token不能为空'? '未登录' : res.msg)
 					}
 				}).finally(() => {
 					uni.hideLoading()
@@ -884,7 +884,7 @@
 					this.initData()
 
 				} else {
-					return uni.$showMsg()
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);
 				}
 			},
 			getUserInfo() {
@@ -906,7 +906,7 @@
 						this.getUserInfo()
 					}, 500)
 				} else {
-					return uni.$showMsg()
+					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);
 				}
 			},
 			logoutCancel(){

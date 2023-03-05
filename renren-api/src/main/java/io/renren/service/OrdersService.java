@@ -15,37 +15,6 @@ import java.util.Map;
 public interface OrdersService extends CrudService<OrdersEntity, OrdersDTO> {
 
 
-
-    /**
-     * 查询今日订单量
-     * @return
-     */
-    long countToDayOrder();
-
-    /**
-     * 查询昨日订单量
-     * @return
-     */
-    long countYesDayOrder();
-
-    /**
-     * 查询近一周流水
-     * @return
-     */
-    Map OneWeekLiuShui();
-
-    /**
-     * 查询近一周订单数量
-     * @return
-     */
-    Map OneWeekOrder();
-
-    /**
-     * 查询热卖套餐
-     * @return
-     */
-    Map hotSeal();
-
     /**
      * 微信小程序用户订单查询
      * @param params

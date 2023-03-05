@@ -13,37 +13,4 @@ import java.util.List;
  */
 public interface AddressBookService extends CrudService<AddressBookEntity, AddressBookDTO> {
 
-    /**
-     * 根据用户ID查找默认地址
-     * @param userId
-     * @return
-     */
-    AddressBookEntity findDefaultAddress(Long userId);
-
-    /**
-     * 根据用户ID修改地址
-     * @param addressBookDTO
-     */
-    void UpdateAddressByUserId(AddressBookDTO addressBookDTO);
-
-    /**
-     * 添加地址
-     * @param addressBookDTO
-     * @return
-     */
-    AddressBookEntity saveAddress(AddressBookDTO addressBookDTO);
-
-
-    /**
-     * 根据用户ID查找地址列表
-     * @param addressBookEntity
-     * @return
-     */
-    List<AddressBookEntity> findAddressByUserId(AddressBookEntity addressBookEntity);
-
-    /**
-     * 设置默认地址
-     * @param addressBookDTO
-     */
-    void setDefaultAddress(AddressBookDTO addressBookDTO);
 }

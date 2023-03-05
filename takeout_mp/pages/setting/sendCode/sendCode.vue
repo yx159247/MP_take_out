@@ -20,7 +20,7 @@
 
 		</view>
 		<view class="submit">
-			<u-button type="warning" text="确定" @click="onSubmit"></u-button>
+			<u-button color="#feca50" type="warning" text="确定" @click="onSubmit"></u-button>
 		</view>
 
 	</view>
@@ -122,7 +122,7 @@
 						},1000)
 						
 					} else {
-						uni.$u.toast(res.msg)
+						uni.$u.toast(res.msg == 'token不能为空'? '未登录' : res.msg)
 					}
 				})
 				

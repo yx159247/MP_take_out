@@ -28,7 +28,7 @@
         <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
         <el-table-column prop="id" label="菜品ID" header-align="center" align="center"></el-table-column>
         <el-table-column prop="name" label="菜品名称" header-align="center" align="center"></el-table-column>
-        <el-table-column prop="categoryId" label="菜品分类id" header-align="center" align="center"></el-table-column>
+        <el-table-column prop="categoryName" label="菜品分类" header-align="center" align="center"></el-table-column>
 <!--        <el-table-column prop="price" label="菜品价格" header-align="center" align="center"></el-table-column>-->
         <el-table-column
             align="center"

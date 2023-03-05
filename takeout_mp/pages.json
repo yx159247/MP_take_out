@@ -112,6 +112,24 @@
 
             
         
+        ,{
+            "path" : "pages/setting/changeIdNumber/changeIdNumber",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/setting/changeName/changeName",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [
 		{
@@ -126,6 +144,7 @@
 		"navigationBarBackgroundColor": "#feca50"
 	},
 	"tabBar": {
+		"selectedColor": "#feca50",
 		"list": [
 			{
 				"pagePath": "pages/index/index",

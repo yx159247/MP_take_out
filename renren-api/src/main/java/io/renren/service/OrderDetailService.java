@@ -14,10 +14,5 @@ import java.util.List;
  */
 public interface OrderDetailService extends CrudService<OrderDetailEntity, OrderDetailDTO> {
 
-    /**
-     * 根据订单Id查看订单详情
-     * @param id
-     * @return
-     */
 
 }

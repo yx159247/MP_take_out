@@ -59,68 +59,9 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
         return wrapper;
     }
 
-    @Override
-    public DishDTO getByWithFlavor(Long id) {
-        DishEntity dishEntity = dishDao.selectById(id);
-        DishDTO DishDTO = new DishDTO();
-        BeanUtils.copyProperties(dishEntity,DishDTO);
-        LambdaQueryWrapper<DishFlavorEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(DishFlavorEntity::getDishId,dishEntity.getId());
-        List<DishFlavorEntity> dishFlavorEntityList = dishFlavorDao.selectList(queryWrapper);
 
-        DishDTO.setFlavors(dishFlavorEntityList);
 
-        return DishDTO;
-    }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void saveWithFlavor(DishDTO dto) {
-
-        DishEntity dishEntity = new DishEntity();
-        BeanUtils.copyProperties(dto,dishEntity);
-        dishDao.insert(dishEntity);
-        Long dishId = dishEntity.getId();
-        //菜品口味
-        List<DishFlavorEntity> flavors = dto.getFlavors();
-        for (DishFlavorEntity flavor : flavors) {
-            flavor.setDishId(dishId);
-            dishFlavorDao.insert(flavor);
-        }
-
-        //flavors = flavors.stream().map((item) ->{
-        //    item.setDishId(dishId);
-        //    return item;
-        //}).collect(Collectors.toList());
-        //dishFlavorService.saveBatch(flavors);
-        String image = dto.getImage();
-        redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(),image);
-        //删除缓存
-        String key = RedisKeys.getDishCacheKey()+ ":"+ "dish_" + dto.getCategoryId() + "_" + dto.getStatus();
-        redisUtils.delete(key);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void updateWithFlavor(DishDTO dto) {
-        DishEntity dishEntity = new DishEntity();
-        BeanUtils.copyProperties(dto,dishEntity);
-        dishDao.updateById(dishEntity);
-        LambdaQueryWrapper<DishFlavorEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(DishFlavorEntity::getDishId,dto.getId());
-        dishFlavorDao.delete(queryWrapper);
-        Long id = dishEntity.getId();
-        List<DishFlavorEntity> flavors = dto.getFlavors();
-        for (DishFlavorEntity flavor : flavors) {
-            flavor.setDishId(id);
-            dishFlavorDao.insert(flavor);
-        }
-        String image = dto.getImage();
-        redisTemplate.opsForSet().add(RedisKeys.getFoodPicDbResources(),image);
-        //删除缓存
-        String key = RedisKeys.getDishCacheKey()+ ":"+ "dish_" + dto.getCategoryId() + "_" + dto.getStatus();
-        redisUtils.delete(key);
-    }
 
     @Override
     public List<DishDTO> findDishByCategoryId(DishDTO dishDTO) {
@@ -170,18 +111,7 @@ public class DishServiceImpl extends CrudServiceImpl<DishDao, DishEntity, DishDT
         return dishDtoList;
     }
 
-    @Override
-    public void updateStatus(Long[] ids) {
 
-        dishDao.selectBatchIds(Arrays.asList(ids)).forEach(item -> {
-            item.setStatus(item.getStatus() == 1 ? 0 : 1);
-            dishDao.updateById(item);
-            //删除缓存
-            String key = RedisKeys.getDishCacheKey()+ ":"+ "dish_" + item.getCategoryId() + "_" + item.getStatus();
-            redisUtils.delete(key);
-        });
-
-    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

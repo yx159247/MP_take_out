@@ -28,24 +28,6 @@ public interface SetmealService extends CrudService<SetmealEntity, SetmealDTO> {
     List<SetmealDTO> findSetmealByCategoryId(SetmealDTO setmealDTO);
 
     /**
-     * 修改套餐状态
-     * @param ids
-     */
-    void updateStatus(Long[] ids);
-
-    /**
-     * 添加套餐
-     * @param dto
-     */
-    void saveWithDishes(SetmealDTO dto);
-
-    /**
-     * 修改套餐
-     * @param dto
-     */
-    void updateWithDishes(SetmealDTO dto);
-
-    /**
      * 删除套餐
      *
      * @param aLong

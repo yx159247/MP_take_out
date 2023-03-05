@@ -11,9 +11,6 @@
 <script>
 	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
 	import {
-		apiGoods
-	} from "@/api/mock.js"
-	import {
 		getBaseUrl,
 		requestUtil
 	} from '../../utils/requestUtils';

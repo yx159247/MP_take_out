@@ -9,7 +9,7 @@
 		></u-input>
 		</view>
 		<view class="submit">
-			<u-button type="warning" text="下一步" @click="toNext"></u-button>
+			<u-button color="#feca50"  type="warning" text="下一步" @click="toNext"></u-button>
 		</view>
 				
 	</view>
