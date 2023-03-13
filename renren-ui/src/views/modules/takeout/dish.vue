@@ -93,7 +93,7 @@
 <script>
 import mixinViewModule from '@/mixins/view-module'
 import AddOrUpdate from './dish-add-or-update'
-import QiniuUrl from "@/utils/QiniuUrl";
+
 import debounce from "lodash/debounce";
 
 export default {
@@ -109,7 +109,6 @@ export default {
         updateStatusIsBatch: true,
         updateStatusURL: '/takeout/dish/updateStatus'
       },
-      QiNiuYunUrl:QiniuUrl,
       dataForm: {
         id: ''
       }

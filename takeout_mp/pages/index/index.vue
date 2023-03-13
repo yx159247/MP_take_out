@@ -266,11 +266,6 @@
 <script>
 	
 	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
-	
-	import {
-		getBaseUrl,
-		requestUtil,
-	} from '../../utils/requestUtils';
 	import regeneratorRuntime, {
 		async
 	} from '../../lib/runtime/runtime';
@@ -309,7 +304,7 @@
 					active: '../images/order.png',
 					inactive: 'https://img01.yzcdn.cn/vant/user-inactive.png'
 				},
-				QiNiuYunUrl: getApp().globalData.QiNiuYunUrl,
+				
 				//左边菜品类别index
 				activeType: 0,
 				categoryList: [],
@@ -395,7 +390,7 @@
 			this.wh = sysInfo.windowHeight * 0.6
 			console.log('wh',this.wh)
 			this.cartData = [];
-			this.initData();
+			
 			
 
 		},
@@ -460,6 +455,7 @@
 				Promise.all([categoryListApi(), cartListApi({})]).then(res => {
 					//获取分类数据
 					console.log('菜单列表', res);
+					
 					if (res[0].code === 0) {
 						this.categoryList = res[0].data;
 						if (Array.isArray(res[0].data) && res[0].data.length > 0) {
@@ -471,7 +467,9 @@
 							}
 						}
 					} else {
-						return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
+						
+						return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);
+						
 					}
 					//获取菜品数据
 					if (res[1].code === 0) {
@@ -548,6 +546,7 @@
 					}
 					this.dishList = dishList;
 				} else {
+					
 					return uni.$showMsg(res.msg == 'token不能为空'? '未登录' : res.msg);;
 				}
 			},

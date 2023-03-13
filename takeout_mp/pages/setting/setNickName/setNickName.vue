@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { h } from "vue"
+
 import {updateUserInfo} from'../../../api/sendCode.js'
 	export default {
 		data() {

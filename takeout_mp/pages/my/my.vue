@@ -1,36 +1,6 @@
 <template>
 	<view>
 		<view class="user">
-			<!-- 			<view class="divHead">
-
-				<u-avatar size="60" shape="circle" :src="user.avatarUrl"></u-avatar>
-
-
-
-				<view class="divUserName" v-if="user">
-					<u-text :text="user.nickName" bold="true"></u-text>
-				</view>
-				
-				<view class="divLogin" v-else>
-						<text style="margin-left: 0;padding-left: 10rpx;font-size: 15px;"
-						@click="toLogin"
-						>登录/注册</text>
-						</view>
-				<view class="userPhone">
-					<u-text :text="phoneNumber"></u-text>
-				</view>
-				<u-modal :show="show" :content='content'>
-					<view style="font-size: 36rpx;text-align: center;">绑定手机号
-						<view style="color: lightgray; font-size: 28rpx;text-align: center">请先绑定手机号再进行此操作</view>
-					</view>
-					<u-button openType="getPhoneNumber" @getphonenumber="confirm" type="success" slot="confirmButton"
-						shape="circle" text="微信用户一键绑定"></u-button>
-
-				</u-modal>
-				<view class="shezhi">
-					<image src="/static/me/xitongshezhi.png"></image>
-				</view>
-			</view> -->
 
 			<view class="headBox">
 
@@ -231,6 +201,7 @@
 
 <script>
 	var clear;
+	import instance from '../../utils/request.js'
 	import WxUserInfoModal from '@/uni_modules/tuniaoui-wx-user-info/components/tuniaoui-wx-user-info/tuniaoui-wx-user-info.vue'
 	import {
 		addOrderApi,
@@ -246,12 +217,6 @@
 		phoneLoginApi,
 		sendValidateCodeApi
 	} from "../../api/my.js"
-	import {
-		getBaseUrl,
-		requestUtil,
-		getWxLogin,
-		getUserProfile,
-	} from '../../utils/requestUtils.js';
 	import regeneratorRuntime from '../../lib/runtime/runtime.js';
 	export default {
 		components: {
@@ -286,7 +251,6 @@
 				user: {},
 				getPhoneParam: {},
 				wh: 0,
-				QiNiuYunUrl: getApp().globalData.QiNiuYunUrl,
 				imageUrl: '',
 				ruleForm: {
 					'id': '',
@@ -340,7 +304,7 @@
 				if (uni.getStorageSync('token') == null || uni.getStorageSync('token') == '') {
 					// uni.$showMsg("未登录")
 					wx.clearStorageSync()
-					console.log("ok!!!!")
+					
 				}
 			},
 			initData() {
@@ -373,7 +337,7 @@
 					title: '加载中'
 				});
 				uni.uploadFile({
-					url: getBaseUrl() + 'mp/oss/upload',
+					url: instance().baseURL + 'mp/oss/upload',
 					filePath: e.target.avatarUrl,
 					name: 'file',
 					header: {
@@ -654,10 +618,9 @@
 									encryptedData: e.detail.encryptedData,
 									iv: e.detail.i
 								}
-								requestUtil({
+								uni.$ajax.post({
 									url: "mp/login",
 									data: loginParam,
-									method: "post"
 								}).then(res => {
 									userInfo = {
 										avatarUrl: res.data.avatarUrl,
@@ -714,12 +677,10 @@
 				console.log(e.detail)
 			},
 			async wxLogin(loginParam) {
-				const res = await requestUtil({
+				const res = await uni.$ajax.post({
 					url: "mp/login",
 					data: loginParam,
-					method: "post"
-				});
-
+				})
 				console.log("code:" + res.code)
 				if (res.code === 0) {
 					console.log(res.data.token)
@@ -844,33 +805,11 @@
 
 
 			},
-
-			login() {
-
-				Promise.all([getWxLogin(), getUserProfile()]).then((res) => {
-					console.log(res)
-					let loginParam = {
-						code: res[0].code,
-						nickName: res[1].userInfo.nickName,
-						avatarUrl: res[1].userInfo.avatarUrl
-					}
-					this.getPhoneParam = res[1]
-					console.log("user:", this.user)
-					console.log(loginParam)
-					this.wxLogin(loginParam);
-				})
-			},
-			toLogin() {
-				uni.navigateTo({
-					url: '/pages/login/login'
-				})
-			},
 			async getPhoneNumber(param) {
 				let that = this
-				const res = await requestUtil({
+				const res = await uni.$ajax.post({
 					url: "mp/wxGetPhone",
 					data: param,
-					method: "post"
 				})
 				if (res.code === 0) {
 					this.phone_info = res.data

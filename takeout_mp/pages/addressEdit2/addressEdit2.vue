@@ -49,12 +49,6 @@
 </template>
 
 <script>
-	import {
-		getBaseUrl,
-		requestUtil,
-		getWxLogin,
-		getUserProfile
-	} from '../../utils/requestUtils';
 	import regeneratorRuntime, {
 		async
 	} from '../../lib/runtime/runtime';

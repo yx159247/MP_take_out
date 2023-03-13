@@ -28,10 +28,7 @@
 	import {
 		getUserInfoApi
 	} from '../../api/setting.js'
-	import {
-		getBaseUrl,
-		requestUtil
-	} from '../../utils/requestUtils.js'
+	import instance from '../../utils/request.js'
 	const gender = ['男', '女', '保密']
 	export default {
 		data() {
@@ -120,7 +117,7 @@
 					title: '加载中'
 				});
 				uni.uploadFile({
-					url: getBaseUrl() + 'mp/oss/upload',
+					url: instance().baseURL + 'mp/oss/upload',
 					filePath: e.target.avatarUrl,
 					name: 'file',
 					header: {

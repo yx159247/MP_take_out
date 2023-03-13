@@ -69,8 +69,8 @@
 
 <script>
   import {
-  	getBaseUrl
-  } from '../../../../utils/requestUtils.js';
+  	instance
+  } from '../../../../utils/request.js';
   export default {
     options: {
       // 在微信小程序中将组件节点渲染为虚拟节点，更加接近Vue组件的表现(不会出现shadow节点下再去创建元素)
@@ -111,7 +111,7 @@
 			title: '加载中'
 		});
 		uni.uploadFile({
-			url: getBaseUrl() + 'mp/oss/upload',
+			url: instance().baseURL + 'mp/oss/upload',
 			filePath: e.target.avatarUrl,
 			name: 'file',
 			header: {

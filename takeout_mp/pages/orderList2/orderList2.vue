@@ -1,5 +1,5 @@
 <template>
-	<mescroll-uni ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback" >
+	<mescroll-uni ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback">
 		<mescroll-empty v-if="goods.length==0"></mescroll-empty>
 		<!-- <good-list :list="goods"></good-list> -->
 		<order-list :list="goods"></order-list>
@@ -10,10 +10,6 @@
 
 <script>
 	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
-	import {
-		getBaseUrl,
-		requestUtil
-	} from '../../utils/requestUtils';
 	import regeneratorRuntime, {
 		async
 	} from '../../lib/runtime/runtime';
@@ -54,8 +50,8 @@
 				const token = wx.getStorageSync('token')
 				if (token) {
 					let httpData = {
-						page : page.num,
-						limit : page.size
+						page: page.num,
+						limit: page.size
 					}
 					orderPagingApi(httpData).then(res => {
 						if (res.code === 0) {
@@ -73,7 +69,8 @@
 							this.goods = this.goods.concat(res.data.list); //追加新数据
 						}
 
-					}).then(() => {
+					}).catch(() => {
+						//联网失败, 结束加载
 						this.mescroll.endErr();
 					})
 				}

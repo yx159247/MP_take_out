@@ -182,7 +182,7 @@
 
 <script>
 import debounce from 'lodash/debounce'
-import QiniuUrl from "@/utils/QiniuUrl";
+
 import Cookies from "js-cookie";
 import {getCategoryList, queryDishList} from "@/api/dish/dish";
 
@@ -205,7 +205,7 @@ export default {
       headerObj: {
         token: Cookies.get('token')
       },
-      QiNiuYunUrl: QiniuUrl,
+
       id: '',
       value: '',
       setMealList: [],

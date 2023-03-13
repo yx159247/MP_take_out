@@ -68,7 +68,7 @@
 <script>
 import mixinViewModule from '@/mixins/view-module'
 import AddOrUpdate from './shoppingcart-add-or-update'
-import QiniuUrl from "@/utils/QiniuUrl";
+
 export default {
   mixins: [mixinViewModule],
   data () {
@@ -83,7 +83,7 @@ export default {
       dataForm: {
         id: ''
       },
-      QiNiuYunUrl: QiniuUrl,
+
 
     }
   },
@@ -91,9 +91,7 @@ export default {
     AddOrUpdate
   },
   methods:{
-    getImage (image) {
-      return this.QiNiuYunUrl+image
-    },
+
   }
 }
 </script>

@@ -1,111 +1,45 @@
-import {
-	getBaseUrl,
-	requestUtil,
-	getUserProfile,
-	getWxLogin
-} from '../utils/requestUtils';
+
 import regeneratorRuntime, {
 	async
 } from '../lib/runtime/runtime';
 
 export const getDefaultAddressApi = () => {
-	return new Promise((resolve, reject) => {
-		requestUtil({
-			url: 'mp/addressBook/default',
-			method: 'get',
-		}).then((res) => {
-			console.log(res.data)
-			resolve(res)
-		}).catch((err) => {
-			reject(err)
-		})
-	});
+	return uni.$ajax.get({
+		url: 'mp/addressBook/default',
+	})
 }
 export const updateAddressApi = (data) => {
-	return new Promise((resolve, reject) => {
-		requestUtil({
-			url: 'mp/addressBook',
-			method: 'put',
-			data: data
-		}).then((res) => {
-			console.log(res.data)
-			resolve(res)
-		}).catch((err) => {
-			reject(err)
-		})
-	});
+	return uni.$ajax.put({
+		url: 'mp/addressBook',
+		data: data
+	})
 }
 export const addAddressApi = (data) => {
-	return new Promise((resolve, reject) => {
-		requestUtil({
-			url: 'mp/addressBook',
-			method: 'post',
-			data: data
-		}).then((res) => {
-			console.log(res.data)
-			resolve(res)
-		}).catch((err) => {
-			reject(err)
-		})
-	});
+	return uni.$ajax.post({
+		url: 'mp/addressBook',
+		data: data
+	})
 }
 export const deleteAddressApi = (id) => {
-	return new Promise((resolve, reject) => {
-		requestUtil({
-			url: 'mp/addressBook',
-			method: 'delete',
-			header: {
-				"content-type": "application/x-www-form-urlencoded"
-			},
-			data: id
-		}).then((res) => {
-			console.log(res.data)
-			resolve(res)
-		}).catch((err) => {
-			reject(err)
-		})
-	});
+	return uni.$ajax.delete({
+		url: 'mp/addressBook',
+		data: id
+	})
 }
 export const addressFindOneApi = (id) => {
-	return new Promise((resolve, reject) => {
-		requestUtil({
-			url: 'mp/addressBook/' + id,
-			method: 'get',
-
-		}).then((res) => {
-			console.log(res.data)
-			resolve(res)
-		}).catch((err) => {
-			reject(err)
-		})
-	});
+	return uni.$ajax.get({
+		url: 'mp/addressBook/' + id,
+	})
 }
 
 export const addressListApi = () => {
-	return new Promise((resolve, reject) => {
-		requestUtil({
-			url: 'mp/addressBook/list',
-			method: 'get',
-
-		}).then((res) => {
-			console.log(res.data)
-			resolve(res)
-		}).catch((err) => {
-			reject(err)
-		})
-	});
+	return uni.$ajax.get({
+		url: 'mp/addressBook/list',
+	})
 }
 export const setDefaultAddressApi = (data) => {
-	return new Promise((resolve, reject) => {
-		requestUtil({
-			url: 'mp/addressBook/default',
-			method: 'put',
-			data:data
-		}).then((res) => {
-			console.log(res.data)
-			resolve(res)
-		}).catch((err) => {
-			reject(err)
-		})
-	});
+	return uni.$ajax.put({
+		url: 'mp/addressBook/default',
+		data: data
+	})
 }

@@ -38,10 +38,6 @@
 </template>
 
 <script>
-	import {
-		getBaseUrl,
-		requestUtil
-	} from '../../utils/requestUtils';
 	import regeneratorRuntime, {
 		async
 	} from '../../lib/runtime/runtime';

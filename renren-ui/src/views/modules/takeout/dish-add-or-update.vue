@@ -173,7 +173,7 @@
 import debounce from 'lodash/debounce'
 import Cookies from "js-cookie";
 import {getCategoryList} from "@/api/dish/dish";
-import QiniuUrl from "@/utils/QiniuUrl";
+
 
 export default {
   data() {
@@ -186,7 +186,7 @@ export default {
       headerObj: {
         token: Cookies.get("token")
       },
-      QiNiuYunUrl: QiniuUrl,
+
       imageUrl: '',
       uploadUrl: '',
       dataForm: {
