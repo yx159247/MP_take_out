@@ -212,24 +212,6 @@ take_out
 
 - 打开application-dev.yml文件，修改MySQL账号和密码、Redis的相关配置信息
 
-- 打开application-dev.yml文件，修改Minio配置
-
-- ```
-  minio:
-    # minio配置的地址，端口9000
-    url: http://你安装minio的ip:9000
-    # 账号
-    accessKey: minio
-    # 密码
-    secretKey: minio123
-    # MinIO桶名字
-    bucketName: images
-  ```
-- 更改Yml配置文件
-
-  ![image](https://user-images.githubusercontent.com/78630698/183250736-99e50ba9-82fe-43d9-8674-c57ba933aa9a.png)
-
-  ps：url改成你自己的，账号和密码如果之前安装docker镜像的时候没动就不用改，bucketName可以不用修改。 
 - 在renren-api模块下，打开application.yml文件，修改微信小程序appid和secret配置
 
   ```
