@@ -207,8 +207,8 @@ take_out
 
 #### 安装Nodejs环境(如果有请忽略)
 
-- NodeJs版本不要安装太高，13.x-14.x最好
-- 附上一个下载链接：https://nodejs.org/download/release/v13.10.0/
+- NodeJs版本不要安装太高，14.x最好
+- 附上一个下载链接：https://nodejs.org/download/release/v14.21.3/node-v14.21.3-x64.msi
 - 具体配置环境变量等请自行百度一下找一下教程，步骤很简单。
 
 ### 运行后台管理系统后端项目
