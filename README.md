@@ -12,7 +12,6 @@
 
 <p align=center>
    基于Springboot + Vue 开发的前后端分离外卖点单系统
-  （2024届本科软件工程专业大学生在线找工作）
 </p>
 <p align=center>
   （2024届本科软件工程专业大学生在线找工作）
