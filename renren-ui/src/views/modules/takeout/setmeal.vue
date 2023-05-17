@@ -52,7 +52,7 @@
         <el-table-column prop="image" label="图片"  align="center">
                          align="center">
           <template slot-scope="{ row }">
-            <el-image style="width: auto; height: 40px; border:none;cursor: pointer;" :src="row.image" :preview-src-list="row.image" >
+            <el-image style="width: auto; height: 40px; border:none;cursor: pointer;" :src="row.image" :preview-src-list="[row.image]" >
               <div slot="error" class="image-slot">
                 <img src="../../../assets/img/noImg.png"  style="width: auto; height: 40px; border:none;" >
               </div>

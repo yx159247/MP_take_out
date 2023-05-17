@@ -19,6 +19,22 @@
         <result property="userName" column="user_name"/>
         <result property="consignee" column="consignee"/>
     </resultMap>
+    <select id="getMonthSales" resultType="java.lang.Integer">
+        SELECT IFNULL(SUM(od.number), 0) AS month_sales
+        FROM order_detail od
+                 JOIN orders o ON od.order_id = o.id
+        WHERE od.dish_id = #{dishId}
+            AND YEAR(o.checkout_time) = #{year} AND MONTH(o.checkout_time) = #{month};
+
+    </select>
+    <select id="getSetmealMonthSales" resultType="java.lang.Integer">
+        SELECT IFNULL(SUM(od.number), 0) AS month_sales
+        FROM order_detail od
+                 JOIN orders o ON od.order_id = o.id
+        WHERE od.setmeal_id = #{setmealId}
+            AND YEAR(o.checkout_time) = #{year} AND MONTH(o.checkout_time) = #{month};
+
+    </select>
 
 
 </mapper>

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="divHead">
-			<image src="/static/index_image/beijing_png.png" mode=""></image>
+			<image src="http://47.109.60.249:9000/images/beijing_png.png" mode=""></image>
 		</view>
 		<view class="divTitle">
 			<view class="divStatic">
@@ -47,7 +47,7 @@
 						<view>
 							<view class="divName">{{ item.name }}</view>
 							<view class="divDesc">{{ item.description }}</view>
-							<view class="divDesc">{{ '月销' + (item.saleNum ? item.saleNum : 0) }}</view>
+							<view class="divDesc">{{ '月销' + (item.sales) }}</view>
 							<view class="divBottom">
 								<text>￥</text>
 								<text>{{ item.price / 100 }}</text>
@@ -217,21 +217,36 @@
 			v-model="setMealDialog.show" v-if="setMealDialog.show" ref="setMealDetailsDialogd">
 			<view class="setMealDetailsDialog">
 				<view class="divContainer">
+					
+					
+					<u-image :src="setMealDialog.item.image" >
+						<view slot="error" class="image-slot">
+							<image src="../../static/images/noImg.png" />
+						</view>
+					</u-image>
+					<!-- <view class="image-container" :style="{ backgroundImage: `url(${setMealDialog.item.image})` }">
+						
+					</view> -->
+
 					<view class="title">{{ setMealDialog.item.name }}</view>
+					<view class="content">{{ setMealDialog.item.description }}</view>
 					<view class="item" v-for="(item, index) in setMealDialog.item.list" :key="index">
-						<u-image :src="item.image">
+						<!-- <u-image :src="item.image">
 							<view slot="error" class="image-slot">
 								<image src="../../static/images/noImg.png" />
 							</view>
-						</u-image>
+						</u-image> -->
 						<view class="divSubTitle">
-							{{ item.name + '(' + item.copies + '份)' }}
+							<text class="ellipsis">
+								{{ item.name + '(' + item.copies + '份)' }}
+							</text>
+							
 							<view class="divPrice">
 								<text>￥</text>
 								<text>{{ item.price / 100 }}</text>
 							</view>
 						</view>
-						<view class="content">{{ item.description }}</view>
+						
 					</view>
 				</view>
 				<view class="divNum">
@@ -340,7 +355,7 @@
 		components: {},
 		onShow() {
 			this.initData();
-			let token = wx.getStorageSync('token');
+			let token = uni.getStorageSync('token');
 			console.log('token', token);
 			if (token.length == 0) {
 				this.cartData = [];
@@ -811,7 +826,7 @@
 					if (res.code === 0) {
 						this.setMealDialog.item = {
 							...item,
-							list: res.data
+							list: res.data.setmealDishes
 						};
 						this.setMealDialog.show = true;
 					} else {

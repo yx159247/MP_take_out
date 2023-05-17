@@ -68,9 +68,7 @@
 </template>
 
 <script>
-  import {
-  	instance
-  } from '../../../../utils/request.js';
+
   export default {
     options: {
       // 在微信小程序中将组件节点渲染为虚拟节点，更加接近Vue组件的表现(不会出现shadow节点下再去创建元素)
@@ -111,7 +109,7 @@
 			title: '加载中'
 		});
 		uni.uploadFile({
-			url: instance().baseURL + 'mp/oss/upload',
+			url: process.env.VUE_APP_BASE_URL + 'mp/oss/upload',
 			filePath: e.target.avatarUrl,
 			name: 'file',
 			header: {
@@ -133,6 +131,7 @@
 				});
 			},
 			complete: () => {
+				
 				uni.hideLoading();
 			}
 		})

@@ -10,11 +10,11 @@
           <el-form-item label="主键" prop="userId">
           <el-input v-model="dataForm.userId" placeholder="主键"></el-input>
       </el-form-item>
-          <el-form-item label="菜品id" prop="dishId">
-          <el-input v-model="dataForm.dishId" placeholder="菜品id"></el-input>
+          <el-form-item label="菜品名称" prop="dishId">
+          <el-input v-model="dataForm.dishName" placeholder="菜品id"></el-input>
       </el-form-item>
-          <el-form-item label="套餐id" prop="setmealId">
-          <el-input v-model="dataForm.setmealId" placeholder="套餐id"></el-input>
+          <el-form-item label="套餐名称" prop="setmealId">
+          <el-input v-model="dataForm.setmealName" placeholder="套餐id"></el-input>
       </el-form-item>
           <el-form-item label="口味" prop="dishFlavor">
           <el-input v-model="dataForm.dishFlavor" placeholder="口味"></el-input>
@@ -58,7 +58,9 @@ export default {
         creator: '',
         createDate: '',
         updater: '',
-        updateDate: ''
+        updateDate: '',
+        dishName: '',
+        setmealName: ''
       }
     }
   },

@@ -19,6 +19,24 @@
         <result property="updateDate" column="update_date"/>
         <result property="isDeleted" column="is_deleted"/>
     </resultMap>
+    <update id="changeDishesStatusById">
+        update dish set status = 0 where id in (
+            <foreach collection="dishId" item="dishId" separator=",">
+                #{dishId}
+            </foreach>
+        );
+    </update>
+
+    <select id="selectDishesBySetmealId" resultType="java.lang.Long">
+        select id, name from setmeal_dish where setmeal_id in (
+            <foreach collection="setmealIds" item="setmealId" separator=",">
+                #{setmealId}
+            </foreach>
+        );
+    </select>
+    <select id="selectDishesByCategoryId" resultType="java.lang.Long">
+        select id, name from dish where category_id = #{categoryId};
+    </select>
 
 
 </mapper>

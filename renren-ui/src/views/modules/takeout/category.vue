@@ -73,8 +73,11 @@ export default {
         getDataListIsPage: true,
         exportURL: '/takeout/category/export',
         deleteURL: '/takeout/category',
-        deleteIsBatch: true
+        deleteIsBatch: true,
+
       },
+      order: 'asc',
+      orderField: 'sort',
       dataForm: {
         id: ''
       }

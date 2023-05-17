@@ -27,8 +27,8 @@
                 <div class="addBut" style="margin-bottom: 20px" @click="openAddDish">+ 添加菜品</div>
                 <div class="table">
                   <el-table :data="dishTable" style="width: 100%">
-                    <el-table-column prop="name" label="名称" width="180" align="center"></el-table-column>
-                    <el-table-column prop="price" label="原价" width="180">
+                    <el-table-column prop="name" label="名称"  align="center"></el-table-column>
+                    <el-table-column prop="price" label="原价" >
                       <template slot-scope="scope"> {{ Number(scope.row.price) / 100 }}</template>
                     </el-table-column>
                     <el-table-column prop="address" label="份数" align="center">
@@ -42,9 +42,9 @@
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column prop="address" label="操作" width="180px;" align="center">
+                    <el-table-column prop="address" label="操作"  align="center">
                       <template slot-scope="scope">
-                        <el-button type="text" size="small" @click="delDishHandle(scope.$index)"> 删除</el-button>
+                        <el-button type="text" size="small" @click="delDishHandle(scope.$index)">删除</el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -152,7 +152,7 @@
                   :key="ind"
                   class="item"
               >
-                <span>{{ item.dishName }}</span>
+                <span>{{ item.name }}</span>
                 <span class="price">￥ {{ Number(item.price) / 100 }} </span>
                 <span
                     class="del"
@@ -527,6 +527,7 @@ export default {
 }
 
 .addDishList .seachDish {
+
   position: absolute;
   top: 10px;
   right: 20px;
@@ -542,7 +543,7 @@ export default {
 }
 
 .addDish {
-  width: 777px;
+  width: 100%;
 }
 
 .addDish .addBut {
@@ -565,6 +566,7 @@ export default {
 }
 
 .addDishCon {
+
   padding: 0 20px;
   display: flex;
   line-height: 40px;

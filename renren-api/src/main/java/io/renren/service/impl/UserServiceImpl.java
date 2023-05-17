@@ -183,6 +183,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserDao, UserEntity> implem
                 loginVo.setAvatarUrl(userEntity.getAvatarUrl());
                 loginVo.setNickName(userEntity.getNickName());
             }
+            redisUtils.delete(phone);
             return loginVo;
         } else {
             throw new RenException("验证码错误");

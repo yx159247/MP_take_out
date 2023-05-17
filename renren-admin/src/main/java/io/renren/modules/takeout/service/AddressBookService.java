@@ -1,7 +1,9 @@
 package io.renren.modules.takeout.service;
 
-import io.renren.common.entity.AddressBookEntity;
+
 import io.renren.modules.takeout.dto.AddressBookDTO;
+import io.renren.modules.takeout.entity.AddressBookEntity;
+
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 <template>
 	<mescroll-uni ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback">
-		<mescroll-empty v-if="goods.length==0"></mescroll-empty>
+		<!-- <mescroll-empty v-if="goods.length==0"></mescroll-empty> -->
 		<!-- <good-list :list="goods"></good-list> -->
 		<order-list :list="goods"></order-list>
 

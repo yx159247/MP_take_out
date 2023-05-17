@@ -63,11 +63,17 @@ public class SetmealDTO implements Serializable {
 	/**
 	 * 套餐菜品列表
 	 */
+	@ApiModelProperty(value = "套餐菜品列表")
 	private List<SetmealDishEntity> setmealDishes;
 
 	/**
 	 * 分类名称
 	 */
+	@ApiModelProperty(value = "分类名称")
+
 	private String categoryName;
+
+	@ApiModelProperty(value = "销量")
+	private Integer sales;
 
 }

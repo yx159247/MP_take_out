@@ -73,6 +73,17 @@ public interface Constant {
      */
     String CLOUD_STORAGE_CONFIG_KEY = "CLOUD_STORAGE_CONFIG_KEY";
 
+
+    /**
+     * 外卖订单交换机
+     */
+    String ORDER_EXCHANGE = "order_exchange";
+
+    /**
+     * 外卖订单队列
+     */
+    String ORDER_QUEUE = "order_queue";
+
     /**
      * 定时任务状态
      */
