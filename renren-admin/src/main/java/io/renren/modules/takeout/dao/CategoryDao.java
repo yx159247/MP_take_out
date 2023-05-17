@@ -1,7 +1,6 @@
 package io.renren.modules.takeout.dao;
 
 import io.renren.common.entity.CategoryEntity;
-import io.renren.common.entity.DishEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -12,7 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CategoryDao extends BaseDao<CategoryEntity> {
-
-    int selectTypeById(Long id);
-
+	
 }

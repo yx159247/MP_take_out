@@ -18,9 +18,6 @@
         <result property="updateDate" column="update_date"/>
         <result property="isDeleted" column="is_deleted"/>
     </resultMap>
-    <select id="selectSetmealByCategoryId" resultType="java.lang.Long">
-        select id from setmeal where category_id = #{categoryId};
-    </select>
 
 
 </mapper>

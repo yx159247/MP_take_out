@@ -5,6 +5,9 @@
     "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
+
+
+
     /* 5+App特有相关 */
     "app-plus" : {
         "usingComponents" : true,
@@ -53,10 +56,8 @@
         "appid" : "wxab12212fe8c785f7",
         "setting" : {
             "urlCheck" : false,
-            "es6" : true,
-            "minified" : true
+            "es6" : true
         },
-        "lazyCodeLoading" : "requiredComponents",
         "usingComponents" : true
     },
     "mp-alipay" : {
@@ -72,17 +73,17 @@
         "enable" : false
     },
     "vueVersion" : "2",
-    "h5" : {
-        "devServer" : {
-            "port" : 8083,
-            "disableHostCheck" : true,
-            "proxy" : {
-                "/" : {
-                    "target" : "http://localhost:8081/api",
-                    "changeOrigin" : true,
-                    "secure" : false
-                }
-            }
-        }
-    }
+	"h5": {
+	        "devServer": {
+	            "port": 8081,
+	            "disableHostCheck": true,
+	            "proxy": {
+	                "/api": {
+	                    "target": "http://localhost:8081/",
+	                    "changeOrigin": true,
+	                    "secure": false
+	                }
+	            }
+	        }
+	    }
 }

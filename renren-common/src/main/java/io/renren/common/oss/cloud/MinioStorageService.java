@@ -25,7 +25,7 @@ public class MinioStorageService extends AbstractCloudStorageService {
 
     public MinioClient getMinioClient() {
         return  MinioClient.builder()
-                .endpoint(config.getMinioEndpoint(),9000,false)
+                .endpoint(config.getMinioEndpoint())
                 .credentials(config.getMinioAccessKey(), config.getMinioSecretKey())
                 .build();
     }

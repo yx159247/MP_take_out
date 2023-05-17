@@ -3,8 +3,6 @@ package io.renren.modules.takeout.dao;
 import io.renren.common.entity.SetmealEntity;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-
 /**
  * 套餐
  *
@@ -13,5 +11,5 @@ import java.util.List;
  */
 @Mapper
 public interface SetmealDao extends BaseDao<SetmealEntity> {
-	List<Long> selectSetmealByCategoryId(Long categoryId);
+	
 }

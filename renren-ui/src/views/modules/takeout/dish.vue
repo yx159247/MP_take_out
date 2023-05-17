@@ -45,7 +45,7 @@
           <template slot-scope="{ row }">
             <el-image style="width: auto; height: 40px; border:none;cursor: pointer;"
                       :src="row.image"
-                      :preview-src-list="[row.image]" >
+                      :preview-src-list="row.image" >
               <div slot="error" class="image-slot">
                 <img src="../../../assets/img/noImg.png"  style="width: auto; height: 40px; border:none;" >
               </div>
@@ -109,8 +109,6 @@ export default {
         updateStatusIsBatch: true,
         updateStatusURL: '/takeout/dish/updateStatus'
       },
-      order: 'desc',
-      orderField: 'update_date',
       dataForm: {
         id: ''
       }

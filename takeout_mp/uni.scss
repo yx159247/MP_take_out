@@ -76,50 +76,6 @@ $uni-font-size-subtitle:26px;
 $uni-color-paragraph: #3F536E; // 文章段落颜色
 $uni-font-size-paragraph:15px;
 
-
-/* 页面左右间距 */
-$page-row-spacing:30upx;
-$page-color-base:#f8f8f8;
-$page-color-light:#f8f6fc;
-$page-p-l-t-r-30:30upx 30upx 0 30upx;
-$page-p-20:30upx;
-
-/* 文字尺寸 */
-$font-sm:24upx;
-$font-base:28upx;
-$font-lg:32upx;
-
-/*文字颜色*/
-$font-color-dark:#303133;
-$font-color-base:#606266;
-$font-color-light:#909399;
-$font-color-disabled:#C0C4CC;
-$font-color-spec:#d6003c;
-$font-color-gray:#999999;
-$font-color-red:#dd0037;
-$font-color-ccc:#cccccc;
-$font-color-999:#999999;
-$font-color-666:#666666;
-$font-color-333:#333333;
-$font-color-000:#000000;
-
-/* 边框颜色 */
-$border-color-dark:#DCDFE6;
-$border-color-base:#E4E7ED;
-$border-color-light:#EBEEF5;
-
-/* 背景颜色 */
-$image-bg-color:#eeeeee;
-$bgcolor_white:#ffffff;
-$all_bgcolor:#f4f4f4;
-$vui_bgcolor:#8c0027;
-
-/* 行为相关颜色 */
-$color-primary:#fa436a;
-$color-success:#4cd964;
-$color-warning:#f0ad4e;
-$color-error:#dd524d;
-
 page,view,text,swiper,swiper-item,image,navigator{
     padding: 0;
     margin: 0;

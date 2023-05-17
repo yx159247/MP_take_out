@@ -40,7 +40,7 @@
 	export default {
 		data() {
 			return {
-				show:true,
+				show:false,
 				addressList: [
 
 				],
@@ -69,8 +69,8 @@
 				const res = await addressListApi()
 				if (res.code === 0) {				
 					this.addressList = res.data
-					if(this.addressList.length > 0){
-						this.show = false
+					if(this.addressList.length < 1){
+						this.show = true
 					}
 				} else {				
 					this.$message.error(res.msg)

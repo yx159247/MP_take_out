@@ -53,22 +53,10 @@
 								<u-icon name="arrow-right"></u-icon>
 							</view>
 						</view>
-						
 						<view class="divSplit"></view>
-						
 						<view @click="toOrderList" class="item">
 							<image src="../../static/me/dingdan.png"></image>
 							<text>历史订单</text>
-							<view>
-								<u-icon name="arrow-right"></u-icon>
-							</view>
-						</view>
-						
-						<view class="divSplit"></view>
-						
-						<view @click="toCoupon" class="item">
-							<image src="../../static/index_image/coupon.png"></image>
-							<text>优惠券</text>
 							<view>
 								<u-icon name="arrow-right"></u-icon>
 							</view>
@@ -141,18 +129,9 @@
 						<view class="form-row">
 							<input class="input" type="number" v-model="vCode" placeholder="请输入验证码"
 								placeholder-style="font-weight:normal;color:#bbbbbb;"></input>
-							<!-- <view class="getvcode" :class="{forhidden:readonly}" @click="getVcode">{{ codeText }}</view> -->
-							<!-- <u-button @tap="getCode">{{codeTips}}</u-button> -->
-<!-- 							<template slot="suffix">
-								<u-code ref="uCode" @change="codeChange" seconds="60" changeText="X秒重新获取"></u-code>
-								<u-button  @tap="getCode" :text="codeTips" type="warning" size="normal"></u-button>
-							</template> -->
-							<view class="getvcode">
-								<u-code ref="uCode" @change="codeChange" seconds="60" changeText="X秒重新获取"></u-code>
-								<u-button  color="#feca50" @tap="getCode" :text="codeTips" type="warning" size="normal"></u-button>
-							</view>
+							<view class="getvcode" :class="{forhidden:readonly}" @click="getVcode">{{ codeText }}</view>
 						</view>
-						<button  class="submit" size="default" @click="onSubmit"
+						<button class="submit" size="default" @click="onSubmit"
 							:style="{background:PrimaryColor}">确定</button>
 						<!-- #ifdef MP-WEIXIN -->
 						<view class="tips">
@@ -222,7 +201,7 @@
 
 <script>
 	var clear;
-	import instance from '@/utils/request.js'
+	import instance from '../../utils/request.js'
 	import WxUserInfoModal from '@/uni_modules/tuniaoui-wx-user-info/components/tuniaoui-wx-user-info/tuniaoui-wx-user-info.vue'
 	import {
 		addOrderApi,
@@ -245,7 +224,6 @@
 		},
 		data() {
 			return {
-				codeTips: '',
 				logoutshow: false,
 				logoutTitle: '确定退出？',
 				logoutContent: '退出登录后将无法查看订单，重新登录即可查看',
@@ -359,7 +337,7 @@
 					title: '加载中'
 				});
 				uni.uploadFile({
-					url: process.env.VUE_APP_BASE_URL + 'mp/oss/upload',
+					url: instance().baseURL + 'mp/oss/upload',
 					filePath: e.target.avatarUrl,
 					name: 'file',
 					header: {
@@ -477,34 +455,6 @@
 					}
 				})
 			},
-			getCode() {
-				if (this.$refs.uCode.canGetCode) {
-					// 模拟向后端请求验证码
-					let httpData = {
-						phone : this.phoneNumber
-					}
-					// 获取验证码接口
-					sendValidateCodeApi(httpData).then(res =>{
-						uni.showLoading({
-								title: '正在获取验证码'
-							})
-						if (res.code === 0) {
-							setTimeout(() => {
-								uni.hideLoading();
-								// 这里此提示会被this.start()方法中的提示覆盖
-								uni.$u.toast('验证码已发送');
-								// 通知验证码组件内部开始倒计时
-								this.$refs.uCode.start();
-							}, 1250);
-						} else {
-							uni.$u.toast('获取验证码失败，请重试');
-						}
-					})
-					
-				} else {
-					uni.$u.toast('倒计时结束后再发送');
-				}
-			},
 			//验证码按钮文字状态
 			getCodeState() {
 				const _this = this;
@@ -527,51 +477,6 @@
 						_this.readonly = false;
 					}
 				}, 1000);
-			},
-			codeChange(text) {
-				this.codeTips = text;
-			},
-			getCode() {
-				if (this.$refs.uCode.canGetCode) {
-					if (this.phone == '') {
-						uni.showToast({
-							title: '请输入手机号~',
-							icon: 'none'
-						});
-						return;
-					}
-					const phoneRegular = /^(13[0-9]{9})|(15[0-9]{9})|(17[0-9]{9})|(18[0-9]{9})|(19[0-9]{9})$/;
-					if (!phoneRegular.test(this.phone)) {
-						uni.showToast({
-							title: '手机号格式不正确~',
-							icon: 'none'
-						});
-						return;
-					}
-					let httpData = {
-						phone: this.phone
-					}
-					// 获取验证码接口
-					sendValidateCodeApi(httpData).then(res =>{
-						uni.showLoading({
-								title: '正在获取验证码'
-							})
-						if (res.code === 0) {
-							setTimeout(() => {
-								uni.hideLoading();
-								// 这里此提示会被this.start()方法中的提示覆盖
-								uni.$u.toast('验证码已发送');
-								// 通知验证码组件内部开始倒计时
-								this.$refs.uCode.start();
-							}, 1250);
-						} else {
-							uni.$u.toast('获取验证码失败，请重试');
-						}
-					})
-					
-				} else {
-					uni.$u.toast('倒计时结束后再发送');
-				}
 			},
 			//获取验证码
 			getVcode() {
@@ -668,28 +573,6 @@
 					});
 				}
 
-			},
-			toCoupon() {
-				const token = wx.getStorageSync('token');
-				if (token) {
-					uni.navigateTo({
-						url: '/pages/coupon/coupon'
-					})
-				} else {
-					uni.showModal({
-						title: '提示',
-						content: '请登录',
-						success: function(res) {
-							if (res.confirm) {
-								uni.switchTab({
-									url: '/pages/my/my'
-								});
-							} else if (res.cancel) {
-								console.log('用户点击取消');
-							}
-						}
-					});
-				}
 			},
 			toOrderList() {
 				const token = wx.getStorageSync('token');

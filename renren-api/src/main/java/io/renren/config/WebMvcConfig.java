@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.renren.common.utils.DateUtils;
 import io.renren.interceptor.AuthorizationInterceptor;
-import io.renren.interceptor.RequestLimitInterceptor;
 import io.renren.resolver.LoginUserHandlerMethodArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,16 +44,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private LoginUserHandlerMethodArgumentResolver loginUserHandlerMethodArgumentResolver;
 
-    @Autowired
-    private RequestLimitInterceptor requestLimitInterceptor;
-
-
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/mp/**");
-        registry.addInterceptor(requestLimitInterceptor);
-
     }
 
     @Override

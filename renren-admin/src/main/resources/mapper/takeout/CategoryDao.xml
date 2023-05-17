@@ -13,9 +13,6 @@
         <result property="updater" column="updater"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
-    <select id="selectTypeById" resultType="java.lang.Integer">
-        select type from category where id = #{id};
-    </select>
 
 
 </mapper>

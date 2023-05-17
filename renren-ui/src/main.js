@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Element from 'element-ui'
 import App from '@/App'
-import i18n, {messages} from '@/i18n'
+import i18n from '@/i18n'
 import router from '@/router'
 import store from '@/store'
 import '@/icons'
@@ -15,7 +15,6 @@ import renRegionTree from '@/components/ren-region-tree'
 import { hasPermission, getDictLabel } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import '@/assets/css/iconfont.css'
-import WebsocketHeartbeatJs from 'websocket-heartbeat-js';
 
 Vue.config.productionTip = false
 
@@ -34,8 +33,6 @@ Vue.prototype.$http = http
 Vue.prototype.$hasPermission = hasPermission
 Vue.prototype.$getDictLabel = getDictLabel
 
-
-
 // 保存整站vuex本地储存初始状态
 window.SITE_CONFIG['storeState'] = cloneDeep(store.state)
 
@@ -45,4 +42,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-import Cookies from 'js-cookie'

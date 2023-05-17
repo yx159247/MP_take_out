@@ -133,16 +133,4 @@ public class RedisUtils {
             }
         }
     }
-    public void convertAndSend(String channel, Object message) {
-        redisTemplate.convertAndSend(channel, message);
-    }
-
-    public boolean hasKey(String key) {
-
-        return Boolean.TRUE.equals(redisTemplate.hasKey(key));
-    }
-
-    public void increment(String key) {
-        redisTemplate.opsForValue().increment(key);
-    }
 }

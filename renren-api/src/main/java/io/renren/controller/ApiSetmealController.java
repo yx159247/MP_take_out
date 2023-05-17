@@ -28,7 +28,7 @@ public class ApiSetmealController {
     private SetmealService setmealService;
 
 
-
+    @Login
     @GetMapping("/{id}")
     @ApiOperation("套餐信息")
     public Result<SetmealDTO> get(@PathVariable("id") Long id){

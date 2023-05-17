@@ -29,11 +29,8 @@ public class ApiDishController {
 
     @GetMapping("list")
     @ApiOperation("菜品")
-    public Result listResult(DishDTO dishDTO){
+    public Result<List<DishDTO>> listResult(DishDTO dishDTO){
         List<DishDTO> list = dishService.findDishByCategoryId(dishDTO);
-        if (list.size() == 0){
-            return new Result<>().error("菜品信息不存在");
-        }
         return new Result<List<DishDTO>>().ok(list);
     }
 

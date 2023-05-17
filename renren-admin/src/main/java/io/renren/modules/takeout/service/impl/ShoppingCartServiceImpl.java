@@ -1,14 +1,9 @@
 package io.renren.modules.takeout.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.renren.common.entity.DishEntity;
-import io.renren.common.entity.SetmealEntity;
 import io.renren.common.entity.ShoppingCartEntity;
-import io.renren.common.page.PageData;
 import io.renren.common.utils.UserUtils;
-import io.renren.modules.takeout.dao.DishDao;
-import io.renren.modules.takeout.dao.SetmealDao;
 import io.renren.modules.takeout.dao.ShoppingCartDao;
 import io.renren.modules.takeout.dto.ShoppingCartDTO;
 import io.renren.modules.takeout.service.ShoppingCartService;
@@ -19,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 购物车
@@ -34,10 +28,6 @@ public class ShoppingCartServiceImpl extends CrudServiceImpl<ShoppingCartDao, Sh
     private ShoppingCartDao shoppingCartDao;
     @Autowired
     private UserUtils userUtils;
-    @Autowired
-    private DishDao dishDao;
-    @Autowired
-    private SetmealDao setmealDao;
 
     @Override
     public QueryWrapper<ShoppingCartEntity> getWrapper(Map<String, Object> params){
@@ -48,6 +38,5 @@ public class ShoppingCartServiceImpl extends CrudServiceImpl<ShoppingCartDao, Sh
 
         return wrapper;
     }
-
 
 }

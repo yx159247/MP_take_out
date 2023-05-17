@@ -61,7 +61,6 @@ public class OrdersServiceImpl extends CrudServiceImpl<OrdersDao, OrdersEntity, 
 
 
         QueryWrapper<OrdersEntity> wrapper = new QueryWrapper<>();
-
         wrapper.like(StringUtils.isNotBlank(id), "id", id);
         wrapper.between(StringUtils.isNotEmpty(beginTime) ||
                 StringUtils.isNotEmpty(endTime), "order_time", beginTime, endTime);

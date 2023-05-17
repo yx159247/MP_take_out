@@ -3,6 +3,8 @@ package io.renren.modules.takeout.service;
 import io.renren.common.entity.ShoppingCartEntity;
 import io.renren.modules.takeout.dto.ShoppingCartDTO;
 
+import java.util.List;
+
 /**
  * 购物车
  *

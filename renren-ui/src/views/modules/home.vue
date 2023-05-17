@@ -23,33 +23,6 @@
     </div>
   </el-card>
 </template>
-<script>
-import Cookies from 'js-cookie'
-import WebsocketHeartbeatJs from 'websocket-heartbeat-js';
-
-
-export default {
-  data() {
-    return {
-
-    }
-  },
-  watch: {
-
-  },
-  created() {
-
-  },
-  mounted() {
-
-  },
-
-  methods: {
-
-
-  }
-}
-</script>
 
 <style>
 .mod-home {

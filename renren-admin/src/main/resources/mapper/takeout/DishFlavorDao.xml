@@ -14,14 +14,6 @@
         <result property="updateDate" column="update_date"/>
         <result property="isDeleted" column="is_deleted"/>
     </resultMap>
-        <delete id="deleteDishFlavorByDishId">
-            delete from dish_flavor where dish_id in (
-            <foreach collection="dishes" item="dishId" separator=",">
-                #{dishId}
-            </foreach>
-            );
-        </delete>
-
 
 
 </mapper>

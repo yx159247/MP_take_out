@@ -218,13 +218,13 @@ export default {
   mounted() {
     setTimeout(()=>{
       this.initOneWeekLiuShui()
-    },800)
+    },1000)
     setTimeout(()=>{
       this.initOneWeekOrder()
-    },800)
+    },1000)
     setTimeout(()=>{
       this.initHotSeal()
-    },800)
+    },1000)
   },
 
 

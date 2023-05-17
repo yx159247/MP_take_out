@@ -1,6 +1,5 @@
 package io.renren.modules.takeout.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -46,10 +45,6 @@ public class DishFlavorDTO implements Serializable {
 
 	@ApiModelProperty(value = "是否删除")
 	private Integer isDeleted;
-
-	@ApiModelProperty(value = "菜品名称")
-	@TableField(exist = false)
-	private String dishName;
 
 
 }

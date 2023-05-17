@@ -1,9 +1,5 @@
 # Tomcat
 server:
-  ssl:
-    key-store: classpath:9051641_www.admin.iszengzeng.top.jks
-    key-store-password: jfrqdfud
-    key-store-type: JKS
   tomcat:
     uri-encoding: UTF-8
     threads:
@@ -42,7 +38,7 @@ spring:
       enabled: true
   redis:
     database: 0
-    host: 127.0.0.1
+    host: 192.168.65.100
     port: 6379
     password:    # 密码（默认为空）
     timeout: 6000ms  # 连接超时时长（毫秒）
@@ -52,20 +48,6 @@ spring:
         max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
         max-idle: 10      # 连接池中的最大空闲连接
         min-idle: 5       # 连接池中的最小空闲连接
-
-
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: admin
-    password: admin
-    listener:
-      simple:
-        retry:
-          enabled: true
-          max-attempts: 5
-          initial-interval: 1000
-    virtual-host: my_vhost
 
 # 是否开启redis缓存  true开启   false关闭
 renren:

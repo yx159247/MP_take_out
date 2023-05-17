@@ -9,7 +9,6 @@
 package io.renren.controller;
 
 
-import io.renren.annotation.AccessLimit;
 import io.renren.annotation.Login;
 import io.renren.common.utils.Result;
 import io.renren.common.validator.ValidatorUtils;
@@ -61,7 +60,6 @@ public class ApiLoginController {
 
     @GetMapping("sendValidateCode")
     @ApiOperation("发送验证码")
-    @AccessLimit(seconds = 60, maxCount = 1)
     public Result sendValidateCode(@RequestParam String phone){
         //表单校验
         ValidatorUtils.validateEntity(phone);

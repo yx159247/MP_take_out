@@ -11,9 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface OrdersDao extends BaseDao<OrdersEntity> {
-
-
-    int getMonthSales(Long dishId, int year, int month);
-    int getSetmealMonthSales(Long setmealId, int year, int month);
-
+	
 }

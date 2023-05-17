@@ -159,7 +159,6 @@ export default {
   mixins: [mixinViewModule],
   data () {
     return {
-
       mixinViewModuleOptions: {
         getDataListURL: '/takeout/orders/page',
         getDataListIsPage: true,
@@ -167,9 +166,8 @@ export default {
         deleteURL: '/takeout/orders',
         deleteIsBatch: true
       },
-      order: 'desc',
-      orderField: 'order_time',
       orderTime: '',
+
       tableData : [],
       orderDetails: [],
       dialogVisible: false,
