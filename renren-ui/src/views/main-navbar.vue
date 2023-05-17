@@ -22,6 +22,10 @@
 <!--            <svg class="icon-svg aui-navbar__icon-menu" aria-hidden="true"><use xlink:href="#github"></use></svg>-->
 <!--          </a>-->
 <!--        </el-menu-item>-->
+        <el-menu-item>
+          <i class="el-icon-message-solid"></i>
+        </el-menu-item>
+
         <el-menu-item index="4" @click="fullscreenHandle()">
           <svg class="icon-svg aui-navbar__icon-menu" aria-hidden="true"><use xlink:href="#icon-fullscreen"></use></svg>
         </el-menu-item>
@@ -91,6 +95,7 @@ export default {
           }
           clearLoginInfo()
           this.$router.push({ name: 'login' })
+
         }).catch(() => {})
       }).catch(() => {})
     }

@@ -19,4 +19,8 @@ public class UserUtils {
 
         return Long.parseLong(request.getAttribute("userId").toString());
     }
+
+    public String getToken() {
+        return request.getHeader("token");
+    }
 }

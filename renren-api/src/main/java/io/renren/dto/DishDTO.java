@@ -1,5 +1,6 @@
 package io.renren.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.renren.common.entity.DishFlavorEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -72,5 +73,8 @@ public class DishDTO implements Serializable {
 
 	@ApiModelProperty(value = "copies")
 	private Integer copies;
+
+	@ApiModelProperty(value = "销量")
+	private Integer sales;
 
 }

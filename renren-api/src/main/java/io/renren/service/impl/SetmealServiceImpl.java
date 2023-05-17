@@ -1,5 +1,6 @@
 package io.renren.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.renren.common.entity.SetmealDishEntity;
@@ -8,6 +9,7 @@ import io.renren.common.exception.RenException;
 import io.renren.common.redis.RedisKeys;
 import io.renren.common.redis.RedisUtils;
 import io.renren.common.utils.ConvertUtils;
+import io.renren.dao.OrdersDao;
 import io.renren.dao.SetmealDao;
 import io.renren.dao.SetmealDishDao;
 import io.renren.dto.SetmealDTO;
@@ -19,10 +21,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 套餐
@@ -42,6 +41,8 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
     @Autowired
     private RedisUtils redisUtils;
 
+    @Autowired
+    private OrdersDao ordersDao;
     @Override
     public QueryWrapper<SetmealEntity> getWrapper(Map<String, Object> params) {
         String id = (String) params.get("id");
@@ -90,8 +91,14 @@ public class SetmealServiceImpl extends CrudServiceImpl<SetmealDao, SetmealEntit
         for (SetmealEntity setmealEntity : setmealEntityList) {
             SetmealDTO setmealDTO1 = new SetmealDTO();
             BeanUtils.copyProperties(setmealEntity, setmealDTO1);
+            int year = DateUtil.year(new Date());
+            int month = DateUtil.month(new Date());
+            month += 1;
+            int mouthSales = ordersDao.getSetmealMonthSales(setmealEntity.getId(), year, month);
+            setmealDTO1.setSales(mouthSales);
             setmealDTOList.add(setmealDTO1);
         }
+
 
         //存入缓存
         redisUtils.set(key, setmealDTOList,RedisUtils.HOUR_ONE_EXPIRE);

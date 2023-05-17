@@ -31,24 +31,28 @@
   <% if (process.env.VUE_APP_NODE_ENV === 'dev') { %>
     <script>
     window.SITE_CONFIG['apiURL'] = 'http://localhost:8080/api';
+    window.SITE_CONFIG['webSocketURL'] = 'ws://localhost:8080/api';
     </script>
   <% } %>
   <!-- 集成测试环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'prod:sit') { %>
     <script>
       window.SITE_CONFIG['apiURL'] = 'http://localhost:8080/api';
+      window.SITE_CONFIG['webSocketURL'] = 'ws://localhost:8080/api';
     </script>
   <% } %>
   <!-- 验收测试环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'prod:uat') { %>
     <script>
       window.SITE_CONFIG['apiURL'] = 'http://localhost:8080/api';
+      window.SITE_CONFIG['webSocketURL'] = 'ws://localhost:8080/api';
     </script>
   <% } %>
   <!-- 生产环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'prod') { %>
     <script>
-      window.SITE_CONFIG['apiURL'] = 'http://localhost:8080/api';
+      window.SITE_CONFIG['apiURL'] = 'https://localhost:8080/api';
+      window.SITE_CONFIG['webSocketURL'] = 'wss://localhost:8080/api';
     </script>
   <% } %>
 </head>

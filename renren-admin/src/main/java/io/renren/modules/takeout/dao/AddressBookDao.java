@@ -1,6 +1,7 @@
 package io.renren.modules.takeout.dao;
 
-import io.renren.common.entity.AddressBookEntity;
+
+import io.renren.modules.takeout.entity.AddressBookEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

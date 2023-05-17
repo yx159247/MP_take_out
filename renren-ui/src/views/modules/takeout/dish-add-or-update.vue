@@ -532,7 +532,9 @@ export default {
 }
 
 .flavorBox {
-  width: 777px;
+  width: 100%;
+  max-width: 100%;
+
 }
 
 .flavorBox .addBut {
@@ -555,10 +557,12 @@ export default {
 }
 
 .flavorBox .flavor .title {
+  white-space: nowrap;
   color: #606168;
 }
 
 .flavorBox .flavor .cont .items {
+  max-width: 100%;
   display: flex;
   margin: 10px 0;
 }

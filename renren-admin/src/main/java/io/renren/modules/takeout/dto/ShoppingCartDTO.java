@@ -1,5 +1,6 @@
 package io.renren.modules.takeout.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -57,6 +58,10 @@ public class ShoppingCartDTO implements Serializable {
 
 	@ApiModelProperty(value = "更新时间")
 	private Date updateDate;
+
+
+
+
 
 
 }

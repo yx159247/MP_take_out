@@ -52,17 +52,18 @@ public class ApiAddressBookController {
         return new Result<AddressBookEntity>().ok(addressBookEntity);
     }
 
+
     /**
      * 删除地址
      *
-     * @param id
-     * @return
+     * @param addressBookDTO dto
+     * @return {@link Result}
      */
     @Login
     @DeleteMapping
     @ApiOperation("删除地址")
-    public Result delete(Long id) {
-        addressBookService.deleteById(id);
+    public Result delete(@RequestBody AddressBookDTO addressBookDTO) {
+        addressBookService.deleteById(addressBookDTO.getId());
         return new Result<>().ok(null);
     }
 

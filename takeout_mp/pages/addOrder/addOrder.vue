@@ -19,7 +19,7 @@
 
 						<view class="name">
 							<text
-								v-if="!address == null">{{address.consignee}}{{address.gender === '1' ? '女士':'先生'}}</text>
+								v-if="address != null">{{address.consignee}}{{address.gender === 1 ? '女士':'先生'}}</text>
 							<text>{{address.phone}}</text>
 
 
@@ -80,6 +80,7 @@
 </template>
 
 <script>
+	import WebsocketHeartbeat from 'websocket-heartbeat-miniprogram';
 	import '../../api/index.js'
 	import regeneratorRuntime, {
 		async
@@ -101,28 +102,46 @@
 	import {
 		addOrderApi
 	} from '../../api/addOrder.js'
+
 	export default {
 		data() {
 			return {
-				
+				timeout: 10000, // 30秒一次心跳
+				timeoutObj: null, // 心跳心跳倒计时
+				serverTimeoutObj: null, // 心跳倒计时
+				timeoutNum: null, // 断开 重连倒计时
+				lockReconnect: false, // 防止
 				imageUrl: '',
-				address: {
-					phone: '', //手机号
-					consignee: '', //姓名
-					detail: '', //详细地址
-					gender: '1',
-					id: undefined
-				},
+				address: {},
 				finishTime: '', //送达时间
 				cartData: [],
-				note: '' //备注信息
+				note: '', //备注信息,
+				websocket: null
+
+
 			}
 		},
 		onShow() {
+			
 			let pages = getCurrentPages();
 			let currPage = pages[pages.length - 1]; //当前页面
-			let currAddress = currPage.data.address
+			console.log("currpage",currPage)
+			var currAddress = currPage.data.address
 			this.address = currAddress
+			// console.log("currAddress",currAddress)
+			// this.address = currAddress
+			console.log("address",this.address)
+			// this.init()
+		},
+		onUnload() {
+			console.log("onUnload")
+			try {
+			  this.websocket.close()
+			} catch (e) {
+			  console.log('Error closing WebSocket:', e);
+			}
+
+			
 		},
 		computed: {
 			goodsNum() {
@@ -147,9 +166,45 @@
 		created() {
 			this.initData()
 			this.getFinishTime()
+			this.initWebSocket()
+			
 		},
 		mounted() {},
 		methods: {
+			initWebSocket() {
+				let token = uni.getStorageSync("token")
+				let _this = this
+				WebsocketHeartbeat({
+					miniprogram: wx,
+					connectSocketParams: {
+						url:  process.env.WEBSOCKET_BASE_URL + 'mp/websocket?token=' + token
+						// url:  "ws://localhost:8081/api/mp/websocket?token=" + token
+					}
+				}).then(task =>{
+					_this.websocket = task
+					task.onOpen = (e) => {//钩子函数
+					            console.log('open');
+					        };
+					        task.onClose = (e) => {//钩子函数
+					            console.log('close');
+					        };
+					        task.onError = e => {//钩子函数
+					            console.log('onError：', e);
+					        };
+					        task.onMessage = data => {//钩子函数
+					            console.log('onMessage', data);
+					        };
+					        task.onReconnect = () => {//钩子函数
+					            console.log('reconnect...');
+					        };
+					        task.socketTask.onOpen(e => {//原生实例注册函数，重连后丢失
+					            console.log('socketTask open');
+					        });
+					        task.socketTask.onMessage(data => {//原生实例注册函数，重连后丢失
+					            console.log('socketTask data');
+					        });
+				})
+			},
 			initData() {
 				//获取默认的地址
 				this.defaultAddress()
@@ -160,8 +215,8 @@
 			async defaultAddress() {
 				const res = await getDefaultAddressApi()
 				if (res.code === 0) {
+					console.log("res",res.data)
 					this.address = res.data
-
 				} else {
 
 					// 	uni.navigateTo({
@@ -196,10 +251,7 @@
 				if (res.code === 0) {
 					this.cartData = res.data
 				} else {
-					this.$notify({
-						type: 'warning',
-						message: res.msg
-					});
+					return uni.$showMsg(res.msg)
 				}
 			},
 			async goToPaySuccess() {
@@ -215,15 +267,21 @@
 				}
 				const res = await addOrderApi(params)
 				if (res.code === 0) {
+					this.websocket.send({
+						data : "您有一个新的外卖订单，请及时处理！"
+					})
+					let _this = this
 					uni.navigateTo({
-						url: '../paySuccess/paySuccess'
+						url: '../paySuccess/paySuccess',
+						success: () => {
+							_this.websocket.close()
+						}
 					})
 				} else {
 					return uni.$showMsg(res.msg)
 				}
 			},
 		}
-
 	}
 </script>
 
@@ -231,7 +289,7 @@
 	@import url(./addOrder.css);
 </style>
 <style>
-	page{
-		background-color:  #f3f2f7;
+	page {
+		background-color: #f3f2f7;
 	}
 </style>
