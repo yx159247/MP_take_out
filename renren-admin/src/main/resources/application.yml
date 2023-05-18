@@ -1,9 +1,5 @@
 # Tomcat
 server:
-  ssl:
-    key-store: classpath:9051641_www.admin.iszengzeng.top.jks
-    key-store-password: jfrqdfud
-    key-store-type: JKS
   tomcat:
     uri-encoding: UTF-8
     threads:

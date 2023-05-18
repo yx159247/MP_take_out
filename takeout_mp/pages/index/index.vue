@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="divHead">
-			<image src="http://47.109.60.249:9000/images/beijing_png.png" mode=""></image>
+			<image src="/static/index_image/beijing_png.png" mode=""></image>
 		</view>
 		<view class="divTitle">
 			<view class="divStatic">

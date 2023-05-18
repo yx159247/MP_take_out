@@ -8,17 +8,12 @@
 
 package io.renren;
 
-import io.renren.common.entity.SetmealEntity;
-import io.renren.modules.takeout.dao.SetmealDao;
 import io.renren.service.DynamicDataSourceTestService;
-import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 /**
  * 多数据源测试
@@ -31,12 +26,13 @@ public class DynamicDataSourceTest {
     @Autowired
     private DynamicDataSourceTestService dynamicDataSourceTestService;
 
-    @Autowired
-    private SetmealDao setmealDao;
     @Test
     public void test(){
-        Long id = Long.parseLong("1523224049252151297");
+        Long id = 1067246875800000001L;
 
+        dynamicDataSourceTestService.updateUser(id);
+        dynamicDataSourceTestService.updateUserBySlave1(id);
+        //dynamicDataSourceTestService.updateUserBySlave2(id);
     }
 
 

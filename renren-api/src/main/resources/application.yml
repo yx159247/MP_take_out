@@ -1,9 +1,5 @@
 # Tomcat
 server:
-#  ssl:
-#    key-store: classpath:8767059_iszengzeng.top.jks
-#    key-store-password: w7sqsxg8
-#    key-store-type: JKS
   tomcat:
     uri-encoding: UTF-8
     threads:
@@ -98,5 +94,5 @@ mybatis-plus:
     boolValue: TRUE
 
 weixin:
-  appid: wxab12212fe8c785f7
-  secret: 49902dd32e579467894d30eebf333dd6
+  appid: 你的appid
+  secret: 你的密钥
